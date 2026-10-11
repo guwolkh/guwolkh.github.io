@@ -20,15 +20,12 @@ python serve.py
 - `python build.py`를 실행할 때마다 기획서 5번 표현 기준(완치, 효과 수치, '전문' 수식, 최상급, 결과 문구, 전후 비교)을 자동으로 검사해 경고를 띄웁니다.
 
 ## 배포 (GitHub Pages)
-- 주소: https://guwolkh.github.io (저장소 github.com/guwolkh/guwolkh.github.io, 공개)
+- 주소: https://guwolkh.com (가비아에서 구매, 2026.10.11 연결. 저장소 github.com/guwolkh/guwolkh.github.io, 공개)
 - 고친 내용을 커밋해서 올리면(`git push`) 1~2분 뒤 자동으로 반영됩니다.
 - 매년 1월 1일 0시에 자동으로 다시 빌드합니다. 단, GitHub는 60일 넘게 커밋이 없는 저장소의 예약 실행을 멈출 수 있습니다. 이때는 GitHub 저장소 > Actions > "홈페이지 배포" > Run workflow 를 누르면 됩니다.
 - 기획서(`*기획서*.md`)는 `.gitignore`로 빼 두어 공개 저장소에 올라가지 않습니다.
 
-### guwolkh.com 구매 후 할 일
-1. 도메인 업체 DNS 설정: `A` 레코드 4개(185.199.108.153 / 185.199.109.153 / 185.199.110.153 / 185.199.111.153), `www` 는 `CNAME` → `guwolkh.github.io`
-2. GitHub 저장소 > Settings > Pages > Custom domain 에 `guwolkh.com` 입력, 인증서 발급 후 "Enforce HTTPS" 체크
-3. `site.config.json`의 `siteUrl`을 `https://guwolkh.com`으로 바꾸고 커밋·푸시
-4. 네이버 서치어드바이저·구글 서치콘솔에 `https://guwolkh.com` 등록 후 `sitemap.xml` 제출
-
-도메인을 사기 전에 2번을 하면 사이트가 열리지 않으니 순서를 지켜 주세요.
+### 도메인 (guwolkh.com)
+- 가비아 DNS 관리에 `A` 레코드 4개(@ → 185.199.108.153 / 109 / 110 / 111.153), `CNAME` 1개(www → guwolkh.github.io) 등록되어 있습니다. 지우지 마세요.
+- 가비아 자동 연장을 켜 두세요. 만료되면 사이트가 바로 멈춥니다.
+- 남은 일: 네이버 서치어드바이저·구글 서치콘솔에 `https://guwolkh.com` 등록 후 `sitemap.xml` 제출
