@@ -26,14 +26,6 @@ BANNED = [
     (r"전\s*/\s*후|전후\s*비교|비포|애프터", "치료 전후 비교"),
 ]
 
-# 진료 분야 (기획서 3-③). 첫 항목이 가장 크게 표시됩니다.
-FIELDS_EAR = ["이명", "귀먹먹함", "난청", "어지럼증", "이석증", "메니에르"]
-FIELDS_NERVE = ["불면", "불안", "하지불안증후군", "말초신경병증"]
-
-DAY_KO = {"Monday": "월", "Tuesday": "화", "Wednesday": "수", "Thursday": "목",
-          "Friday": "금", "Saturday": "토", "Sunday": "일"}
-
-
 def e(s):
     return escape(str(s), quote=True)
 
@@ -42,14 +34,20 @@ def ext_link(url, cls, inner):
     return f'<a class="{cls}" href="{e(url)}" target="_blank" rel="noopener">{inner}</a>'
 
 
-def field_items(names, links, main_first):
-    out = []
-    for i, name in enumerate(names):
-        cls = ' class="is-main"' if (main_first and i == 0) else ""
-        url = links.get(name, "")
-        link = ext_link(url, "field-link", "관련 글 보기 ›") if url else ""
-        out.append(f'<li{cls}><span class="field-name">{e(name)}</span>{link}</li>')
-    return "\n          ".join(out)
+def render_fields(cfg):
+    cards = []
+    for f in cfg.get("fields", []):
+        link = ext_link(f["link"], "field-link", "관련 글 보기 ›") if f.get("link") else ""
+        desc = f'<p class="field-desc">{e(f["desc"])}</p>' if f.get("desc") else ""
+        cards.append(f'<div class="field-card"><h3>{e(f["name"])}</h3>{desc}{link}</div>')
+    return "\n      ".join(cards)
+
+
+def render_fields_extra(cfg):
+    x = cfg.get("fieldsExtra") or {}
+    if not x.get("items"):
+        return ""
+    return f'<p class="fields-extra"><span>{e(x.get("label", ""))}</span> {e(" · ".join(x["items"]))}</p>'
 
 
 def render_cases(cfg):
@@ -58,12 +56,16 @@ def render_cases(cfg):
     for c in cfg.get("cases", []):
         if not c.get("url"):
             continue
+        img = (f'<img src="{e(quote(c["image"]))}" alt="" loading="lazy">' if c.get("image")
+               else '<span class="case-thumb-empty" aria-hidden="true"></span>')
         tags = "".join(f"<span>{e(k)}</span>" for k in c.get("keywords", []))
+        when = f'<time>{e(c["date"])}</time>' if c.get("date") else ""
         cards.append(ext_link(c["url"], "case",
-                              f'<h3>{e(c.get("title", ""))}</h3><div class="case-tags">{tags}</div>'))
+                              f'<div class="case-thumb">{img}</div><div class="case-body">'
+                              f'<div class="case-tags">{tags}</div><h3>{e(c.get("title", ""))}</h3>{when}</div>'))
     html = f'<div class="cases">{"".join(cards)}</div>' if cards else ""
     if blog:
-        html += f'<div class="case-more">{ext_link(blog, "btn btn-outline", "블로그에서 상담일지 보기")}</div>'
+        html += f'<div class="case-more">{ext_link(blog, "btn btn-outline", "블로그에서 칼럼 전체 보기")}</div>'
     return html
 
 
@@ -76,9 +78,15 @@ def render_hours(cfg):
 
 
 def render_contact(url, label):
-    if url:
-        return ext_link(url, "contact", f"<span>{label}</span><strong>열기 ›</strong>")
-    return f'<div class="contact is-pending"><span>{label}</span><strong>준비 중</strong></div>'
+    # 링크가 아직 없으면 공개 사이트에 '준비 중'을 띄우지 않고 감춥니다
+    return ext_link(url, "contact", f"<span>{label}</span><strong>열기 ›</strong>") if url else ""
+
+
+def render_social(cfg):
+    links = [(cfg.get(k), label) for k, label in
+             (("blogUrl", "블로그"), ("youtubeUrl", "유튜브"), ("instagramUrl", "인스타그램"))]
+    items = "".join(ext_link(u, "", label) for u, label in links if u)
+    return f'<p class="social">{items}</p>' if items else ""
 
 
 def render_booking_options(cfg):
@@ -112,7 +120,7 @@ def render_jsonld(cfg):
              "opens": o["opens"], "closes": o["closes"]}
             for o in cfg["openingHoursSchema"]
         ],
-        "medicalSpecialty": "이명, 귀먹먹함, 어지럼증",
+        "medicalSpecialty": ", ".join(f["name"] for f in cfg.get("fields", [])),
     }
     if cfg.get("siteUrl"):
         data["url"] = cfg["siteUrl"]
@@ -123,12 +131,10 @@ def render_jsonld(cfg):
 
 def build_context(cfg):
     d = cfg["director"]
-    links = cfg.get("conditionLinks", {})
     q = quote(cfg.get("mapQuery") or cfg["name"])
     site = cfg.get("siteUrl", "").rstrip("/")
     photo = quote(d["photo"])
     kakao, talk = cfg.get("kakaoUrl", ""), cfg.get("talktalkUrl", "")
-    blog = cfg.get("blogUrl", "")
 
     start = int(cfg["careerStartYear"])
     return {
@@ -150,8 +156,8 @@ def build_context(cfg):
         "directorPhotoAlt": e(d["photoAlt"]),
         "directorName": e(d["name"]),
         "directorTitle": e(d["title"]),
-        "fieldsEar": field_items(FIELDS_EAR, links, True),
-        "fieldsNerve": field_items(FIELDS_NERVE, links, False),
+        "fields": render_fields(cfg),
+        "fieldsExtra": render_fields_extra(cfg),
         "cases": render_cases(cfg),
         "hours": render_hours(cfg),
         "hoursNotes": "\n      ".join(f"<li>{e(n)}</li>" for n in cfg.get("hoursNotes", [])),
@@ -159,10 +165,13 @@ def build_context(cfg):
         "kakaoMapUrl": f"https://map.kakao.com/?q={q}",
         "kakaoContact": render_contact(kakao, "카카오톡"),
         "talktalkContact": render_contact(talk, "네이버 톡톡"),
-        "kakaoBar": (ext_link(kakao, "bb-btn", "카톡") if kakao
-                     else '<span class="bb-btn is-pending" aria-disabled="true">카톡<small>준비 중</small></span>'),
+        # 하단 바 가운데 칸: 카톡 링크가 생기면 카톡, 그전에는 오시는 길
+        "thirdBar": (ext_link(kakao, "bb-btn", "카톡") if kakao
+                     else '<a class="bb-btn" href="#visit">오시는 길</a>'),
         "bookingOptions": render_booking_options(cfg),
-        "blogFooter": f'<p>{ext_link(blog, "", "블로그")}</p>' if blog else "",
+        "socialLinks": render_social(cfg),
+        "representative": e(cfg.get("representative", "")),
+        "businessNumber": e(cfg.get("businessNumber", "")),
     }
 
 

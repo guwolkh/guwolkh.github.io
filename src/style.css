@@ -1,18 +1,21 @@
 /* 구월경희한의원 — 모바일 우선. 강조색은 짙은 녹색 한 가지만 사용 */
 :root {
   --green: #1f4d3a;
-  --green-dark: #163a2b;
+  --green-dark: #153628;
   --green-soft: #eef4f0;
   --ink: #1d2320;
   --ink-sub: #4f5a55;
   --line: #dde3df;
   --bg: #ffffff;
-  --radius: 14px;
+  --tint: #f5f6f4;
+  --night: #1b211e;
+  --radius: 16px;
   --bar-h: 64px;
+  --wrap: 960px;
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 100px; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   background: var(--bg);
@@ -32,126 +35,144 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 /* 상단 */
 .topbar {
   position: sticky; top: 0; z-index: 20;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 18px;
-  background: rgba(255,255,255,.96);
+  background: rgba(255,255,255,.97);
   border-bottom: 1px solid var(--line);
 }
-.brand { font-weight: 700; font-size: 18px; text-decoration: none; color: var(--green); }
-.topbar-tel { font-size: 16px; text-decoration: none; color: var(--ink-sub); }
+.topbar-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 18px 6px; }
+.brand { font-weight: 800; font-size: 19px; text-decoration: none; color: var(--green); }
+.topbar-tel { font-size: 16px; font-weight: 600; text-decoration: none; color: var(--ink-sub); }
+.topnav {
+  display: flex; gap: 4px; overflow-x: auto; padding: 0 10px 6px;
+  scrollbar-width: none;
+}
+.topnav::-webkit-scrollbar { display: none; }
+.topnav a {
+  flex: none; padding: 6px 10px; border-radius: 99px;
+  font-size: 15px; font-weight: 600; color: var(--ink-sub); text-decoration: none; white-space: nowrap;
+}
+.topnav a:hover, .topnav a:focus-visible { background: var(--green-soft); color: var(--green); }
 
 /* 버튼 */
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
 .btn {
-  flex: 1 1 140px;
+  flex: 1 1 100%;
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 54px; padding: 0 18px;
+  min-height: 56px; padding: 0 18px;
   border-radius: 12px;
   font: inherit; font-size: 18px; font-weight: 700;
   text-decoration: none; cursor: pointer;
   border: 2px solid var(--green);
 }
-.btn-primary { background: var(--green); color: #fff; flex-basis: 100%; }
-.btn-primary:active { background: var(--green-dark); }
 .btn-outline { background: #fff; color: var(--green); }
+.btn-light { background: #fff; border-color: #fff; color: var(--green); }
+.btn-ghost { background: transparent; border-color: rgba(255,255,255,.55); color: #fff; }
+.visit-card .btn-row .btn { flex: 1 1 140px; }
+.case-more .btn { flex: 1 1 auto; }
+.btn { white-space: nowrap; }
 
 /* 공통 섹션 */
-.section { padding: 56px 20px; }
-.section-tint { background: var(--green-soft); }
-.section-title { font-size: 24px; font-weight: 800; margin-bottom: 24px; }
-.section-lead { margin: -12px 0 20px; color: var(--ink-sub); }
-.sub-title { font-size: 20px; font-weight: 700; margin: 36px 0 12px; }
-.sub-title:first-of-type { margin-top: 0; }
-.note { margin-top: 24px; padding: 16px 18px; background: var(--green-soft); border-radius: var(--radius); color: var(--ink-sub); }
+.section { padding: 64px 20px; }
+.section-tint { background: var(--tint); }
+.kicker { margin: 0 0 6px; font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--green); }
+.section-title { font-size: 26px; font-weight: 800; margin-bottom: 26px; }
+.section-lead { margin: -14px 0 24px; color: var(--ink-sub); }
+.sub-title { font-size: 20px; font-weight: 700; margin: 0 0 12px; }
 
 /* ① 첫 화면 */
-.hero { padding: 40px 20px 52px; border-bottom: 1px solid var(--line); }
-.eyebrow { margin: 0 0 14px; font-size: 16px; font-weight: 600; color: var(--ink-sub); }
-.quotes { display: grid; gap: 10px; margin-bottom: 30px; }
+.hero { background: var(--green-dark); color: #fff; padding: 44px 20px 0; overflow: hidden; }
+.hero-eyebrow {
+  display: inline-block; margin: 0 0 16px; padding: 6px 12px; border-radius: 99px;
+  background: rgba(255,255,255,.12); font-size: 14px; font-weight: 600; line-height: 1.5;
+}
+.hero-title { font-size: 29px; font-weight: 800; line-height: 1.38; }
+.hero-sub { margin: 16px 0 0; font-size: 17px; color: rgba(255,255,255,.82); }
+.hero-photo { position: relative; margin: 36px -20px 0; }
+.hero-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 30%; }
+.hero-photo figcaption {
+  position: absolute; left: 16px; right: 16px; bottom: 16px;
+  padding: 12px 16px; border-radius: 12px;
+  background: rgba(21,54,40,.88); color: #fff; line-height: 1.5;
+}
+.hero-photo figcaption strong { display: block; font-size: 18px; }
+.hero-photo figcaption > span { font-size: 15px; color: rgba(255,255,255,.85); }
+
+/* ② 이런 말씀 */
+.quotes { display: grid; gap: 12px; }
 .quotes li {
-  padding: 14px 16px;
+  position: relative; padding: 16px 18px;
   background: var(--green-soft);
   border-radius: var(--radius) var(--radius) var(--radius) 4px;
-  font-size: 18px;
+  font-size: 18px; font-weight: 500;
 }
-.hero-title { font-size: 26px; font-weight: 800; color: var(--green); }
-.hero-sub { margin: 10px 0 0; color: var(--ink-sub); }
+.voices-note { margin: 26px 0 0; color: var(--ink-sub); }
 
-/* ② 대표원장 */
-.director-photo { margin: 0 -20px 18px; }
-.director-photo img { width: 100%; height: auto; aspect-ratio: 1200 / 750; object-fit: cover; }
-.director-name { font-size: 22px; font-weight: 800; margin: 0 0 18px; }
-.director-name span { font-size: 17px; font-weight: 600; color: var(--ink-sub); margin-right: 4px; }
+/* ③ 진료 분야 */
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.field-card {
+  display: flex; flex-direction: column;
+  background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--green);
+  border-radius: var(--radius); padding: 18px 14px 16px;
+}
+.field-card h3 { font-size: 19px; font-weight: 800; color: var(--green); }
+.field-desc { margin: 6px 0 0; font-size: 15px; line-height: 1.5; color: var(--ink-sub); }
+.field-link { margin-top: auto; padding-top: 10px; font-size: 15px; font-weight: 600; color: var(--green); text-underline-offset: 3px; }
+.fields-extra { margin: 16px 0 0; font-size: 16px; color: var(--ink-sub); }
+.fields-extra span { font-weight: 700; color: var(--ink); margin-right: 6px; }
+
+/* ④ 네 가지 약속 */
+.promises { display: grid; gap: 12px; }
+.promise { padding: 22px 20px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.promise-no { display: inline-block; font-size: 14px; font-weight: 800; color: var(--green); margin-bottom: 6px; }
+.promise h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+.promise p { margin: 0; color: var(--ink-sub); }
+
+/* ⑤ 대표원장 */
+.section-dark { background: var(--green-dark); color: #fff; }
+.section-dark .kicker { color: rgba(255,255,255,.7); }
+.director-name { font-size: 24px; font-weight: 800; margin: -8px 0 20px; }
+.director-name span { font-size: 17px; font-weight: 600; color: rgba(255,255,255,.75); margin-right: 4px; }
+.director-note {
+  margin: 0 0 28px; padding: 20px;
+  border-left: 4px solid #fff; background: rgba(255,255,255,.08);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.director-note p { margin: 0 0 6px; font-size: 18px; }
+.director-note p:last-child { margin: 0; }
 .career li { position: relative; padding-left: 16px; margin-bottom: 6px; }
-.career li::before { content: ""; position: absolute; left: 2px; top: .75em; width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
-.career-main li { font-size: 18px; }
-.career-main strong { color: var(--green); }
-.career-more { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+.career li::before { content: ""; position: absolute; left: 2px; top: .75em; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .7; }
+.career-more { margin-top: 12px; border-top: 1px solid rgba(255,255,255,.2); padding-top: 8px; }
 .career-more summary {
-  cursor: pointer; font-weight: 700; color: var(--green);
-  min-height: 44px; display: flex; align-items: center;
-  list-style: none;
+  cursor: pointer; font-weight: 700;
+  min-height: 44px; display: flex; align-items: center; list-style: none;
 }
 .career-more summary::-webkit-details-marker { display: none; }
 .career-more summary::after { content: "＋"; margin-left: 8px; }
 .career-more[open] summary::after { content: "－"; }
-.career-more .career { margin-top: 8px; font-size: 17px; color: var(--ink-sub); }
-.director-note {
-  margin: 32px 0 0; padding: 22px 20px;
-  border-left: 4px solid var(--green);
-  background: var(--green-soft);
-  border-radius: 0 var(--radius) var(--radius) 0;
-}
-.director-note p { margin: 0 0 8px; font-size: 18px; }
-.director-note cite { display: block; margin-top: 12px; font-style: normal; font-weight: 700; color: var(--ink-sub); font-size: 16px; }
+.career-more .career { margin-top: 8px; font-size: 16px; color: rgba(255,255,255,.8); }
 
-/* ③ 진료 분야 */
-.fields { display: grid; gap: 16px; }
-.field-group { background: #fff; border-radius: var(--radius); padding: 22px 20px; border: 1px solid var(--line); }
-.field-group h3 { font-size: 20px; color: var(--green); margin-bottom: 12px; }
-.field-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.field-list li {
-  display: flex; flex-direction: column; justify-content: center;
-  min-height: 56px; padding: 10px 14px;
-  background: var(--green-soft); border-radius: 10px;
-}
-.field-name { font-weight: 600; }
-.field-list li.is-main { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; background: var(--green); }
-.field-list li.is-main .field-name { font-size: 24px; font-weight: 800; color: #fff; }
-.field-list li.is-main .field-link { color: #fff; }
-.field-link { font-size: 15px; color: var(--ink-sub); white-space: nowrap; text-underline-offset: 3px; padding: 4px 0; }
+/* ⑥ 원장 칼럼 */
+.cases { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.case { display: flex; flex-direction: column; background: #fff; border-radius: var(--radius); overflow: hidden; text-decoration: none; border: 1px solid var(--line); }
+.case-thumb { aspect-ratio: 4 / 3; background: var(--green-soft); }
+.case-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.case-thumb-empty { display: block; height: 100%; background: linear-gradient(135deg, var(--green-soft), #dfe9e3); }
+.case-body { padding: 12px 12px 14px; display: flex; flex-direction: column; flex: 1; }
+.case h3 { font-size: 16px; line-height: 1.45; margin: 6px 0 8px; }
+.case time { margin-top: auto; font-size: 13px; color: var(--ink-sub); }
+.case-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.case-tags span { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--green-soft); color: var(--green); }
+.case-more { display: flex; margin-top: 16px; }
 
-/* ④ 진료 과정 */
-.steps { display: grid; gap: 14px; }
-.step { position: relative; padding: 22px 20px 20px 72px; border: 1px solid var(--line); border-radius: var(--radius); }
-.step-no {
-  position: absolute; left: 20px; top: 22px;
-  width: 36px; height: 36px; border-radius: 50%;
-  display: grid; place-items: center;
-  background: var(--green); color: #fff; font-weight: 800; font-size: 17px;
-}
-.step h3 { font-size: 20px; margin-bottom: 6px; }
-.step p { margin: 0; color: var(--ink-sub); }
-
-/* ⑤ 상담일지 */
-.cases { display: grid; gap: 12px; }
-.case {
-  display: block; padding: 20px; background: #fff; border-radius: var(--radius);
-  border: 1px solid var(--line); text-decoration: none;
-}
-.case h3 { font-size: 18px; margin-bottom: 10px; }
-.case-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.case-tags span { font-size: 14px; padding: 3px 10px; border-radius: 99px; background: var(--green-soft); color: var(--green); }
-.case-more { margin-top: 16px; }
-
-/* ⑥ 예약 안내 */
+/* ⑦ 진료시간 · 오시는 길 */
+.visit-card { padding: 22px 20px; border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 12px; }
+.visit-card .btn-row { margin-top: 14px; }
 .hours { margin: 0; border-top: 1px solid var(--line); }
-.hours-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.hours-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .hours dt { font-weight: 700; }
 .hours dd { margin: 0; text-align: right; }
 .hours dd small { display: block; font-size: 15px; color: var(--ink-sub); }
 .hours-notes { margin-top: 14px; }
-.hours-notes li { position: relative; padding-left: 16px; margin-bottom: 6px; font-size: 17px; color: var(--ink-sub); }
+.hours-notes li { position: relative; padding-left: 16px; margin-bottom: 6px; font-size: 16px; color: var(--ink-sub); }
 .hours-notes li::before { content: "·"; position: absolute; left: 2px; font-weight: 800; }
 .address { margin: 0; font-size: 18px; font-weight: 600; }
 .contact-list { display: grid; gap: 8px; }
@@ -161,32 +182,37 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   border: 1px solid var(--line); border-radius: 12px; text-decoration: none;
 }
 .contact span { color: var(--ink-sub); }
-.contact.is-pending { color: var(--ink-sub); background: #f6f7f6; }
-.contact.is-pending strong { font-weight: 500; font-size: 16px; }
-.honest { margin: 36px 0 0; padding-top: 24px; border-top: 1px solid var(--line); color: var(--ink-sub); text-align: center; }
+.honest { margin: 32px 0 0; color: var(--ink-sub); text-align: center; }
 
 /* 푸터 */
-.footer { padding: 32px 20px 40px; background: #f4f6f5; color: var(--ink-sub); font-size: 15px; }
+.footer { padding: 40px 20px 44px; background: var(--night); color: rgba(255,255,255,.72); font-size: 15px; }
 .footer p { margin: 0 0 4px; }
+.footer a { color: #fff; }
+.footer-name { font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 10px !important; }
+.footer .sep { margin: 0 6px; opacity: .5; }
+.footer-cta { display: flex; gap: 8px; margin: 20px 0; }
+.footer-cta .btn { flex: 1; min-height: 50px; font-size: 16px; }
+.social { display: flex; gap: 16px; margin: 0 0 20px !important; }
+.social a { font-weight: 600; text-underline-offset: 3px; }
+.disclaimer { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,.55); margin-top: 16px !important; }
+.copyright { font-size: 13px; color: rgba(255,255,255,.45); margin-top: 8px !important; }
 
 /* 하단 고정 바 */
 .bottom-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
-  display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 8px;
+  display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 8px;
   padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
   background: #fff; border-top: 1px solid var(--line);
-  box-shadow: 0 -4px 16px rgba(0,0,0,.05);
+  box-shadow: 0 -4px 16px rgba(0,0,0,.06);
 }
 .bb-btn {
-  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  display: flex; align-items: center; justify-content: center;
   min-height: 48px; border-radius: 10px;
   font: inherit; font-size: 17px; font-weight: 700; line-height: 1.2;
   text-decoration: none; color: var(--ink);
   background: #fff; border: 1px solid var(--line); cursor: pointer;
 }
 .bb-primary { background: var(--green); border-color: var(--green); color: #fff; }
-.bb-btn.is-pending { color: #9aa39f; background: #f6f7f6; cursor: default; }
-.bb-btn small { font-size: 12px; font-weight: 500; }
 
 /* 예약 선택 창 */
 .sheet { position: fixed; inset: 0; z-index: 50; }
@@ -212,20 +238,34 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .sheet-close { width: 100%; min-height: 50px; border: 1px solid var(--line); background: #fff; border-radius: 12px; font: inherit; font-size: 17px; cursor: pointer; }
 
 a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+.section-dark a:focus-visible, .section-dark summary:focus-visible, .hero a:focus-visible, .hero button:focus-visible, .footer a:focus-visible, .footer button:focus-visible { outline-color: #fff; }
 
 /* 태블릿·PC */
 @media (min-width: 768px) {
   body { font-size: 19px; }
-  .hero, .section, .footer { padding-left: max(32px, calc((100vw - 880px) / 2)); padding-right: max(32px, calc((100vw - 880px) / 2)); }
-  .hero { padding-top: 72px; padding-bottom: 80px; }
-  .hero-title { font-size: 36px; }
-  .quotes { grid-template-columns: repeat(3, 1fr); }
-  .btn-row { max-width: 520px; }
-  .section-title { font-size: 30px; }
-  .director-photo { margin: 0 0 22px; border-radius: var(--radius); overflow: hidden; }
-  .fields { grid-template-columns: 1fr 1fr; align-items: start; }
-  .steps { grid-template-columns: 1fr 1fr; }
-  .cases { grid-template-columns: 1fr 1fr; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 0 max(24px, calc((100vw - var(--wrap)) / 2)); }
+  .topbar-row { padding: 14px 0; gap: 24px; }
+  .topbar-tel { display: none; }
+  .topnav { order: 2; padding: 0; }
+  .section, .footer { padding-left: max(32px, calc((100vw - var(--wrap)) / 2)); padding-right: max(32px, calc((100vw - var(--wrap)) / 2)); }
+  .section { padding-top: 88px; padding-bottom: 88px; }
+  .section-title { font-size: 32px; }
+  .hero {
+    display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center;
+    padding: 64px max(32px, calc((100vw - var(--wrap)) / 2));
+  }
+  .hero-title { font-size: 38px; }
+  .hero-photo { margin: 0; border-radius: var(--radius); overflow: hidden; }
+  .hero .btn { flex: 0 1 auto; padding: 0 26px; }
+  .case-more .btn { flex: 0 1 auto; padding: 0 32px; }
+  .quotes { grid-template-columns: 1fr 1fr; }
+  .fields { grid-template-columns: repeat(4, 1fr); }
+  .promises { grid-template-columns: 1fr 1fr; }
+  .cases { grid-template-columns: repeat(4, 1fr); }
+  #visit { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
+  #visit > .kicker, #visit > .section-title, #visit > .honest { grid-column: 1 / -1; }
+  #visit > .visit-card:first-of-type { grid-row: span 2; }
+  .footer-cta { max-width: 420px; }
   .bottom-bar { left: 50%; right: auto; transform: translateX(-50%); width: 520px; border: 1px solid var(--line); border-bottom: 0; border-radius: 16px 16px 0 0; }
   .sheet-panel { left: 50%; right: auto; bottom: auto; top: 50%; transform: translate(-50%, -50%); width: 480px; border-radius: 20px; }
 }

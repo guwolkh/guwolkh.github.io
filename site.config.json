@@ -8,9 +8,11 @@
   "naverSiteVerification": "13e2103ff6f612a7a4aaaec66dc44c49e1a01f56",
   "googleSiteVerification": "EvwClfPqMLSxxaJmsr-uQkZEWqsns6Wuun6gW9G-qOA",
 
-  "_진료연차_안내": "이명·귀먹먹함·어지럼증 진료를 시작한 해. 'N년째' 문구는 올해 - 시작한 해 + 1 로 자동 계산됩니다. (2026년 기준 13년째 → 2014)",
+  "_진료연차_안내": "이명·어지럼증·하지불안증후군·말초신경병증 중점 진료를 시작한 해. 'N년째' 문구는 올해 - 시작한 해 + 1 로 자동 계산됩니다. (2026년 기준 13년째 → 2014)",
   "careerStartYear": 2014,
 
+  "representative": "지근성",
+  "businessNumber": "594-94-01217",
   "phone": "032-428-9888",
   "address": {
     "full": "인천 남동구 인하로 613 더존프라자 2층",
@@ -48,9 +50,11 @@
     }
   },
 
-  "kakaoUrl": "",
+  "kakaoUrl": "https://pf.kakao.com/_FbZzK/chat",
   "talktalkUrl": "",
   "blogUrl": "https://blog.naver.com/guwolkh1",
+  "youtubeUrl": "https://youtube.com/@guwolkh",
+  "instagramUrl": "https://www.instagram.com/guwolkh",
 
   "director": {
     "photo": "images/원장프로필_최신_1200x750.jpg",
@@ -59,20 +63,14 @@
     "title": "대표원장"
   },
 
-  "_분야링크_안내": "진료 분야별 '관련 글 보기' 블로그 주소. 비워 두면 링크가 표시되지 않습니다.",
-  "conditionLinks": {
-    "이명": "",
-    "귀먹먹함": "",
-    "난청": "",
-    "어지럼증": "",
-    "이석증": "",
-    "메니에르": "",
-    "불면": "",
-    "불안": "",
-    "하지불안증후군": "",
-    "말초신경병증": ""
-  },
+  "_진료분야_안내": "중점 진료 분야 카드(같은 크기로 나란히 표시). link 에 블로그 글 주소를 넣으면 '관련 글 보기'가 생깁니다. 효과·완치 같은 표현은 넣지 않습니다.",
+  "fields": [
+    { "name": "이명", "desc": "귀 울림 · 난청 · 귀먹먹함", "link": "" },
+    { "name": "어지럼증", "desc": "이석증 · 메니에르 등", "link": "" },
+    { "name": "하지불안증후군", "desc": "밤이 되면 다리가 불편해 잠들기 어려운 증상", "link": "" },
+    { "name": "말초신경병증", "desc": "손발 저림 · 화끈거림 · 감각 저하", "link": "" }
+  ],
 
-  "_사례_안내": "치료사례 카드(3~4개). 제목과 증상 키워드만 적고, 효과 수치·전후 비교·'좋아졌다' 류 문구는 넣지 않습니다. 예: { \"title\": \"글 제목\", \"keywords\": [\"이명\", \"불면\"], \"url\": \"https://blog.naver.com/...\" }",
+  "_사례_안내": "원장 칼럼 카드(3~4개). 블로그 글 제목·증상 키워드·날짜·대표 사진만 적고, 효과 수치·전후 비교·'좋아졌다' 류 문구는 넣지 않습니다. image 는 images 폴더의 파일 경로(없으면 비워 둠). 예: { \"title\": \"글 제목\", \"keywords\": [\"이명\"], \"date\": \"2026.10.11\", \"image\": \"\", \"url\": \"https://blog.naver.com/...\" }",
   "cases": []
 }
