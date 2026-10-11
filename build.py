@@ -141,6 +141,11 @@ def build_context(cfg):
         "canonical": f'<link rel="canonical" href="{e(site)}/">' if site else "",
         "ogImage": e(f"{site}/{photo}" if site else photo),
         "jsonld": render_jsonld(cfg),
+        "verification": "\n  ".join(
+            f'<meta name="{n}" content="{e(cfg[k])}">'
+            for n, k in (("naver-site-verification", "naverSiteVerification"),
+                         ("google-site-verification", "googleSiteVerification"))
+            if cfg.get(k)),
         "directorPhoto": photo,
         "directorPhotoAlt": e(d["photoAlt"]),
         "directorName": e(d["name"]),

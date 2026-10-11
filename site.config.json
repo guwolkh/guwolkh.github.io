@@ -4,6 +4,10 @@
   "name": "구월경희한의원",
   "siteUrl": "https://guwolkh.com",
 
+  "_검색등록_안내": "네이버 서치어드바이저·구글 서치콘솔의 'HTML 태그' 소유확인 코드에서 content=\"...\" 안의 값만 넣습니다.",
+  "naverSiteVerification": "13e2103ff6f612a7a4aaaec66dc44c49e1a01f56",
+  "googleSiteVerification": "",
+
   "_진료연차_안내": "이명·귀먹먹함·어지럼증 진료를 시작한 해. 'N년째' 문구는 올해 - 시작한 해 + 1 로 자동 계산됩니다. (2026년 기준 13년째 → 2014)",
   "careerStartYear": 2014,
 
