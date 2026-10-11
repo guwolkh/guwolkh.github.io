@@ -22,7 +22,7 @@
 <header class="topbar">
   <div class="topbar-row">
     <a class="brand" href="#top">{{name}}</a>
-    <a class="topbar-tel" href="tel:{{phoneDigits}}">{{phone}}</a>
+    <a class="topbar-tel" href="tel:{{phoneTel}}">{{phone}}</a>
   </div>
   <nav class="topnav" aria-label="페이지 메뉴">
     <a href="#fields">진료 분야</a>
@@ -43,7 +43,7 @@
       <p class="hero-sub">한약 초진은 대표원장이 1시간 이상 직접 상담합니다.<br>처방도, 15일마다의 경과 확인도 같은 원장이 맡습니다.</p>
       <div class="btn-row">
         <button type="button" class="btn btn-light" data-open-booking>네이버로 예약하기</button>
-        <a class="btn btn-ghost" href="tel:{{phoneDigits}}">전화 상담 {{phone}}</a>
+        <a class="btn btn-ghost" href="tel:{{phoneTel}}">전화 상담 {{phone}}</a>
       </div>
     </div>
     <figure class="hero-photo">
@@ -179,7 +179,7 @@
     <div class="visit-card">
       <h3 class="sub-title">문의</h3>
       <div class="contact-list">
-        <a class="contact" href="tel:{{phoneDigits}}"><span>전화</span><strong>{{phone}}</strong></a>
+        <a class="contact" href="tel:{{phoneTel}}"><span>전화</span><strong>{{phone}}</strong></a>
         {{kakaoContact}}
         {{talktalkContact}}
       </div>
@@ -194,9 +194,9 @@
   <p class="footer-name">{{name}}</p>
   <p>대표자 {{representative}} <span class="sep">|</span> 사업자등록번호 {{businessNumber}}</p>
   <p>{{address}}</p>
-  <p>대표전화 <a href="tel:{{phoneDigits}}">{{phone}}</a></p>
+  <p>대표전화 <a href="tel:{{phoneTel}}">{{phone}}</a></p>
   <div class="footer-cta">
-    <a class="btn btn-ghost" href="tel:{{phoneDigits}}">전화 상담</a>
+    <a class="btn btn-ghost" href="tel:{{phoneTel}}">전화 상담</a>
     <button type="button" class="btn btn-light" data-open-booking>온라인 예약</button>
   </div>
   {{socialLinks}}
@@ -206,7 +206,7 @@
 
 <!-- 모바일 하단 고정 바 -->
 <nav class="bottom-bar" aria-label="빠른 예약">
-  <a class="bb-btn" href="tel:{{phoneDigits}}">전화</a>
+  <a class="bb-btn" href="tel:{{phoneTel}}">전화</a>
   {{thirdBar}}
   <button type="button" class="bb-btn bb-primary" data-open-booking>네이버 예약</button>
 </nav>
@@ -217,7 +217,7 @@
   <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
     <h2 id="sheet-title">어떤 진료를 예약하시나요?</h2>
     {{bookingOptions}}
-    <p class="sheet-note">당일 예약은 전화(<a href="tel:{{phoneDigits}}">{{phone}}</a>)로만 가능합니다.</p>
+    <p class="sheet-note">당일 예약은 전화(<a href="tel:{{phoneTel}}">{{phone}}</a>)로만 가능합니다.</p>
     <button type="button" class="sheet-close" data-close-booking>닫기</button>
   </div>
 </div>

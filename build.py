@@ -142,7 +142,8 @@ def build_context(cfg):
         "careerYears": str(date.today().year - start + 1),
         "name": e(cfg["name"]),
         "phone": e(cfg["phone"]),
-        "phoneDigits": re.sub(r"[^0-9+]", "", cfg["phone"]),
+        # 하이픈을 남겨야 휴대폰 전화 앱이 지역번호(032)를 제대로 끊어 보여 줍니다
+        "phoneTel": re.sub(r"[^0-9+-]", "", cfg["phone"]),
         "address": e(cfg["address"]["full"]),
         "canonical": f'<link rel="canonical" href="{e(site)}/">' if site else "",
         "ogImage": e(f"{site}/{photo}" if site else photo),

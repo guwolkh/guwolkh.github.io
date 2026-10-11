@@ -3,3 +3,6 @@
 dist/
 __pycache__/
 .claude/settings.local.json
+
+# 카카오 채널용 이미지 (홈페이지에는 쓰지 않음)
+카카오채널/
