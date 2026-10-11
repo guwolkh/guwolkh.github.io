@@ -1,0 +1,40 @@
+name: 홈페이지 배포
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # 매년 1월 1일 0시(한국 시간)에 다시 빌드해 'N년째' 숫자를 갱신
+  schedule:
+    - cron: "0 15 31 12 *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 빌드
+        env:
+          TZ: Asia/Seoul
+        run: python build.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

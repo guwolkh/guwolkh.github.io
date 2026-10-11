@@ -1,0 +1,5 @@
+# 저장소가 공개라서 내부 기획서는 올리지 않습니다
+*기획서*.md
+dist/
+__pycache__/
+.claude/settings.local.json
