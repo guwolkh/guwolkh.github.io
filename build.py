@@ -37,7 +37,12 @@ def ext_link(url, cls, inner):
 def render_fields(cfg):
     cards = []
     for f in cfg.get("fields", []):
-        link = ext_link(f["link"], "field-link", "관련 글 보기 ›") if f.get("link") else ""
+        if f.get("page"):
+            link = f'<a class="field-link" href="/{e(f["page"])}/">자세히 보기 ›</a>'
+        elif f.get("link"):
+            link = ext_link(f["link"], "field-link", "관련 글 보기 ›")
+        else:
+            link = ""
         desc = f'<p class="field-desc">{e(f["desc"])}</p>' if f.get("desc") else ""
         cards.append(f'<div class="field-card"><h3>{e(f["name"])}</h3>{desc}{link}</div>')
     return "\n      ".join(cards)
@@ -101,8 +106,9 @@ def render_booking_options(cfg):
     return "\n    ".join(out)
 
 
-def render_jsonld(cfg):
+def clinic_jsonld(cfg):
     a = cfg["address"]
+    site = cfg.get("siteUrl", "").rstrip("/")
     data = {
         "@context": "https://schema.org",
         "@type": "MedicalClinic",
@@ -121,12 +127,21 @@ def render_jsonld(cfg):
             for o in cfg["openingHoursSchema"]
         ],
         "medicalSpecialty": ", ".join(f["name"] for f in cfg.get("fields", [])),
+        "founder": {"@type": "Physician", "name": cfg["director"]["name"]},
+        "sameAs": [u for u in (cfg.get("blogUrl"), cfg.get("youtubeUrl"), cfg.get("instagramUrl")) if u],
     }
-    if cfg.get("siteUrl"):
-        data["url"] = cfg["siteUrl"]
-        data["image"] = cfg["siteUrl"].rstrip("/") + "/" + quote(cfg["director"]["photo"])
+    if site:
+        data["@id"] = site + "/#clinic"
+        data["url"] = site + "/"
+        data["image"] = site + "/" + quote(cfg["director"]["photo"])
+    return data
+
+
+def jsonld_tags(items):
     # </script> 가 끼어들지 않도록 '<' 를 이스케이프
-    return json.dumps(data, ensure_ascii=False).replace("<", "\\u003c")
+    return "\n  ".join(
+        '<script type="application/ld+json">'
+        + json.dumps(d, ensure_ascii=False).replace("<", "\\u003c") + "</script>" for d in items)
 
 
 def build_context(cfg):
@@ -145,9 +160,7 @@ def build_context(cfg):
         # 하이픈을 남겨야 휴대폰 전화 앱이 지역번호(032)를 제대로 끊어 보여 줍니다
         "phoneTel": re.sub(r"[^0-9+-]", "", cfg["phone"]),
         "address": e(cfg["address"]["full"]),
-        "canonical": f'<link rel="canonical" href="{e(site)}/">' if site else "",
         "ogImage": e(f"{site}/{photo}" if site else photo),
-        "jsonld": render_jsonld(cfg),
         "verification": "\n  ".join(
             f'<meta name="{n}" content="{e(cfg[k])}">'
             for n, k in (("naver-site-verification", "naverSiteVerification"),
@@ -168,12 +181,129 @@ def build_context(cfg):
         "talktalkContact": render_contact(talk, "네이버 톡톡"),
         # 하단 바 가운데 칸: 카톡 링크가 생기면 카톡, 그전에는 오시는 길
         "thirdBar": (ext_link(kakao, "bb-btn", "카톡") if kakao
-                     else '<a class="bb-btn" href="#visit">오시는 길</a>'),
+                     else '<a class="bb-btn" href="/#visit">오시는 길</a>'),
         "bookingOptions": render_booking_options(cfg),
         "socialLinks": render_social(cfg),
         "representative": e(cfg.get("representative", "")),
         "businessNumber": e(cfg.get("businessNumber", "")),
     }
+
+
+def nav_links(cfg, current):
+    items = [(f'/{pg["slug"]}/', pg["nav"], pg["slug"]) for pg in cfg.get("pages", []) if pg.get("nav")]
+    items.append(("/#visit", "오시는 길", None))
+    out = []
+    for href, label, slug in items:
+        cur = ' aria-current="page"' if slug and slug == current else ""
+        out.append(f'<a href="{e(href)}"{cur}>{e(label)}</a>')
+    return "\n    ".join(out)
+
+
+def footer_links(cfg):
+    return "".join(f'<a href="/{e(pg["slug"])}/">{e(pg["nav"])}</a>'
+                      for pg in cfg.get("pages", []) if pg.get("nav"))
+
+
+def render_faq_list(items):
+    rows = "".join(
+        f'<details class="faq-item"><summary>{e(q["q"])}</summary><p>{e(q["a"])}</p></details>'
+        for q in items)
+    return f'<div class="faq">{rows}</div>'
+
+
+def render_faq(items):
+    if not items:
+        return ""
+    return ('<section class="section section-tint" id="faq">'
+            '<p class="kicker">FAQ</p><h2 class="section-title">자주 묻는 질문</h2>'
+            f'{render_faq_list(items)}</section>')
+
+
+def render_related(items):
+    if not items:
+        return ""
+    links = "".join(f"<li>{ext_link(r['url'], 'related-link', e(r['title']) + ' <span>›</span>')}</li>"
+                    for r in items)
+    return ('<section class="section" id="related">'
+            '<p class="kicker">Column</p><h2 class="section-title">관련 글 (원장 칼럼)</h2>'
+            f'<ul class="related">{links}</ul>'
+            '<p class="related-note">네이버 블로그로 연결됩니다.</p></section>')
+
+
+def render_page_cta(cfg):
+    notes = "".join(f"<li>{e(n)}</li>" for n in cfg.get("hoursNotes", []))
+    return ('<section class="section section-dark page-cta">'
+            '<h2 class="section-title">상담 · 예약 안내</h2>'
+            f'<dl class="hours hours-dark">{render_hours(cfg)}</dl>'
+            f'<ul class="hours-notes">{notes}</ul>'
+            '<div class="btn-row">'
+            '<button type="button" class="btn btn-light" data-open-booking>네이버로 예약하기</button>'
+            f'<a class="btn btn-ghost" href="tel:{e(re.sub(r"[^0-9+-]", "", cfg["phone"]))}">전화 상담 {e(cfg["phone"])}</a>'
+            '</div></section>')
+
+
+def page_jsonld(cfg, pg, url):
+    site = cfg.get("siteUrl", "").rstrip("/")
+    clinic_ref = {"@id": site + "/#clinic"} if site else {"name": cfg["name"]}
+    items = [clinic_jsonld(cfg)]
+    kind = pg.get("kind")
+    if kind == "condition":
+        items.append({
+            "@context": "https://schema.org",
+            "@type": "MedicalWebPage",
+            "name": pg["h1"],
+            "url": url,
+            "description": pg["description"],
+            "about": {"@type": "MedicalCondition", "name": pg["condition"],
+                      **({"alternateName": pg["alternateNames"]} if pg.get("alternateNames") else {})},
+            "publisher": clinic_ref,
+            "inLanguage": "ko",
+        })
+    elif kind == "director":
+        d = cfg["director"]
+        items.append({
+            "@context": "https://schema.org",
+            "@type": "Physician",
+            "name": d["name"],
+            "jobTitle": d["title"],
+            "url": url,
+            "image": (site + "/" + quote(d["photo"])) if site else d["photo"],
+            "worksFor": clinic_ref,
+            "alumniOf": {"@type": "CollegeOrUniversity", "name": "경희대학교 한의과대학"},
+            "medicalSpecialty": ", ".join(f["name"] for f in cfg.get("fields", [])),
+        })
+    if pg.get("faq"):
+        items.append({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{"@type": "Question", "name": q["q"],
+                            "acceptedAnswer": {"@type": "Answer", "text": q["a"]}} for q in pg["faq"]],
+        })
+    items.append({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": cfg["name"], "item": site + "/"},
+            {"@type": "ListItem", "position": 2, "name": pg["nav"], "item": url},
+        ],
+    })
+    return items
+
+
+def fill(template, ctx):
+    missing = set()
+
+    def sub(m):
+        key = m.group(1)
+        if key not in ctx:
+            missing.add(key)
+            return m.group(0)
+        return ctx[key]
+
+    out = re.sub(r"\{\{(\w+)\}\}", sub, template)
+    if missing:
+        sys.exit(f"템플릿에 알 수 없는 항목이 있습니다: {', '.join(sorted(missing))}")
+    return out
 
 
 def check_wording(html):
@@ -191,40 +321,77 @@ def main():
         sys.stdout.reconfigure(encoding="utf-8")
     cfg = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
     ctx = build_context(cfg)
-
-    template = (SRC / "index.html").read_text(encoding="utf-8")
-    missing = set()
-
-    def sub(m):
-        key = m.group(1)
-        if key not in ctx:
-            missing.add(key)
-            return m.group(0)
-        return ctx[key]
-
-    html = re.sub(r"\{\{(\w+)\}\}", sub, template)
-    if missing:
-        sys.exit(f"템플릿에 알 수 없는 항목이 있습니다: {', '.join(sorted(missing))}")
+    site = cfg.get("siteUrl", "").rstrip("/")
+    layout = (SRC / "layout.html").read_text(encoding="utf-8")
 
     if DIST.exists():
         shutil.rmtree(DIST)
     DIST.mkdir()
-    (DIST / "index.html").write_text(html, encoding="utf-8")
     for name in ("style.css", "main.js"):
         shutil.copy2(SRC / name, DIST / name)
     shutil.copytree(ROOT / "images", DIST / "images")
 
-    site = cfg.get("siteUrl", "").rstrip("/")
+    outputs = {}  # 경로 -> html
+
+    # 홈
+    home = cfg["home"]
+    home_ctx = dict(ctx)
+    home_ctx.update({
+        "pageTitle": e(home["title"]),
+        "pageDescription": e(home["description"]),
+        "ogTitle": e(home["ogTitle"]),
+        "canonical": f'<link rel="canonical" href="{e(site)}/">' if site else "",
+        "ogUrl": f'<meta property="og:url" content="{e(site)}/">' if site else "",
+        "jsonldTags": jsonld_tags([clinic_jsonld(cfg)]),
+        "navLinks": nav_links(cfg, None),
+        "footerLinks": footer_links(cfg),
+        "faqPreview": render_faq_list(next((p for p in cfg.get("pages", []) if p["slug"] == "faq"), {}).get("faq", [])[:4]),
+    })
+    home_ctx["content"] = fill((SRC / "home.html").read_text(encoding="utf-8"), home_ctx)
+    outputs["index.html"] = fill(layout, home_ctx)
+
+    # 하위 페이지
+    for pg in cfg.get("pages", []):
+        url = f"{site}/{pg['slug']}/"
+        body = fill((SRC / "pages" / f"{pg['slug']}.html").read_text(encoding="utf-8"), ctx)
+        hero = ('<section class="page-hero">'
+                f'<p class="hero-eyebrow">{e(pg.get("eyebrow", ""))}</p>'
+                f'<h1 class="page-title">{e(pg["h1"])}</h1>'
+                f'<p class="page-lead">{e(pg["lead"])}</p></section>')
+        content = (hero + "\n" + body + "\n" + render_faq(pg.get("faq")) + "\n"
+                   + render_related(pg.get("related")) + "\n" + render_page_cta(cfg))
+        pctx = dict(ctx)
+        pctx.update({
+            "pageTitle": e(pg["title"]),
+            "pageDescription": e(pg["description"]),
+            "ogTitle": e(pg["title"]),
+            "canonical": f'<link rel="canonical" href="{e(url)}">' if site else "",
+            "ogUrl": f'<meta property="og:url" content="{e(url)}">' if site else "",
+            "jsonldTags": jsonld_tags(page_jsonld(cfg, pg, url)),
+            "navLinks": nav_links(cfg, pg["slug"]),
+            "footerLinks": footer_links(cfg),
+            "content": content,
+        })
+        outputs[f"{pg['slug']}/index.html"] = fill(layout, pctx)
+
+    for path, html in outputs.items():
+        out = DIST / path
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(html, encoding="utf-8")
+
     robots = "User-agent: *\nAllow: /\n"
     if site:
         robots += f"Sitemap: {site}/sitemap.xml\n"
+        today = date.today().isoformat()
+        urls = [f"{site}/"] + [f"{site}/{pg['slug']}/" for pg in cfg.get("pages", [])]
         (DIST / "sitemap.xml").write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-            f"  <url><loc>{e(site)}/</loc></url>\n</urlset>\n", encoding="utf-8")
+            + "".join(f"  <url><loc>{e(u)}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
+            + "</urlset>\n", encoding="utf-8")
     (DIST / "robots.txt").write_text(robots, encoding="utf-8")
 
-    print("dist/ 생성 완료")
+    print(f"dist/ 생성 완료 (페이지 {len(outputs)}개)")
     pending = [k for k, v in [("한약 초진 예약 링크", cfg["booking"]["herbalFirstVisit"]["url"]),
                               ("일반 진료 예약 링크", cfg["booking"]["general"]["url"]),
                               ("카카오톡 링크", cfg.get("kakaoUrl")),
@@ -233,7 +400,12 @@ def main():
     if pending:
         print("아직 비어 있는 값: " + ", ".join(pending))
 
-    problems = check_wording(html)
+    problems = []
+    for path, html in outputs.items():
+        found = check_wording(html)
+        if found:
+            problems.append(f" {path}")
+            problems.extend(found)
     if problems:
         print("\n[주의] 표현 기준(기획서 5번)에 걸릴 수 있는 문구:")
         print("\n".join(problems))

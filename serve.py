@@ -19,7 +19,8 @@ BUILD_LOCK = threading.Lock()  # 동시에 두 번 빌드하면 dist 폴더가 �
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
-        if self.path.split("?")[0] in ("/", "/index.html"):
+        path = self.path.split("?")[0]
+        if path.endswith("/") or path.endswith(".html"):
             with BUILD_LOCK:
                 return self._build_then_serve()
         super().do_GET()

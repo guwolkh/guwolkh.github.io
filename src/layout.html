@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{pageTitle}}</title>
+  <meta name="description" content="{{pageDescription}}">
+  <meta name="theme-color" content="#1f4d3a">
+  {{canonical}}
+  {{verification}}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ogTitle}}">
+  <meta property="og:description" content="{{pageDescription}}">
+  <meta property="og:image" content="{{ogImage}}">
+  {{ogUrl}}
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="/style.css">
+  {{jsonldTags}}
+</head>
+<body data-career-start="{{careerStartYear}}">
+
+<header class="topbar">
+  <div class="topbar-row">
+    <a class="brand" href="/">{{name}}</a>
+    <a class="topbar-tel" href="tel:{{phoneTel}}">{{phone}}</a>
+  </div>
+  <nav class="topnav" aria-label="페이지 메뉴">
+    {{navLinks}}
+  </nav>
+</header>
+
+<main id="top">
+{{content}}
+</main>
+
+<footer class="footer">
+  <p class="footer-name">{{name}}</p>
+  <p>대표자 {{representative}} <span class="sep">|</span> 사업자등록번호 {{businessNumber}}</p>
+  <p>{{address}}</p>
+  <p>대표전화 <a href="tel:{{phoneTel}}">{{phone}}</a></p>
+  <div class="footer-cta">
+    <a class="btn btn-ghost" href="tel:{{phoneTel}}">전화 상담</a>
+    <button type="button" class="btn btn-light" data-open-booking>온라인 예약</button>
+  </div>
+  <p class="footer-pages">{{footerLinks}}</p>
+  {{socialLinks}}
+  <p class="disclaimer">이 사이트의 내용은 질환에 대한 일반적인 안내이며, 개별 진단이나 치료를 대신하지 않습니다. 치료 결과는 개인에 따라 다를 수 있습니다.</p>
+  <p class="copyright">© {{name}}</p>
+</footer>
+
+<!-- 모바일 하단 고정 바 -->
+<nav class="bottom-bar" aria-label="빠른 예약">
+  <a class="bb-btn" href="tel:{{phoneTel}}">전화</a>
+  {{thirdBar}}
+  <button type="button" class="bb-btn bb-primary" data-open-booking>네이버 예약</button>
+</nav>
+
+<!-- 예약 선택 창 -->
+<div class="sheet" id="booking-sheet" hidden>
+  <div class="sheet-backdrop" data-close-booking></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <h2 id="sheet-title">어떤 진료를 예약하시나요?</h2>
+    {{bookingOptions}}
+    <p class="sheet-note">당일 예약은 전화(<a href="tel:{{phoneTel}}">{{phone}}</a>)로만 가능합니다.</p>
+    <button type="button" class="sheet-close" data-close-booking>닫기</button>
+  </div>
+</div>
+
+<script src="/main.js"></script>
+</body>
+</html>
