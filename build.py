@@ -211,12 +211,12 @@ def render_faq_list(items):
     return f'<div class="faq">{rows}</div>'
 
 
-def render_faq(items):
+def render_faq(items, heading=True):
     if not items:
         return ""
-    return ('<section class="section section-tint" id="faq">'
-            '<p class="kicker">FAQ</p><h2 class="section-title">자주 묻는 질문</h2>'
-            f'{render_faq_list(items)}</section>')
+    # FAQ 전용 페이지는 맨 위 제목이 이미 '자주 묻는 질문'이라 섹션 제목을 다시 달지 않습니다
+    title = '<p class="kicker">FAQ</p><h2 class="section-title">자주 묻는 질문</h2>' if heading else ""
+    return f'<section class="section section-tint" id="faq">{title}{render_faq_list(items)}</section>'
 
 
 def render_related(items):
@@ -358,7 +358,7 @@ def main():
                 f'<p class="hero-eyebrow">{e(pg.get("eyebrow", ""))}</p>'
                 f'<h1 class="page-title">{e(pg["h1"])}</h1>'
                 f'<p class="page-lead">{e(pg["lead"])}</p></section>')
-        content = (hero + "\n" + body + "\n" + render_faq(pg.get("faq")) + "\n"
+        content = (hero + "\n" + body + "\n" + render_faq(pg.get("faq"), heading=pg.get("kind") != "faq") + "\n"
                    + render_related(pg.get("related")) + "\n" + render_page_cta(cfg))
         pctx = dict(ctx)
         pctx.update({
