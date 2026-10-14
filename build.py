@@ -126,15 +126,42 @@ def clinic_jsonld(cfg):
              "opens": o["opens"], "closes": o["closes"]}
             for o in cfg["openingHoursSchema"]
         ],
-        "medicalSpecialty": ", ".join(f["name"] for f in cfg.get("fields", [])),
-        "founder": {"@type": "Physician", "name": cfg["director"]["name"]},
-        "sameAs": [u for u in (cfg.get("blogUrl"), cfg.get("youtubeUrl"), cfg.get("instagramUrl")) if u],
+        # medicalSpecialty 는 schema.org 정해진 값만 받으므로, 진료 질환은 knowsAbout 로 적습니다
+        "knowsAbout": conditions_known(cfg),
+        "founder": physician_ref(cfg),
+        "employee": physician_ref(cfg),
+        "hasMap": "https://map.naver.com/p/search/" + quote(cfg.get("mapQuery") or cfg["name"]),
+        "sameAs": [u for u in (cfg.get("blogUrl"), cfg.get("youtubeUrl"), cfg.get("instagramUrl"),
+                               cfg.get("naverPlaceUrl"), kakao_channel(cfg)) if u],
     }
     if site:
         data["@id"] = site + "/#clinic"
         data["url"] = site + "/"
         data["image"] = site + "/" + quote(cfg["director"]["photo"])
     return data
+
+
+def conditions_known(cfg):
+    out = []
+    for pg in cfg.get("pages", []):
+        if pg.get("kind") == "condition":
+            out.append(pg["condition"])
+            out.extend(pg.get("alternateNames", []))
+    return out
+
+
+def physician_ref(cfg):
+    site = cfg.get("siteUrl", "").rstrip("/")
+    ref = {"@type": "Physician", "name": cfg["director"]["name"]}
+    if site:
+        ref = {"@id": site + "/director/#physician", **ref, "url": site + "/director/"}
+    return ref
+
+
+def kakao_channel(cfg):
+    # 상담 채팅 주소(…/chat)가 아니라 채널 프로필 주소를 같은 기관 표시로 씁니다
+    u = cfg.get("kakaoUrl", "")
+    return u[:-len("/chat")] if u.endswith("/chat") else u
 
 
 def jsonld_tags(items):
@@ -257,6 +284,7 @@ def page_jsonld(cfg, pg, url):
             "about": {"@type": "MedicalCondition", "name": pg["condition"],
                       **({"alternateName": pg["alternateNames"]} if pg.get("alternateNames") else {})},
             "publisher": clinic_ref,
+            "author": physician_ref(cfg),
             "inLanguage": "ko",
         })
     elif kind == "director":
@@ -264,13 +292,16 @@ def page_jsonld(cfg, pg, url):
         items.append({
             "@context": "https://schema.org",
             "@type": "Physician",
+            **({"@id": site + "/director/#physician"} if site else {}),
             "name": d["name"],
             "jobTitle": d["title"],
             "url": url,
             "image": (site + "/" + quote(d["photo"])) if site else d["photo"],
             "worksFor": clinic_ref,
             "alumniOf": {"@type": "CollegeOrUniversity", "name": "경희대학교 한의과대학"},
-            "medicalSpecialty": ", ".join(f["name"] for f in cfg.get("fields", [])),
+            "knowsAbout": conditions_known(cfg),
+            "description": pg["lead"],
+            "sameAs": [u for u in (cfg.get("blogUrl"), cfg.get("youtubeUrl")) if u],
         })
     if pg.get("faq"):
         items.append({

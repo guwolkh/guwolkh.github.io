@@ -347,3 +347,13 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
   .director-photo { margin: 0; }
   .case-study { padding: 28px 30px; }
 }
+.note a { color: var(--green); font-weight: 700; text-underline-offset: 3px; }
+#ear-map .info-table td:nth-child(2) { color: var(--ink-sub); font-size: 15px; }
+@media (max-width: 767px) {
+  #ear-map .info-table thead { display: none; }
+  #ear-map .info-table, #ear-map .info-table tbody, #ear-map .info-table tr,
+  #ear-map .info-table th, #ear-map .info-table td { display: block; width: 100%; }
+  #ear-map .info-table tr { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  #ear-map .info-table th, #ear-map .info-table td { padding: 0; border: 0; }
+  #ear-map .info-table td:nth-child(2) { margin: 2px 0 4px; }
+}
