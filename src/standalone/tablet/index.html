@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>구월경희한의원 원내 태블릿 문진</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2f6b57">
+<style>
+:root{--ink:#1c2422;--soft:#5b6662;--faint:#8b9692;--line:#d6ddda;--bg:#f4f7f6;--accent:#2f6b57;--tint:#e7f2ed}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:20px}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;word-break:keep-all;min-height:100vh}
+button,input{font:inherit;color:inherit}
+button{border:none;background:none;cursor:pointer}
+main{max-width:860px;margin:0 auto;padding:1.4rem 1.2rem 7rem}
+.head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--accent);padding-bottom:.7rem;margin-bottom:1.1rem}
+.clinic{font-size:.8rem;font-weight:700;color:var(--accent);letter-spacing:.05em}
+h1{font-size:1.7rem;font-weight:800;line-height:1.2}
+.staff{font-size:.75rem;font-weight:700;color:#fff;background:#8b9692;border-radius:1rem;padding:.2rem .7rem}
+h2{font-size:1.05rem;font-weight:800;margin:1.2rem 0 .6rem;color:var(--accent)}
+.presets{display:flex;flex-wrap:wrap;gap:.5rem}
+.presets button{border:1.5px solid var(--line);background:#fff;border-radius:2rem;padding:.45rem 1rem;font-size:.85rem;font-weight:700;color:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem}
+.tile{display:flex;align-items:center;gap:.8rem;text-align:left;background:#fff;border:2px solid var(--line);border-radius:1rem;padding:1rem;min-height:5.2rem}
+.tile .box{flex:none;width:1.6rem;height:1.6rem;border:2px solid #9aa6a1;border-radius:.4rem;display:flex;align-items:center;justify-content:center}
+.tile b{display:block;font-size:1.05rem}.tile small{color:var(--faint);font-size:.78rem}
+.tile .ord{margin-left:auto;flex:none;width:1.7rem;height:1.7rem;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;font-size:.85rem;display:none;align-items:center;justify-content:center}
+.tile[aria-pressed="true"]{border-color:var(--accent);background:var(--tint)}
+.tile[aria-pressed="true"] .box{background:var(--accent);border-color:var(--accent)}
+.tile[aria-pressed="true"] .box::after{content:"";width:.45rem;height:.85rem;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-2px)}
+.tile[aria-pressed="true"] .ord{display:flex}
+input.txt{width:100%;max-width:22rem;border:1.5px solid var(--line);border-radius:.8rem;padding:.75rem .9rem;background:#fff;font-size:1rem;outline:none}
+input.txt:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--tint)}
+.note{font-size:.8rem;color:var(--faint);margin-top:.35rem}
+.foot{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:.8rem 1.2rem calc(.8rem + env(safe-area-inset-bottom))}
+.foot .in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:1rem}
+.sum{flex:1;color:var(--soft);font-size:.9rem}.sum b{color:var(--ink)}
+.go{min-height:3.5rem;padding:0 2rem;border-radius:1rem;background:var(--accent);color:#fff;font-weight:800;font-size:1.1rem}
+.go[disabled]{opacity:.4}
+.help{margin-top:1.6rem;background:#fff;border:1px solid var(--line);border-radius:1rem;padding:1rem 1.2rem;color:var(--soft);font-size:.85rem;line-height:1.7}
+.help b{color:var(--ink)}
+</style>
+</head>
+<body>
+<main>
+  <div class="head"><div><div class="clinic">구월경희한의원</div><h1>원내 태블릿 문진</h1></div><span class="staff">직원용 시작 화면</span></div>
+
+  <h2>1. 작성할 문진표 고르기</h2>
+  <div class="presets" id="presets"></div>
+  <div class="grid" id="grid" style="margin-top:.8rem"></div>
+
+  <h2>2. 차트번호 (선택)</h2>
+  <input class="txt" id="chart" inputmode="numeric" placeholder="OK차트 번호" autocomplete="off">
+  <p class="note">입력하면 응답 시트에 함께 기록됩니다. 환자 화면에는 보이지 않습니다.</p>
+
+  <div class="help">
+    <b>사용 방법</b><br>
+    ① 문진표를 고르고 [환자에게 건네기]를 누른 뒤 태블릿을 환자에게 드립니다.<br>
+    ② 여러 개를 고르면 번호 순서대로 이어서 작성합니다. 성명·생년월일은 한 번만 입력합니다.<br>
+    ③ 다 쓰면 "태블릿을 데스크에 돌려주세요"가 뜨고, 10초 뒤 이 화면으로 돌아옵니다.<br>
+    ④ 2분 30초 동안 입력이 없으면 확인 창이 뜨고, 30초 뒤 내용을 지우고 이 화면으로 돌아옵니다.<br>
+    작성 내용은 태블릿에 남지 않으며, 제출된 응답은 원장님 계정의 응답 시트에서만 볼 수 있습니다.
+  </div>
+</main>
+<div class="foot"><div class="in"><div class="sum" id="sum">문진표를 골라 주세요</div><button class="go" id="go" disabled>환자에게 건네기 →</button></div></div>
+<script>
+const FORMS=[
+ ['munjin','한약 문진표','체질·몸 상태 전반',12],
+ ['imyeong','이명 문진표','K-THI',5],
+ ['nanchung','난청 문진표','K-HHIE',6],
+ ['gwimeokmeok','귀먹먹함 문진표','ETDQ-7',4],
+ ['eojireom','어지럼증 문진표','K-DHI',6],
+ ['hajibuluan','하지불안증후군 문진표','IRLSSG 진단기준',5],
+ ['malcho','말초신경병증 문진표','MNSI',5],
+];
+const PRESETS=[['이명·귀 묶음',['imyeong','nanchung','gwimeokmeok']],['한약 초진 + 이명',['munjin','imyeong']],['어지럼 묶음',['eojireom','nanchung']],['모두 해제',[]]];
+let sel=[];
+try{sessionStorage.clear();['gkh_intake_v1'].forEach(k=>localStorage.removeItem(k));}catch(e){}
+const $=s=>document.querySelector(s);
+function draw(){
+  $('#grid').innerHTML=FORMS.map(([s,t,sub,m])=>{const i=sel.indexOf(s);return `<button class="tile" data-s="${s}" aria-pressed="${i>=0}"><span class="box"></span><span><b>${t}</b><small>${sub} · 약 ${m}분</small></span><span class="ord">${i+1}</span></button>`}).join('');
+  const ord=FORMS.filter(f=>sel.includes(f[0]));
+  const min=ord.reduce((a,f)=>a+f[3],0);
+  $('#sum').innerHTML=ord.length?`<b>${ord.length}개</b> 선택 · 약 <b>${min}분</b>`:'문진표를 골라 주세요';
+  $('#go').disabled=!ord.length;
+}
+$('#presets').innerHTML=PRESETS.map(([n],i)=>`<button data-p="${i}">${n}</button>`).join('');
+document.addEventListener('click',e=>{
+  const t=e.target.closest('.tile');if(t){const s=t.dataset.s;sel=sel.includes(s)?sel.filter(x=>x!==s):FORMS.map(f=>f[0]).filter(x=>x===s||sel.includes(x));draw();return}
+  const p=e.target.closest('[data-p]');if(p){sel=PRESETS[+p.dataset.p][1].slice();draw();return}
+  if(e.target.closest('#go')){
+    const queue=FORMS.map(f=>f[0]).filter(x=>sel.includes(x));
+    try{sessionStorage.clear();sessionStorage.setItem('gkh_k_cfg',JSON.stringify({queue,chart:$('#chart').value.trim()}));}catch(err){}
+    location.href='/'+queue[0]+'/?kiosk=1';
+  }
+});
+draw();
+</script>
+</body>
+</html>

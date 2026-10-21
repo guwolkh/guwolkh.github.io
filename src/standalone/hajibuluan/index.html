@@ -66,6 +66,7 @@ input.txt:focus,textarea.txt:focus{border-color:var(--accent);box-shadow:0 0 0 3
 .done h2{font-size:1.5rem;margin-bottom:.5rem}.done p{color:var(--soft)}
 .src{font-size:.72rem;color:var(--faint);margin-top:1rem;text-align:center;line-height:1.5}
 </style>
+<script src="/tablet/kiosk.js"></script>
 </head>
 <body>
 <header class="top">
@@ -87,12 +88,14 @@ const S={"slug": "hajibuluan", "fileName": "하지불안증후군문진표", "ti
 const KEY='gkh_'+S.slug+'_v1',TTL=1000*60*60*24*14;
 const STEPS=[{k:'intro'},{k:'basic'}];S.sections.forEach((s,i)=>STEPS.push({k:'sec',i}));STEPS.push({k:'finish'});
 let A={},step=0,sid='';
+const KZ=window.GKH_KIOSK||{on:false};
+if(KZ.on){const p=KZ.patient();if(p.consent)A['동의']='동의합니다';if(p.name)A['성명']=p.name;if(p.dob)A['생년월일']=p.dob;if(p.type)A['구분']=p.type;if(p.name&&p.dob&&p.type&&p.consent)STEPS.splice(1,1);}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ITEMS={};S.sections.forEach(s=>s.items.forEach(it=>ITEMS[it.id]=it));
 $('#ttl').textContent=S.title;
-function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Date.now()-d.ts<TTL)return d}catch(e){}return null}
-function save(f){try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,ts:Date.now()}));if(f){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900)}}catch(e){}}
+function load(){if(KZ.on)return null;try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Date.now()-d.ts<TTL)return d}catch(e){}return null}
+function save(f){if(KZ.on)return;try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,ts:Date.now()}));if(f){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900)}}catch(e){}}
 function clearSaved(){try{localStorage.removeItem(KEY)}catch(e){}}
 function itemHTML(it,n){
   let h=`<div class="q" data-q="${it.id}"><h3>${n!=null?`<span class="n">${n}.</span>`:''}<span>${esc(it.text)}</span></h3>${it.help?`<div class="help">${esc(it.help)}</div>`:''}`;
@@ -112,7 +115,7 @@ function render(){
     const d=load();
     if(d&&d.A&&Object.keys(d.A).length&&!render.r)h+=`<div class="resume"><p>작성하던 문진표가 있습니다.<br>이어서 하시겠어요?</p><div class="acts"><button class="btn sec" id="restart">처음부터</button><button class="btn pri" id="resume">이어서 하기</button></div></div>`;
     h+=`<div class="hero"><div class="clinic" style="color:var(--accent);font-weight:700;font-size:.8rem">구월경희한의원</div><h1>${esc(S.title)}</h1><p class="lead">${S.lead}</p>
-    <ul><li><b>1</b><span>약 ${S.minutes}분 걸립니다.</span></li><li><b>2</b><span>요즘의 상태를 떠올리며 답해 주세요.</span></li><li><b>3</b><span>체크할 때마다 <strong>자동 저장</strong>되어, 창을 닫아도 이어서 할 수 있습니다.</span></li><li><b>4</b><span>글씨가 작으면 오른쪽 위 <strong>[가 글씨 크게]</strong>를 눌러 주세요.</span></li></ul></div>`;
+    <ul><li><b>1</b><span>약 ${S.minutes}분 걸립니다.</span></li><li><b>2</b><span>요즘의 상태를 떠올리며 답해 주세요.</span></li><li><b>3</b><span>${KZ.on?'궁금한 점은 데스크 직원에게 물어보세요.':'체크할 때마다 <strong>자동 저장</strong>되어, 창을 닫아도 이어서 할 수 있습니다.'}</span></li><li><b>4</b><span>글씨가 작으면 오른쪽 위 <strong>[가 글씨 크게]</strong>를 눌러 주세요.</span></li></ul></div>`;
     if(S.source)h+=`<p class="src">${S.source}</p>`;
   }else if(s.k==='basic'){
     h+=`<div class="sec-h"><div class="no">기본</div><h2>기본 정보</h2></div>
@@ -152,7 +155,7 @@ document.addEventListener('click',e=>{
   const b=e.target.closest('button[data-id]');
   if(b){const id=b.dataset.id,v=b.dataset.v;A[id]=A[id]===v?'':v;b.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',A[id]===x.dataset.v));const q=b.closest('.q');q&&q.classList.remove('err');save(true);return}
   const t=e.target.closest('button');if(!t)return;
-  if(t.id==='next'){if(!validate())return;if(!sid)sid=Date.now().toString(36)+Math.random().toString(36).slice(2,7);go(1)}
+  if(t.id==='next'){if(!validate())return;if(KZ.on&&STEPS[step].k==='basic')KZ.setPatient({consent:A['동의']==='동의합니다',name:A['성명'],dob:A['생년월일'],type:A['구분']});if(!sid)sid=Date.now().toString(36)+Math.random().toString(36).slice(2,7);go(1)}
   else if(t.id==='prev')go(-1);
   else if(t.id==='resume'){const d=load();A=d.A||{};sid=d.sid||'';step=Math.max(1,Math.min(d.step||1,STEPS.length-1));render.r=true;render()}
   else if(t.id==='restart'){clearSaved();A={};sid='';step=0;render.r=true;render()}
@@ -163,7 +166,7 @@ document.addEventListener('input',e=>{const el=e.target.closest('[data-t]');if(!
 function score(id){const it=ITEMS[id],v=A[id];if(empty(v))return null;if(it.type==='nrs')return +v;if(it.type==='choice'){const o=it.opts[+v];return o?o[1]:null}return null}
 function label(id){const it=ITEMS[id],v=A[id];if(empty(v))return'';if(it.type==='choice')return it.opts[+v][0];return String(v)}
 function rows(){
-  const r=[['제출ID',sid],['성명',A['성명']||''],['생년월일',A['생년월일']||''],['구분',A['구분']||''],['개인정보 동의',A['동의']||'']];
+  const r=[['제출ID',sid],...(KZ.on?[['차트번호',KZ.chart()],['작성 장소','원내 태블릿']]:[]),['성명',A['성명']||''],['생년월일',A['생년월일']||''],['구분',A['구분']||''],['개인정보 동의',A['동의']||'']];
   (S.scales||[]).forEach(sc=>{let t=0,miss=0;sc.ids.forEach(id=>{if(empty(A[id])){miss++;return}const v=score(id);if(v!=null)t+=v});
     r.push([sc.name,miss&&sc.requireAll?`${t} (미응답 ${miss})`:t]);
     if(sc.bands){const b=sc.bands.find(([mx])=>t<=mx);r.push([sc.name+' 판정',miss&&sc.requireAll?'':(b?b[1]:'')])}});
@@ -174,7 +177,7 @@ function rows(){
 function submit(btn){
   const msg=$('#msg');btn.disabled=true;btn.textContent='보내는 중…';msg.textContent='';
   const fail=()=>{btn.disabled=false;btn.textContent='다시 제출하기';msg.textContent='전송이 안 됐습니다. 인터넷 연결을 확인하고 다시 눌러 주세요. 작성 내용은 그대로 저장되어 있습니다.'};
-  const ok=()=>{clearSaved();$('#saved').classList.remove('on');clearTimeout(document.t);STEPS.push({k:'sent'});step=STEPS.length-1;render()};
+  const ok=()=>{clearSaved();$('#saved').classList.remove('on');clearTimeout(document.t);STEPS.push({k:'sent'});step=STEPS.length-1;render();if(KZ.on)KZ.done($('#app'))};
   const payload={tab:S.tab,rows:rows()};
   if(window.__mockSubmit){window.__mockSubmit(payload)?ok():fail();return}
   fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).then(r=>r.json()).then(j=>j&&j.ok?ok():fail()).catch(fail);
