@@ -1,5 +1,7 @@
 # 구월경희한의원 홈페이지 — Claude Code 작업 규칙
 
+- **작업을 시작하면 먼저 `git pull`을 한다.** 원장님이 따로 말하지 않아도 한다 (다른 기기·클라우드에서 올린 수정이 있을 수 있음). 충돌이 나면 고치지 말고 원장님께 알린다.
+
 - 사실·원장님 관점·표현 규칙의 기준은 `D:\guwol-youtube\배경자료\` (01·02·03). 홈페이지에 쓰는 값은 `site.config.json` 한 곳에서 고친다.
 - 칼럼(질문형 페이지)은 `검수/칼럼_작성방식.md`를 따른다. 본능 분석(실력·진정성)과 반박 제거를 적용하고, 반박은 `검수/본능_반박_리스트.md`에서 고른다.
 - 수정 순서: 고치기 → `python build.py`(표현 검사) → `D:\guwol-site-audit\run_audit.bat auto`(AI 검색 점검) → Codex 검수 `powershell -ExecutionPolicy Bypass -File scripts\codex_review.ps1 changes` → 결과의 지적마다 "반영 / 반영 안 함 + 이유" 판단 → 의견이 갈리면 원장님 결정 → 원장님 확인 후 커밋·푸시.
