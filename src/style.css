@@ -275,6 +275,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
 .page-hero { background: var(--green-dark); color: #fff; padding: 40px 20px 44px; }
 .page-title { font-size: 27px; font-weight: 800; line-height: 1.4; }
 .page-lead { margin: 18px 0 0; font-size: 17px; color: rgba(255,255,255,.86); }
+.page-reviewed { margin: 12px 0 0; font-size: 13px; color: rgba(255,255,255,.62); letter-spacing: .01em; }
 .prose p { margin: 0 0 16px; }
 .prose p:last-child { margin-bottom: 0; }
 .prose h3 { font-size: 21px; font-weight: 800; color: var(--green); margin: 32px 0 10px; }

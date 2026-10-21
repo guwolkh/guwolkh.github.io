@@ -134,6 +134,9 @@ def clinic_jsonld(cfg):
         "sameAs": [u for u in (cfg.get("blogUrl"), cfg.get("youtubeUrl"), cfg.get("instagramUrl"),
                                cfg.get("naverPlaceUrl"), kakao_channel(cfg)) if u],
     }
+    if cfg.get("geo"):
+        data["geo"] = {"@type": "GeoCoordinates", "latitude": cfg["geo"]["latitude"],
+                       "longitude": cfg["geo"]["longitude"]}
     if site:
         data["@id"] = site + "/#clinic"
         data["url"] = site + "/"
@@ -147,7 +150,7 @@ def conditions_known(cfg):
         if pg.get("kind") == "condition":
             out.append(pg["condition"])
             out.extend(pg.get("alternateNames", []))
-    return out
+    return list(dict.fromkeys(out))  # 순서는 지키고 중복만 뺍니다
 
 
 def physician_ref(cfg):
@@ -217,7 +220,8 @@ def build_context(cfg):
 
 
 def nav_links(cfg, current):
-    items = [(f'/{pg["slug"]}/', pg["nav"], pg["slug"]) for pg in cfg.get("pages", []) if pg.get("nav")]
+    items = [(f'/{pg["slug"]}/', pg["nav"], pg["slug"]) for pg in cfg.get("pages", [])
+             if pg.get("nav") and not pg.get("hideNav")]
     items.append(("/#visit", "오시는 길", None))
     out = []
     for href, label, slug in items:
@@ -228,7 +232,7 @@ def nav_links(cfg, current):
 
 def footer_links(cfg):
     return "".join(f'<a href="/{e(pg["slug"])}/">{e(pg["nav"])}</a>'
-                      for pg in cfg.get("pages", []) if pg.get("nav"))
+                      for pg in cfg.get("pages", []) if pg.get("nav") and not pg.get("hideNav"))
 
 
 def render_faq_list(items):
@@ -285,6 +289,7 @@ def page_jsonld(cfg, pg, url):
                       **({"alternateName": pg["alternateNames"]} if pg.get("alternateNames") else {})},
             "publisher": clinic_ref,
             "author": physician_ref(cfg),
+            **({"lastReviewed": pg["reviewed"], "reviewedBy": physician_ref(cfg)} if pg.get("reviewed") else {}),
             "inLanguage": "ko",
         })
     elif kind == "director":
@@ -301,6 +306,9 @@ def page_jsonld(cfg, pg, url):
             "alumniOf": {"@type": "CollegeOrUniversity", "name": "경희대학교 한의과대학"},
             "knowsAbout": conditions_known(cfg),
             "description": pg["lead"],
+            **({"memberOf": [{"@type": "Organization", "name": n} for n in d["memberOf"]]} if d.get("memberOf") else {}),
+            **({"award": d["awards"]} if d.get("awards") else {}),
+            "hasCredential": {"@type": "EducationalOccupationalCredential", "credentialCategory": "한의사 면허"},
             "sameAs": [u for u in (cfg.get("blogUrl"), cfg.get("youtubeUrl")) if u],
         })
     if pg.get("faq"):
@@ -310,13 +318,16 @@ def page_jsonld(cfg, pg, url):
             "mainEntity": [{"@type": "Question", "name": q["q"],
                             "acceptedAnswer": {"@type": "Answer", "text": q["a"]}} for q in pg["faq"]],
         })
+    crumbs = [(cfg["name"], site + "/")]
+    parent = next((p for p in cfg.get("pages", []) if p["slug"] == pg.get("parent")), None)
+    if parent:
+        crumbs.append((parent["nav"], f"{site}/{parent['slug']}/"))
+    crumbs.append((pg["nav"], url))
     items.append({
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
-        "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": cfg["name"], "item": site + "/"},
-            {"@type": "ListItem", "position": 2, "name": pg["nav"], "item": url},
-        ],
+        "itemListElement": [{"@type": "ListItem", "position": i, "name": n, "item": u}
+                            for i, (n, u) in enumerate(crumbs, 1)],
     })
     return items
 
@@ -391,7 +402,10 @@ def main():
         hero = ('<section class="page-hero">'
                 f'<p class="hero-eyebrow">{e(pg.get("eyebrow", ""))}</p>'
                 f'<h1 class="page-title">{e(pg["h1"])}</h1>'
-                f'<p class="page-lead">{e(pg["lead"])}</p></section>')
+                f'<p class="page-lead">{e(pg["lead"])}</p>'
+                + (f'<p class="page-reviewed">최종 검토 {e(pg["reviewed"].replace("-", "."))} · '
+                   f'{e(cfg["director"]["title"])} {e(cfg["director"]["name"])}</p>' if pg.get("reviewed") else "")
+                + '</section>')
         content = (hero + "\n" + body + "\n" + render_faq(pg.get("faq"), heading=pg.get("kind") != "faq") + "\n"
                    + render_related(pg.get("related")) + "\n" + render_page_cta(cfg))
         pctx = dict(ctx)
@@ -402,7 +416,7 @@ def main():
             "canonical": f'<link rel="canonical" href="{e(url)}">' if site else "",
             "ogUrl": f'<meta property="og:url" content="{e(url)}">' if site else "",
             "jsonldTags": jsonld_tags(page_jsonld(cfg, pg, url)),
-            "navLinks": nav_links(cfg, pg["slug"]),
+            "navLinks": nav_links(cfg, pg.get("parent") or pg["slug"]),
             "footerLinks": footer_links(cfg),
             "content": content,
         })
