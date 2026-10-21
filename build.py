@@ -413,7 +413,7 @@ def main():
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(html, encoding="utf-8")
 
-    robots = "User-agent: *\nAllow: /\nDisallow: /munjin/\n"
+    robots = "User-agent: *\nAllow: /\nDisallow: /munjin/\nDisallow: /imyeong/\n"
     if site:
         robots += f"Sitemap: {site}/sitemap.xml\n"
         today = date.today().isoformat()

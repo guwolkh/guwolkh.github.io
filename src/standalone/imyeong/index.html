@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>구월경희한의원 이명 문진표</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2f6b57">
+<style>
+:root{--ink:#1c2422;--soft:#5b6662;--faint:#8b9692;--line:#d6ddda;--bg:#f4f7f6;--card:#fff;--accent:#2f6b57;--accent-d:#24543f;--tint:#e7f2ed;--warn:#b4513d;--fs:18px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:var(--fs)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;word-break:keep-all;min-height:100vh}
+body.big{--fs:21px}
+button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
+input{font:inherit;color:inherit}
+.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;gap:.6rem;padding:.65rem 1rem .5rem}
+.top .clinic{font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.top .ttl{font-size:.95rem;font-weight:800}
+.top .grow{flex:1;min-width:0}
+.fontbtn{flex:none;border:1.5px solid var(--line);border-radius:.6rem;padding:.25rem .6rem;font-size:.8rem;font-weight:700;color:var(--accent);background:#fff}
+body.big .fontbtn{background:var(--tint);border-color:var(--accent)}
+.prog{height:6px;background:#e4ebe8}.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.stepno{font-size:.75rem;color:var(--faint);padding:0 1rem .45rem}
+main{max-width:640px;margin:0 auto;padding:1rem 1rem 7.5rem}
+.sec-h{margin:.4rem 0 1rem}
+.sec-h .no{display:inline-flex;align-items:center;justify-content:center;min-width:1.9rem;height:1.9rem;border-radius:1rem;background:var(--accent);color:#fff;font-weight:800;font-size:.9rem;padding:0 .6rem;margin-bottom:.4rem}
+.sec-h h2{font-size:1.45rem;line-height:1.3;font-weight:800}
+.sec-h p{color:var(--soft);font-size:.9rem;margin-top:.3rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem;margin-bottom:.85rem}
+.q h3{font-size:1.05rem;font-weight:800;margin-bottom:.65rem;display:flex;gap:.5rem}
+.q h3 .n{flex:none;color:var(--accent)}
+.q .req{color:var(--warn);font-size:.8rem;font-weight:700;margin-left:.25rem}
+.q.err{border-color:var(--warn);box-shadow:0 0 0 2px #f3d9d3}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem}
+.tri button,.chip{min-height:3.1rem;border:1.5px solid var(--line);border-radius:.8rem;background:#fff;font-weight:700;font-size:.98rem;line-height:1.25;padding:.4rem .3rem}
+.tri button[aria-pressed="true"],.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}.opts .chip{padding:.4rem 1.1rem}
+input.txt{width:100%;border:1.5px solid var(--line);border-radius:.8rem;padding:.8rem .9rem;background:#fff;font-size:1rem;outline:none}
+input.txt:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--tint)}
+.consent{font-size:.88rem;color:var(--soft);background:#fafbfb;border:1px solid var(--line);border-radius:.7rem;padding:.75rem .85rem;margin-bottom:.7rem;line-height:1.6}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:1.1rem;padding:1.4rem 1.2rem;margin-bottom:.9rem}
+.hero h1{font-size:1.6rem;line-height:1.3;font-weight:800;margin:.2rem 0 .6rem}
+.hero .lead{color:var(--soft)}
+.hero ul{list-style:none;margin-top:1rem;display:grid;gap:.55rem}
+.hero li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.hero li b{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--tint);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.resume{background:#fff8e8;border:1.5px solid #e9cf8f;border-radius:1rem;padding:1rem;margin-bottom:.9rem}
+.resume p{font-weight:700;margin-bottom:.7rem}.resume .acts{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.msg{color:var(--warn);font-weight:700;font-size:.92rem;margin:.2rem 0 .8rem}
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom))}
+.foot .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:.6rem}.foot .in.solo{grid-template-columns:1fr}
+.btn{min-height:3.3rem;border-radius:.9rem;font-weight:800;font-size:1.05rem}
+.btn.pri{background:var(--accent);color:#fff}.btn.pri:active{background:var(--accent-d)}
+.btn.sec{background:#fff;border:1.5px solid var(--line);color:var(--soft)}.btn[disabled]{opacity:.55}
+.saved{position:fixed;left:50%;bottom:5.4rem;transform:translateX(-50%) translateY(10px);background:#26302d;color:#fff;font-size:.8rem;padding:.35rem .8rem;border-radius:1rem;opacity:0;transition:.25s;pointer-events:none;z-index:7}
+.saved.on{opacity:.92;transform:translateX(-50%)}
+.done{text-align:center;padding:3rem 1rem}
+.done .ok{width:4.5rem;height:4.5rem;border-radius:50%;background:var(--tint);color:var(--accent);font-size:2.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-weight:800}
+.done h2{font-size:1.5rem;margin-bottom:.5rem}.done p{color:var(--soft)}
+.src{font-size:.72rem;color:var(--faint);margin-top:1rem;text-align:center}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="bar"><div class="grow"><div class="clinic">구월경희한의원</div><div class="ttl">이명 문진표</div></div>
+  <button class="fontbtn" id="fontBtn" aria-pressed="false">가 글씨 크게</button></div>
+  <div class="prog"><i id="progBar"></i></div><div class="stepno" id="stepNo"></div>
+</header>
+<main id="app"></main>
+<div class="foot"><div class="in" id="foot"></div></div>
+<div class="saved" id="saved">✓ 자동 저장됨</div>
+<script>
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwGE1SjaA46fCAlclNKTUIZWoca2zDa9JHQxhKnkndfMxOIkxZPfwlo1LBOzkZA1FJQuQ/exec';
+const DATA={"thi": [["F", "이명 때문에 집중하기가 어렵습니까?"], ["F", "이명의 크기로 인해 다른 사람이 말하는 것을 듣기가 어렵습니까?"], ["E", "이명으로 인해 화가 날 때가 있습니까?"], ["F", "이명으로 인해 난처한 경우가 있습니까?"], ["C", "이명이 절망적인 문제라고 생각하십니까?"], ["E", "이명에 대해 많이 불평하는 편이십니까?"], ["F", "이명 때문에 밤에 잠을 자기가 어려우십니까?"], ["C", "이명에서 벗어날 수 없다고 생각하십니까?"], ["F", "이명으로 인해 사회적 활동에 방해를 받습니까? (예: 외식, 영화감상)"], ["E", "이명 때문에 좌절감을 느끼는 경우가 있습니까?"], ["C", "이명이 심각한 질병이라고 생각하십니까?"], ["F", "이명으로 인해 삶의 즐거움이 감소됩니까?"], ["F", "이명으로 인해 업무나 가사 일을 하는데 방해를 받습니까?"], ["E", "이명 때문에 종종 짜증나는 경우가 있습니까?"], ["F", "이명 때문에 책을 읽는 것이 어렵습니까?"], ["E", "이명으로 인해 기분이 몹시 상하는 경우가 있습니까?"], ["E", "이명이 가족이나 친구 관계에 스트레스를 준다고 느끼십니까?"], ["F", "이명에서 벗어나 다른 일들에 주의를 집중하기가 어렵습니까?"], ["C", "이명을 자신이 통제할 수 없다고 생각하십니까?"], ["F", "이명 때문에 종종 피곤감을 느끼십니까?"], ["E", "이명 때문에 우울감을 느끼십니까?"], ["E", "이명으로 인해 불안감을 느끼십니까?"], ["C", "이명에 더 이상 대처할 수 없다고 생각하십니까?"], ["F", "스트레스를 받으면 이명이 심해집니까?"], ["E", "이명으로 인해 불안정한 기분을 느끼십니까?"]], "hyper": ["일상적인 소리(그릇 부딪히는 소리, 문 닫는 소리 등)가 남들보다 유난히 크게 들린다", "큰 소리를 들으면 귀가 아프거나 먹먹해진다", "시끄러운 곳(식당, 마트, 모임 등)에 가는 것을 피한다", "소리 때문에 귀마개를 하거나 손으로 귀를 막는 일이 있다", "큰 소리를 들은 뒤에 이명이 더 심해진다", "특정 소리(씹는 소리, 숨소리, 키보드 소리 등)가 유독 거슬리고 화가 난다"]};
+const THI=DATA.thi, HYP=DATA.hyper;
+const ANS=[['아니다',0],['가끔 그렇다',2],['그렇다',4]];
+const PER=5;
+const STEPS=[{k:'intro'},{k:'basic'}];
+for(let i=0;i<THI.length;i+=PER)STEPS.push({k:'thi',from:i,to:Math.min(i+PER,THI.length)});
+STEPS.push({k:'hyp'},{k:'finish'});
+const KEY='gkh_tinnitus_v1',TTL=1000*60*60*24*14;
+let A={},step=0,sid='';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Date.now()-d.ts<TTL)return d}catch(e){}return null}
+function save(f){try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,ts:Date.now()}));if(f){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900)}}catch(e){}}
+function clearSaved(){try{localStorage.removeItem(KEY)}catch(e){}}
+function tri(id){return '<div class="tri">'+ANS.map(([l,v])=>`<button data-id="${id}" data-v="${v}" aria-pressed="${A[id]===String(v)}">${l}</button>`).join('')+'</div>'}
+function render(){
+  const s=STEPS[step],n=STEPS.length;
+  $('#progBar').style.width=(s.k==='sent'?100:Math.round(step/(n-1)*100))+'%';
+  $('#stepNo').textContent=(s.k==='intro'||s.k==='finish'||s.k==='sent')?'':`${step} / ${n-2} 단계`;
+  let h='';
+  if(s.k==='intro'){
+    const d=load();
+    if(d&&d.A&&Object.keys(d.A).length&&!render.r)h+=`<div class="resume"><p>작성하던 문진표가 있습니다.<br>이어서 하시겠어요?</p><div class="acts"><button class="btn sec" id="restart">처음부터</button><button class="btn pri" id="resume">이어서 하기</button></div></div>`;
+    h+=`<div class="hero"><div class="clinic" style="color:var(--accent);font-weight:700;font-size:.8rem">구월경희한의원</div><h1>이명 문진표</h1><p class="lead">이명이 생활에 주는 불편을 국제적으로 쓰는 표준 설문(이명장애지수, THI)으로 확인합니다. 치료 경과를 비교하는 데에도 쓰입니다.</p>
+    <ul><li><b>1</b><span>약 5분 걸립니다.</span></li><li><b>2</b><span>요즘의 상태를 떠올리며 <strong>모든 문항</strong>에 답해 주세요.</span></li><li><b>3</b><span>체크할 때마다 <strong>자동 저장</strong>되어, 창을 닫아도 이어서 할 수 있습니다.</span></li><li><b>4</b><span>글씨가 작으면 오른쪽 위 <strong>[가 글씨 크게]</strong>를 눌러 주세요.</span></li></ul></div>`;
+  }else if(s.k==='basic'){
+    h+=`<div class="sec-h"><div class="no">기본</div><h2>기본 정보</h2></div>
+    <div class="q" data-q="동의"><h3>개인정보 수집·이용 동의<span class="req">필수</span></h3><div class="consent">수집 항목: 성명, 생년월일, 이명 관련 건강정보<br>이용 목적: 진료 및 치료 경과 확인<br>보유 기간: 의료법에 따른 진료기록 보존 기간<br>동의를 거부하실 수 있으나, 이 경우 문진표 작성이 어렵습니다.</div><div class="opts"><button class="chip" data-id="동의" data-v="동의합니다" aria-pressed="${A['동의']==='동의합니다'}">위 내용에 동의합니다</button></div></div>
+    <div class="q" data-q="성명"><h3>성명<span class="req">필수</span></h3><input class="txt" data-t="성명" value="${esc(A['성명']||'')}" placeholder="홍길동"></div>
+    <div class="q" data-q="생년월일"><h3>생년월일<span class="req">필수</span></h3><input class="txt" data-t="생년월일" inputmode="numeric" value="${esc(A['생년월일']||'')}" placeholder="예: 1975.03.12"></div>
+    <div class="q" data-q="구분"><h3>이번 작성은<span class="req">필수</span></h3><div class="opts">${['처음 진료','치료 중 경과 확인'].map(v=>`<button class="chip" data-id="구분" data-v="${v}" aria-pressed="${A['구분']===v}">${v}</button>`).join('')}</div></div>`;
+  }else if(s.k==='thi'){
+    h+=`<div class="sec-h"><div class="no">이명장애지수</div><h2>이명으로 인한 불편</h2><p>요즘 상태에 가장 가까운 답을 골라 주세요. (${s.from+1}~${s.to}번 / 전체 ${THI.length}문항)</p></div>`;
+    for(let i=s.from;i<s.to;i++)h+=`<div class="q" data-q="t${i}"><h3><span class="n">${i+1}.</span><span>${esc(THI[i][1])}</span></h3>${tri('t'+i)}</div>`;
+    h+='<div class="msg" id="msg"></div>';
+  }else if(s.k==='hyp'){
+    h+=`<div class="sec-h"><div class="no">소리 예민함</div><h2>소리에 대한 예민함</h2><p>이명과 함께 소리에 예민해지는 경우가 많습니다. 해당하는 정도를 골라 주세요.</p></div>`;
+    HYP.forEach((t,i)=>h+=`<div class="q" data-q="h${i}"><h3><span class="n">${i+1}.</span><span>${esc(t)}</span></h3>${tri('h'+i)}</div>`);
+  }else if(s.k==='finish'){
+    h+=`<div class="done"><div class="ok">✓</div><h2>거의 다 되었습니다</h2><p>아래 <b>[제출하기]</b>를 눌러야 한의원으로 전달됩니다.<br>고칠 곳이 있으면 [이전]으로 돌아가실 수 있습니다.</p><div class="msg" id="msg" style="margin-top:1rem"></div></div>`;
+  }else if(s.k==='sent'){
+    h+=`<div class="done"><div class="ok">✓</div><h2>제출되었습니다</h2><p>작성해 주셔서 감사합니다.<br>진료실에서 뵙겠습니다.</p></div>`;
+  }
+  if(s.k==='intro')h+='<p class="src">이명장애지수(THI): Newman 외(1996), 한국어판 김지혜 외(2002, 대한이비인후과학회지)</p>';
+  $('#app').innerHTML=h;foot();window.scrollTo(0,0);
+}
+function foot(){
+  const s=STEPS[step],f=$('#foot');
+  if(s.k==='sent'){f.parentNode.style.display='none';return}
+  f.parentNode.style.display='';
+  if(s.k==='intro'){f.className='in solo';f.innerHTML='<button class="btn pri" id="next">시작하기</button>';return}
+  f.className='in';f.innerHTML='<button class="btn sec" id="prev">이전</button>'+(s.k==='finish'?'<button class="btn pri" id="submit">제출하기</button>':'<button class="btn pri" id="next">다음</button>');
+}
+function go(d){step=Math.max(0,Math.min(STEPS.length-1,step+d));save();render()}
+function mark(ids){document.querySelectorAll('.q.err').forEach(e=>e.classList.remove('err'));let first=null;ids.forEach(id=>{const el=document.querySelector(`.q[data-q="${id}"]`);if(el){el.classList.add('err');first=first||el}});if(first)first.scrollIntoView({behavior:'smooth',block:'center'});return !first}
+function validate(){
+  const s=STEPS[step];
+  if(s.k==='basic'){const miss=[];if(A['동의']!=='동의합니다')miss.push('동의');['성명','생년월일'].forEach(k=>{if(!String(A[k]||'').trim())miss.push(k)});if(!A['구분'])miss.push('구분');return mark(miss)}
+  if(s.k==='thi'){const miss=[];for(let i=s.from;i<s.to;i++)if(A['t'+i]==null||A['t'+i]==='')miss.push('t'+i);const ok=mark(miss);if(!ok)$('#msg').textContent='표준 점수 계산을 위해 모든 문항에 답해 주세요.';return ok}
+  return true;
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-id]');
+  if(b&&b.tagName==='BUTTON'){const id=b.dataset.id,v=b.dataset.v;A[id]=A[id]===v?'':v;b.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',A[id]===x.dataset.v));const q=b.closest('.q');q&&q.classList.remove('err');save(true);return}
+  const t=e.target.closest('button');if(!t)return;
+  if(t.id==='next'){if(!validate())return;if(!sid)sid=Date.now().toString(36)+Math.random().toString(36).slice(2,7);go(1)}
+  else if(t.id==='prev')go(-1);
+  else if(t.id==='resume'){const d=load();A=d.A||{};sid=d.sid||'';step=Math.max(1,Math.min(d.step||1,STEPS.length-1));render.r=true;render()}
+  else if(t.id==='restart'){clearSaved();A={};sid='';step=0;render.r=true;render()}
+  else if(t.id==='submit')submit(t);
+  else if(t.id==='fontBtn'){const on=document.body.classList.toggle('big');t.setAttribute('aria-pressed',on);try{localStorage.setItem('gkh_big',on?'1':'')}catch(_){}}
+});
+document.addEventListener('input',e=>{const el=e.target.closest('[data-t]');if(!el)return;A[el.dataset.t]=el.value;const q=el.closest('.q');q&&q.classList.remove('err');clearTimeout(document.t);document.t=setTimeout(()=>save(true),500)});
+function grade(t){return t<=16?'1단계(매우 경미)':t<=36?'2단계(경도)':t<=56?'3단계(중등도)':t<=76?'4단계(중증)':'5단계(최중증)'}
+function rows(){
+  let tot=0,F=0,E=0,C=0,miss=0;
+  THI.forEach(([d],i)=>{const v=A['t'+i];if(v===''||v==null){miss++;return}const n=+v;tot+=n;if(d==='F')F+=n;else if(d==='E')E+=n;else C+=n});
+  const lab=v=>v==null||v===''?'':(ANS.find(a=>String(a[1])===String(v))||[''])[0];
+  const r=[['제출ID',sid],['성명',A['성명']||''],['생년월일',A['생년월일']||''],['구분',A['구분']||''],['개인정보 동의',A['동의']||''],
+    ['THI 총점',miss?`${tot} (미응답 ${miss})`:tot],['THI 등급',miss?'':grade(tot)],['THI 기능(F)',F],['THI 정서(E)',E],['THI 파국(C)',C]];
+  THI.forEach(([d,q],i)=>r.push([`THI ${i+1} (${d})`,A['t'+i]==null?'':A['t'+i]]));
+  let hy=0;HYP.forEach((q,i)=>{const v=A['h'+i];if(v==='2'||v==='4')hy++;r.push([`소리예민 ${i+1}. ${q}`,lab(v)])});
+  r.push(['소리예민 해당 수 (가끔+그렇다)',hy]);
+  return r;
+}
+function submit(btn){
+  const msg=$('#msg');btn.disabled=true;btn.textContent='보내는 중…';msg.textContent='';
+  const fail=()=>{btn.disabled=false;btn.textContent='다시 제출하기';msg.textContent='전송이 안 됐습니다. 인터넷 연결을 확인하고 다시 눌러 주세요. 작성 내용은 그대로 저장되어 있습니다.'};
+  const ok=()=>{clearSaved();$('#saved').classList.remove('on');clearTimeout(document.t);STEPS.push({k:'sent'});step=STEPS.length-1;render()};
+  if(window.__mockSubmit){window.__mockSubmit({tab:'이명 문진',rows:rows()})?ok():fail();return}
+  fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({tab:'이명 문진',rows:rows()})}).then(r=>r.json()).then(j=>j&&j.ok?ok():fail()).catch(fail);
+}
+try{history.scrollRestoration='manual'}catch(e){}
+try{if(localStorage.getItem('gkh_big')){document.body.classList.add('big');$('#fontBtn').setAttribute('aria-pressed','true')}}catch(e){}
+render();
+</script>
+</body>
+</html>
