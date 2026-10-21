@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>구월경희한의원 말초신경병증 문진표</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2f6b57">
+<style>
+:root{--ink:#1c2422;--soft:#5b6662;--faint:#8b9692;--line:#d6ddda;--bg:#f4f7f6;--card:#fff;--accent:#2f6b57;--accent-d:#24543f;--tint:#e7f2ed;--warn:#b4513d;--fs:18px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:var(--fs)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;word-break:keep-all;min-height:100vh}
+body.big{--fs:21px}
+button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;gap:.6rem;padding:.65rem 1rem .5rem}
+.top .clinic{font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.top .ttl{font-size:.95rem;font-weight:800}.top .grow{flex:1;min-width:0}
+.fontbtn{flex:none;border:1.5px solid var(--line);border-radius:.6rem;padding:.25rem .6rem;font-size:.8rem;font-weight:700;color:var(--accent);background:#fff}
+body.big .fontbtn{background:var(--tint);border-color:var(--accent)}
+.prog{height:6px;background:#e4ebe8}.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.stepno{font-size:.75rem;color:var(--faint);padding:0 1rem .45rem}
+main{max-width:640px;margin:0 auto;padding:1rem 1rem 7.5rem}
+.sec-h{margin:.4rem 0 1rem}
+.sec-h .no{display:inline-flex;align-items:center;justify-content:center;min-width:1.9rem;height:1.9rem;border-radius:1rem;background:var(--accent);color:#fff;font-weight:800;font-size:.85rem;padding:0 .7rem;margin-bottom:.4rem}
+.sec-h h2{font-size:1.45rem;line-height:1.3;font-weight:800}
+.sec-h p{color:var(--soft);font-size:.9rem;margin-top:.3rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem;margin-bottom:.85rem}
+.q h3{font-size:1.05rem;font-weight:800;margin-bottom:.65rem;display:flex;gap:.5rem}
+.q h3 .n{flex:none;color:var(--accent)}
+.q .help{font-size:.82rem;color:var(--soft);margin:-.4rem 0 .6rem}
+.q .req{color:var(--warn);font-size:.8rem;font-weight:700;margin-left:.25rem}
+.q.err{border-color:var(--warn);box-shadow:0 0 0 2px #f3d9d3}
+.grid{display:grid;gap:.45rem}
+.grid button,.chip{min-height:3.1rem;border:1.5px solid var(--line);border-radius:.8rem;background:#fff;font-weight:700;font-size:.98rem;line-height:1.25;padding:.45rem .5rem}
+.grid.col button{text-align:left;padding:.6rem .9rem}
+.grid button[aria-pressed="true"],.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}.opts .chip{padding:.4rem 1.1rem}
+.nrs{display:grid;grid-template-columns:repeat(11,1fr);gap:.22rem}
+.nrs button{height:2.8rem;border:1.5px solid var(--line);border-radius:.55rem;background:#fff;font-weight:700;font-size:.92rem}
+.nrs button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.nrs-l{display:flex;justify-content:space-between;font-size:.78rem;color:var(--faint);margin-top:.35rem}
+input.txt,textarea.txt{width:100%;border:1.5px solid var(--line);border-radius:.8rem;padding:.8rem .9rem;background:#fff;font-size:1rem;outline:none}
+textarea.txt{min-height:4.5rem;resize:vertical}
+input.txt:focus,textarea.txt:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--tint)}
+.consent{font-size:.88rem;color:var(--soft);background:#fafbfb;border:1px solid var(--line);border-radius:.7rem;padding:.75rem .85rem;margin-bottom:.7rem;line-height:1.6}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:1.1rem;padding:1.4rem 1.2rem;margin-bottom:.9rem}
+.hero h1{font-size:1.6rem;line-height:1.3;font-weight:800;margin:.2rem 0 .6rem}.hero .lead{color:var(--soft)}
+.hero ul{list-style:none;margin-top:1rem;display:grid;gap:.55rem}
+.hero li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.hero li b{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--tint);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.resume{background:#fff8e8;border:1.5px solid #e9cf8f;border-radius:1rem;padding:1rem;margin-bottom:.9rem}
+.resume p{font-weight:700;margin-bottom:.7rem}.resume .acts{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.msg{color:var(--warn);font-weight:700;font-size:.92rem;margin:.2rem 0 .8rem}
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom))}
+.foot .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:.6rem}.foot .in.solo{grid-template-columns:1fr}
+.btn{min-height:3.3rem;border-radius:.9rem;font-weight:800;font-size:1.05rem}
+.btn.pri{background:var(--accent);color:#fff}.btn.pri:active{background:var(--accent-d)}
+.btn.sec{background:#fff;border:1.5px solid var(--line);color:var(--soft)}.btn[disabled]{opacity:.55}
+.saved{position:fixed;left:50%;bottom:5.4rem;transform:translateX(-50%) translateY(10px);background:#26302d;color:#fff;font-size:.8rem;padding:.35rem .8rem;border-radius:1rem;opacity:0;transition:.25s;pointer-events:none;z-index:7}
+.saved.on{opacity:.92;transform:translateX(-50%)}
+.done{text-align:center;padding:3rem 1rem}
+.done .ok{width:4.5rem;height:4.5rem;border-radius:50%;background:var(--tint);color:var(--accent);font-size:2.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-weight:800}
+.done h2{font-size:1.5rem;margin-bottom:.5rem}.done p{color:var(--soft)}
+.src{font-size:.72rem;color:var(--faint);margin-top:1rem;text-align:center;line-height:1.5}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="bar"><div class="grow"><div class="clinic">구월경희한의원</div><div class="ttl" id="ttl"></div></div>
+  <button class="fontbtn" id="fontBtn" aria-pressed="false">가 글씨 크게</button></div>
+  <div class="prog"><i id="progBar"></i></div><div class="stepno" id="stepNo"></div>
+</header>
+<main id="app"></main>
+<div class="foot"><div class="in" id="foot"></div></div>
+<div class="saved" id="saved">✓ 자동 저장됨</div>
+<script>
+/* SPEC 형식
+ {slug,title,tab,minutes,lead,source,
+  sections:[{badge,title,desc,required,items:[
+     {id,type:'choice'|'nrs'|'text'|'para',text,help,opts:[[label,score|null],...],domain}]}],
+  scales:[{name,ids:[...],bands:[[maxInclusive,label],...],requireAll}]}  */
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwGE1SjaA46fCAlclNKTUIZWoca2zDa9JHQxhKnkndfMxOIkxZPfwlo1LBOzkZA1FJQuQ/exec';
+const S={"slug": "malcho", "fileName": "말초신경병증문진표", "title": "말초신경병증 문진표", "subtitle": "미시간 신경병증 선별검사(MNSI) 기반", "tab": "말초신경병증 문진", "minutes": 5, "lead": "발·다리의 저림, 화끈거림, 감각 이상을 국제적으로 쓰는 선별 설문(미시간 신경병증 선별검사, MNSI)으로 확인하고, 증상의 정도를 0~10으로 기록해 치료 경과를 비교합니다.", "source": "MNSI 설문: Feldman 외(1994), 채점: Herman 외(2012) · 한국어 문장은 구월경희한의원 번역(공식 검증판 아님)", "sourcePlain": "MNSI(Michigan Neuropathy Screening Instrument) 환자 설문: Feldman 외, Diabetes Care 1994 · 채점·기준: Herman 외, Diabet Med 2012 · 한국어 문장은 자체 번역(공식 검증판 아님) · 0~10 문항은 경과 비교용", "scoringNote": "예 1점, 7·13번은 '아니오' 1점, 4·10번은 채점 안 함 · 13점 만점", "paperNote": "MNSI 4점 이상 → 신경병증 가능성 (Herman 2012 기준; 원래 기준은 7점 이상) · 0~10 합계는 경과 비교용", "sections": [{"badge": "MNSI", "title": "발과 다리의 감각", "desc": "요즘 상태에 맞게 '예' 또는 '아니오'를 골라 주세요.", "required": true, "items": [{"id": "m1", "n": 1, "type": "choice", "text": "다리나 발이 저리거나 감각이 둔합니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m2", "n": 2, "type": "choice", "text": "다리나 발에 화끈거리는 통증을 느낀 적이 있습니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m3", "n": 3, "type": "choice", "text": "발이 무언가에 닿는 것에 너무 예민합니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m4", "n": 4, "type": "choice", "text": "다리나 발에 쥐(근육 경련)가 납니까?", "opts": [["예", null], ["아니오", null]]}, {"id": "m5", "n": 5, "type": "choice", "text": "다리나 발이 따끔따끔하거나 찌릿찌릿한 느낌을 받은 적이 있습니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m6", "n": 6, "type": "choice", "text": "이불이 피부에 닿기만 해도 아픕니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m7", "n": 7, "type": "choice", "text": "목욕할 때 뜨거운 물과 찬물을 구별할 수 있습니까?", "opts": [["예", 0], ["아니오", 1]]}, {"id": "m8", "n": 8, "type": "choice", "text": "발에 상처(궤양)가 생긴 적이 있습니까?", "opts": [["예", 1], ["아니오", 0]]}]}, {"badge": "MNSI", "title": "발과 다리의 감각 (이어서)", "required": true, "items": [{"id": "m9", "n": 9, "type": "choice", "text": "의사에게 당뇨병성 신경병증이 있다는 말을 들은 적이 있습니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m10", "n": 10, "type": "choice", "text": "대부분의 시간 동안 기운이 없습니까?", "opts": [["예", null], ["아니오", null]]}, {"id": "m11", "n": 11, "type": "choice", "text": "증상이 밤에 더 심합니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m12", "n": 12, "type": "choice", "text": "걸을 때 다리가 아픕니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m13", "n": 13, "type": "choice", "text": "걸을 때 발의 감각을 느낄 수 있습니까?", "opts": [["예", 0], ["아니오", 1]]}, {"id": "m14", "n": 14, "type": "choice", "text": "발 피부가 갈라질 정도로 건조합니까?", "opts": [["예", 1], ["아니오", 0]]}, {"id": "m15", "n": 15, "type": "choice", "text": "발이나 다리를 절단한 적이 있습니까?", "opts": [["예", 1], ["아니오", 0]]}]}, {"badge": "정도", "title": "증상의 정도 (0~10)", "desc": "0은 전혀 없음, 10은 상상할 수 있는 가장 심한 정도입니다. 지난 1주일을 기준으로 골라 주세요.", "items": [{"id": "p1", "type": "nrs", "text": "발바닥·발의 통증", "short": "발바닥·발의 통증"}, {"id": "p2", "type": "nrs", "text": "저림·무감각(남의 살 같은 느낌)", "short": "저림·무감각(남의 살 같은 느낌)"}, {"id": "p3", "type": "nrs", "text": "화끈거림·시림", "short": "화끈거림·시림"}, {"id": "p4", "type": "nrs", "text": "증상 때문에 잠을 설친 정도", "short": "증상 때문에 잠을 설친 정도"}, {"id": "p5", "type": "nrs", "text": "증상 때문에 걷기 불편한 정도", "short": "증상 때문에 걷기 불편한 정도"}]}, {"badge": "관련 정보", "title": "관련 정보", "items": [{"id": "r1", "type": "choice", "text": "증상이 주로 어디까지 올라오나요?", "opts": [["발가락·발끝", null], ["발바닥 전체", null], ["발목까지", null], ["무릎 아래까지", null], ["손에도 있다", null]], "short": "범위"}, {"id": "r2", "type": "choice", "text": "당뇨가 있나요?", "opts": [["있다", null], ["없다", null], ["잘 모르겠다", null]], "short": "당뇨"}, {"id": "r3", "type": "choice", "text": "항암치료를 받은 적이 있나요?", "opts": [["예", null], ["아니오", null]], "short": "항암치료력"}, {"id": "r4", "type": "choice", "text": "허리 디스크·협착증 진단을 받은 적이 있나요?", "opts": [["예", null], ["아니오", null], ["잘 모르겠다", null]], "short": "허리 질환"}, {"id": "r5", "type": "text", "text": "처음 증상이 생긴 시기와 받은 진단 (예: 2년 전, 당뇨병성 신경병증)", "ph": "모르면 비워 두세요", "short": "시작 시기·진단"}]}], "scales": [{"name": "MNSI 점수 (0~13)", "ids": ["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m14", "m15"], "requireAll": true, "step": 1, "bands": [[3, "가능성 낮음"], [13, "신경병증 가능성 (4점 이상)"]]}, {"name": "증상 정도 합계 (0~50)", "ids": ["p1", "p2", "p3", "p4", "p5"]}]};
+const KEY='gkh_'+S.slug+'_v1',TTL=1000*60*60*24*14;
+const STEPS=[{k:'intro'},{k:'basic'}];S.sections.forEach((s,i)=>STEPS.push({k:'sec',i}));STEPS.push({k:'finish'});
+let A={},step=0,sid='';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ITEMS={};S.sections.forEach(s=>s.items.forEach(it=>ITEMS[it.id]=it));
+$('#ttl').textContent=S.title;
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Date.now()-d.ts<TTL)return d}catch(e){}return null}
+function save(f){try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,ts:Date.now()}));if(f){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900)}}catch(e){}}
+function clearSaved(){try{localStorage.removeItem(KEY)}catch(e){}}
+function itemHTML(it,n){
+  let h=`<div class="q" data-q="${it.id}"><h3>${n!=null?`<span class="n">${n}.</span>`:''}<span>${esc(it.text)}</span></h3>${it.help?`<div class="help">${esc(it.help)}</div>`:''}`;
+  if(it.type==='choice'){const short=it.opts.every(o=>o[0].length<=2);const long=!short&&(it.opts.length>3||it.opts.some(o=>o[0].length>7));
+    h+=`<div class="grid${long?' col':''}" style="${long?'':'grid-template-columns:repeat('+it.opts.length+',1fr)'}">`+it.opts.map((o,j)=>`<button data-id="${it.id}" data-v="${j}" aria-pressed="${A[it.id]===String(j)}">${esc(o[0])}</button>`).join('')+'</div>';}
+  else if(it.type==='nrs'){h+='<div class="nrs">'+Array.from({length:11},(_,v)=>`<button data-id="${it.id}" data-v="${v}" aria-pressed="${A[it.id]===String(v)}">${v}</button>`).join('')+`</div><div class="nrs-l"><span>${esc((it.ends||['전혀 없음','가장 심함'])[0])}</span><span>${esc((it.ends||['전혀 없음','가장 심함'])[1])}</span></div>`;}
+  else if(it.type==='text'){h+=`<input class="txt" data-t="${it.id}" value="${esc(A[it.id]||'')}" placeholder="${esc(it.ph||'')}">`;}
+  else if(it.type==='para'){h+=`<textarea class="txt" data-t="${it.id}" placeholder="${esc(it.ph||'편하게 적어 주세요')}">${esc(A[it.id]||'')}</textarea>`;}
+  return h+'</div>';
+}
+function render(){
+  const s=STEPS[step],n=STEPS.length;
+  $('#progBar').style.width=(s.k==='sent'?100:Math.round(step/(n-1)*100))+'%';
+  $('#stepNo').textContent=(s.k==='intro'||s.k==='finish'||s.k==='sent')?'':`${step} / ${n-2} 단계`;
+  let h='';
+  if(s.k==='intro'){
+    const d=load();
+    if(d&&d.A&&Object.keys(d.A).length&&!render.r)h+=`<div class="resume"><p>작성하던 문진표가 있습니다.<br>이어서 하시겠어요?</p><div class="acts"><button class="btn sec" id="restart">처음부터</button><button class="btn pri" id="resume">이어서 하기</button></div></div>`;
+    h+=`<div class="hero"><div class="clinic" style="color:var(--accent);font-weight:700;font-size:.8rem">구월경희한의원</div><h1>${esc(S.title)}</h1><p class="lead">${S.lead}</p>
+    <ul><li><b>1</b><span>약 ${S.minutes}분 걸립니다.</span></li><li><b>2</b><span>요즘의 상태를 떠올리며 답해 주세요.</span></li><li><b>3</b><span>체크할 때마다 <strong>자동 저장</strong>되어, 창을 닫아도 이어서 할 수 있습니다.</span></li><li><b>4</b><span>글씨가 작으면 오른쪽 위 <strong>[가 글씨 크게]</strong>를 눌러 주세요.</span></li></ul></div>`;
+    if(S.source)h+=`<p class="src">${S.source}</p>`;
+  }else if(s.k==='basic'){
+    h+=`<div class="sec-h"><div class="no">기본</div><h2>기본 정보</h2></div>
+    <div class="q" data-q="동의"><h3>개인정보 수집·이용 동의<span class="req">필수</span></h3><div class="consent">수집 항목: 성명, 생년월일, 관련 건강정보<br>이용 목적: 진료 및 치료 경과 확인<br>보유 기간: 의료법에 따른 진료기록 보존 기간<br>동의를 거부하실 수 있으나, 이 경우 문진표 작성이 어렵습니다.</div><div class="opts"><button class="chip" data-id="동의" data-v="동의합니다" aria-pressed="${A['동의']==='동의합니다'}">위 내용에 동의합니다</button></div></div>
+    <div class="q" data-q="성명"><h3>성명<span class="req">필수</span></h3><input class="txt" data-t="성명" value="${esc(A['성명']||'')}" placeholder="홍길동"></div>
+    <div class="q" data-q="생년월일"><h3>생년월일<span class="req">필수</span></h3><input class="txt" data-t="생년월일" inputmode="numeric" value="${esc(A['생년월일']||'')}" placeholder="예: 1975.03.12"></div>
+    <div class="q" data-q="구분"><h3>이번 작성은<span class="req">필수</span></h3><div class="opts">${['처음 진료','치료 중 경과 확인'].map(v=>`<button class="chip" data-id="구분" data-v="${v}" aria-pressed="${A['구분']===v}">${v}</button>`).join('')}</div></div>`;
+  }else if(s.k==='sec'){
+    const sec=S.sections[s.i];
+    h+=`<div class="sec-h"><div class="no">${esc(sec.badge||String(s.i+1))}</div><h2>${esc(sec.title)}</h2>${sec.desc?`<p>${sec.desc}</p>`:''}</div>`;
+    sec.items.forEach(it=>h+=itemHTML(it,it.n));
+    h+='<div class="msg" id="msg"></div>';
+  }else if(s.k==='finish'){
+    h+=`<div class="done"><div class="ok">✓</div><h2>거의 다 되었습니다</h2><p>아래 <b>[제출하기]</b>를 눌러야 한의원으로 전달됩니다.<br>고칠 곳이 있으면 [이전]으로 돌아가실 수 있습니다.</p><div class="msg" id="msg" style="margin-top:1rem"></div></div>`;
+  }else if(s.k==='sent'){
+    h+=`<div class="done"><div class="ok">✓</div><h2>제출되었습니다</h2><p>작성해 주셔서 감사합니다.<br>진료실에서 뵙겠습니다.</p></div>`;
+  }
+  $('#app').innerHTML=h;foot();window.scrollTo(0,0);
+}
+function foot(){
+  const s=STEPS[step],f=$('#foot');
+  if(s.k==='sent'){f.parentNode.style.display='none';return}
+  f.parentNode.style.display='';
+  if(s.k==='intro'){f.className='in solo';f.innerHTML='<button class="btn pri" id="next">시작하기</button>';return}
+  f.className='in';f.innerHTML='<button class="btn sec" id="prev">이전</button>'+(s.k==='finish'?'<button class="btn pri" id="submit">제출하기</button>':'<button class="btn pri" id="next">다음</button>');
+}
+function go(d){step=Math.max(0,Math.min(STEPS.length-1,step+d));save();render()}
+function mark(ids){document.querySelectorAll('.q.err').forEach(e=>e.classList.remove('err'));let first=null;ids.forEach(id=>{const el=document.querySelector(`.q[data-q="${id}"]`);if(el){el.classList.add('err');first=first||el}});if(first)first.scrollIntoView({behavior:'smooth',block:'center'});return !first}
+const empty=v=>v==null||String(v).trim()==='';
+function validate(){
+  const s=STEPS[step];
+  if(s.k==='basic'){const miss=[];if(A['동의']!=='동의합니다')miss.push('동의');['성명','생년월일','구분'].forEach(k=>{if(empty(A[k]))miss.push(k)});return mark(miss)}
+  if(s.k==='sec'){const sec=S.sections[s.i];if(!sec.required)return true;const miss=sec.items.filter(it=>it.type!=='text'&&it.type!=='para'&&empty(A[it.id])).map(it=>it.id);const ok=mark(miss);if(!ok)$('#msg').textContent='정확한 점수 계산을 위해 모든 문항에 답해 주세요.';return ok}
+  return true;
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button[data-id]');
+  if(b){const id=b.dataset.id,v=b.dataset.v;A[id]=A[id]===v?'':v;b.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',A[id]===x.dataset.v));const q=b.closest('.q');q&&q.classList.remove('err');save(true);return}
+  const t=e.target.closest('button');if(!t)return;
+  if(t.id==='next'){if(!validate())return;if(!sid)sid=Date.now().toString(36)+Math.random().toString(36).slice(2,7);go(1)}
+  else if(t.id==='prev')go(-1);
+  else if(t.id==='resume'){const d=load();A=d.A||{};sid=d.sid||'';step=Math.max(1,Math.min(d.step||1,STEPS.length-1));render.r=true;render()}
+  else if(t.id==='restart'){clearSaved();A={};sid='';step=0;render.r=true;render()}
+  else if(t.id==='submit')submit(t);
+  else if(t.id==='fontBtn'){const on=document.body.classList.toggle('big');t.setAttribute('aria-pressed',on);try{localStorage.setItem('gkh_big',on?'1':'')}catch(_){}}
+});
+document.addEventListener('input',e=>{const el=e.target.closest('[data-t]');if(!el)return;A[el.dataset.t]=el.value;const q=el.closest('.q');q&&q.classList.remove('err');clearTimeout(document.t);document.t=setTimeout(()=>save(true),500)});
+function score(id){const it=ITEMS[id],v=A[id];if(empty(v))return null;if(it.type==='nrs')return +v;if(it.type==='choice'){const o=it.opts[+v];return o?o[1]:null}return null}
+function label(id){const it=ITEMS[id],v=A[id];if(empty(v))return'';if(it.type==='choice')return it.opts[+v][0];return String(v)}
+function rows(){
+  const r=[['제출ID',sid],['성명',A['성명']||''],['생년월일',A['생년월일']||''],['구분',A['구분']||''],['개인정보 동의',A['동의']||'']];
+  (S.scales||[]).forEach(sc=>{let t=0,miss=0;sc.ids.forEach(id=>{if(empty(A[id])){miss++;return}const v=score(id);if(v!=null)t+=v});
+    r.push([sc.name,miss&&sc.requireAll?`${t} (미응답 ${miss})`:t]);
+    if(sc.bands){const b=sc.bands.find(([mx])=>t<=mx);r.push([sc.name+' 판정',miss&&sc.requireAll?'':(b?b[1]:'')])}});
+  S.sections.forEach(sec=>sec.items.forEach(it=>{const sc=score(it.id);const lab=label(it.id);
+    r.push([`${it.n!=null?it.n+'. ':''}${it.short||it.text}`,it.type==='choice'&&sc!=null&&it.showScore!==false?`${lab} (${sc})`:lab])}));
+  return r;
+}
+function submit(btn){
+  const msg=$('#msg');btn.disabled=true;btn.textContent='보내는 중…';msg.textContent='';
+  const fail=()=>{btn.disabled=false;btn.textContent='다시 제출하기';msg.textContent='전송이 안 됐습니다. 인터넷 연결을 확인하고 다시 눌러 주세요. 작성 내용은 그대로 저장되어 있습니다.'};
+  const ok=()=>{clearSaved();$('#saved').classList.remove('on');clearTimeout(document.t);STEPS.push({k:'sent'});step=STEPS.length-1;render()};
+  const payload={tab:S.tab,rows:rows()};
+  if(window.__mockSubmit){window.__mockSubmit(payload)?ok():fail();return}
+  fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).then(r=>r.json()).then(j=>j&&j.ok?ok():fail()).catch(fail);
+}
+try{history.scrollRestoration='manual'}catch(e){}
+try{if(localStorage.getItem('gkh_big')){document.body.classList.add('big');$('#fontBtn').setAttribute('aria-pressed','true')}}catch(e){}
+render();
+</script>
+</body>
+</html>
