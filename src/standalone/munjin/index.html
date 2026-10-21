@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>구월경희한의원 한약 문진표</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2f6b57">
+<style>
+:root{
+  --ink:#1c2422; --soft:#5b6662; --faint:#8b9692; --line:#d6ddda; --bg:#f4f7f6; --card:#ffffff;
+  --accent:#2f6b57; --accent-d:#24543f; --tint:#e7f2ed; --warn:#b4513d; --fs:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:var(--fs)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;word-break:keep-all;min-height:100vh}
+body.big{--fs:21px}
+button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
+input,textarea{font:inherit;color:inherit}
+
+.top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;gap:.6rem;padding:.65rem 1rem .5rem}
+.top .clinic{font-size:.72rem;font-weight:700;color:var(--accent);letter-spacing:.04em}
+.top .ttl{font-size:.95rem;font-weight:800}
+.top .grow{flex:1;min-width:0}
+.fontbtn{flex:none;border:1.5px solid var(--line);border-radius:.6rem;padding:.25rem .6rem;font-size:.8rem;font-weight:700;color:var(--accent);background:#fff}
+body.big .fontbtn{background:var(--tint);border-color:var(--accent)}
+.prog{height:6px;background:#e4ebe8}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.stepno{font-size:.75rem;color:var(--faint);padding:0 1rem .45rem}
+
+main{max-width:640px;margin:0 auto;padding:1rem 1rem 7.5rem}
+.sec-h{margin:.4rem 0 1rem}
+.sec-h .no{display:inline-flex;align-items:center;justify-content:center;min-width:1.9rem;height:1.9rem;border-radius:1rem;background:var(--accent);color:#fff;font-weight:800;font-size:.9rem;padding:0 .5rem;margin-bottom:.4rem}
+.sec-h h2{font-size:1.45rem;line-height:1.3;font-weight:800}
+.sec-h p{color:var(--soft);font-size:.9rem;margin-top:.3rem}
+
+.q{background:var(--card);border:1px solid var(--line);border-radius:1rem;padding:1rem;margin-bottom:.85rem}
+.q h3{font-size:1.05rem;font-weight:800;margin-bottom:.15rem}
+.q .sub{font-size:.8rem;color:var(--faint);margin-bottom:.65rem}
+.q .req{color:var(--warn);font-size:.8rem;font-weight:700;margin-left:.25rem}
+.q.err{border-color:var(--warn);box-shadow:0 0 0 2px #f3d9d3}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.opts.col{flex-direction:column}
+.chip{display:flex;align-items:center;gap:.55rem;min-height:3rem;padding:.55rem .95rem;border:1.5px solid var(--line);border-radius:.8rem;background:#fff;text-align:left;font-size:1rem;line-height:1.35;transition:background .12s,border-color .12s}
+.opts.col .chip{width:100%}
+.chip .box{flex:none;width:1.35rem;height:1.35rem;border:2px solid #9aa6a1;border-radius:.35rem;display:flex;align-items:center;justify-content:center;background:#fff}
+.chip.radio .box{border-radius:50%}
+.chip[aria-pressed="true"]{background:var(--tint);border-color:var(--accent);font-weight:700}
+.chip[aria-pressed="true"] .box{background:var(--accent);border-color:var(--accent)}
+.chip[aria-pressed="true"] .box::after{content:"";width:.42rem;height:.75rem;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chip.radio[aria-pressed="true"] .box::after{width:.55rem;height:.55rem;border:none;border-radius:50%;background:#fff;transform:none}
+input.txt,textarea.txt{width:100%;border:1.5px solid var(--line);border-radius:.8rem;padding:.8rem .9rem;background:#fff;font-size:1rem;outline:none}
+input.txt:focus,textarea.txt:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--tint)}
+textarea.txt{min-height:5.5rem;resize:vertical}
+.scale{display:grid;grid-template-columns:repeat(11,1fr);gap:.25rem}
+.scale button{height:2.8rem;border:1.5px solid var(--line);border-radius:.55rem;background:#fff;font-weight:700;font-size:.95rem}
+.scale button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.scale-l{display:flex;justify-content:space-between;font-size:.78rem;color:var(--faint);margin-top:.35rem}
+
+.pair{display:grid;gap:.5rem}
+.pair .or{text-align:center;font-size:.78rem;color:var(--faint);font-weight:700}
+
+.emo .row{border-top:1px solid #edf1ef;padding:.8rem 0}
+.emo .row:first-of-type{border-top:none;padding-top:.2rem}
+.emo .name{font-weight:800}
+.emo .desc{font-size:.82rem;color:var(--soft);margin:.1rem 0 .5rem}
+.emo .btns{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.emo .btns button{min-height:2.8rem;border:1.5px solid var(--line);border-radius:.7rem;background:#fff;font-weight:700}
+.emo .btns button.near[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.emo .btns button.far[aria-pressed="true"]{background:#8a4560;border-color:#8a4560;color:#fff}
+.emo .count{font-size:.85rem;color:var(--soft);margin-top:.4rem}
+
+.intro .hero{background:var(--card);border:1px solid var(--line);border-radius:1.1rem;padding:1.4rem 1.2rem;margin-bottom:.9rem}
+.intro h1{font-size:1.6rem;line-height:1.3;font-weight:800;margin:.2rem 0 .6rem}
+.intro .lead{color:var(--soft)}
+.intro ul{list-style:none;margin-top:1rem;display:grid;gap:.55rem}
+.intro li{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.intro li b{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--tint);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.resume{background:#fff8e8;border:1.5px solid #e9cf8f;border-radius:1rem;padding:1rem;margin-bottom:.9rem}
+.resume p{font-weight:700;margin-bottom:.7rem}
+.resume .acts{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.consent{font-size:.88rem;color:var(--soft);background:#fafbfb;border:1px solid var(--line);border-radius:.7rem;padding:.75rem .85rem;margin-bottom:.7rem;line-height:1.6}
+
+.foot{position:fixed;left:0;right:0;bottom:0;z-index:6;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom))}
+.foot .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:.6rem}
+.foot .in.solo{grid-template-columns:1fr}
+.btn{min-height:3.3rem;border-radius:.9rem;font-weight:800;font-size:1.05rem}
+.btn.pri{background:var(--accent);color:#fff}
+.btn.pri:active{background:var(--accent-d)}
+.btn.sec{background:#fff;border:1.5px solid var(--line);color:var(--soft)}
+.btn[disabled]{opacity:.55}
+.saved{position:fixed;left:50%;bottom:5.4rem;transform:translateX(-50%) translateY(10px);background:#26302d;color:#fff;font-size:.8rem;padding:.35rem .8rem;border-radius:1rem;opacity:0;transition:.25s;pointer-events:none;z-index:7}
+.saved.on{opacity:.92;transform:translateX(-50%)}
+.msg{color:var(--warn);font-weight:700;font-size:.9rem;margin:.2rem 0 .8rem}
+.done{text-align:center;padding:3rem 1rem}
+.done .ok{width:4.5rem;height:4.5rem;border-radius:50%;background:var(--tint);color:var(--accent);font-size:2.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-weight:800}
+.done h2{font-size:1.5rem;margin-bottom:.5rem}
+.done p{color:var(--soft)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="bar">
+    <div class="grow"><div class="clinic">구월경희한의원</div><div class="ttl">한약 문진표</div></div>
+    <button class="fontbtn" id="fontBtn" aria-pressed="false">가 글씨 크게</button>
+  </div>
+  <div class="prog"><i id="progBar"></i></div>
+  <div class="stepno" id="stepNo"></div>
+</header>
+<main id="app"></main>
+<div class="foot"><div class="in" id="foot"></div></div>
+<div class="saved" id="saved">✓ 자동 저장됨</div>
+
+<script>
+// ---------------- 질문 데이터 ----------------
+// r 하나만 / c 여러 개 / t 짧은 답 / p 긴 답 / s 0~10
+const BODY=['손','발','가슴','얼굴','뒷머리','뒷목','어깨','등','옆구리','허리','아랫배','엉덩이','온몸','뼛속'];
+const SECTIONS=[
+ {no:'1',title:'가장 불편한 증상',hint:'편하게 적어 주세요.',items:[
+  ['p','가장 불편하거나 먼저 치료받고 싶은 증상'],
+  ['p','언제부터 시작됐고, 어떻게 변해 왔나요?'],
+  ['c','증상이 더 심해지는 시간',['새벽','오전','오후','한밤']],
+  ['c','증상이 더 심해지는 날씨',['흐릴 때','건조할 때','추울 때','더울 때']],
+  ['c','증상이 더 심해지는 계절',['봄','여름','가을','겨울','환절기']],
+  ['c','증상이 더 심해지는 상황',['신경 쓸 때','피곤할 때','밥 먹은 후','배고플 때','생리 전','생리 후']],
+  ['c','그 밖에 해당하는 것',['아픈 곳이나 증상이 수시로 바뀐다']]]},
+ {no:'2',title:'드시는 약 · 앓았던 병',hint:'없으면 비워 두세요.',items:[
+  ['p','현재 드시는 약 · 건강기능식품'],
+  ['p','수술 · 큰 병 이력']]},
+ {no:'3',title:'식사 · 식욕',items:[
+  ['r','식욕',['좋다','보통이다','최근에 줄었다','없다']],
+  ['t','한 끼 식사량','예: 아침 거름 / 점심 1공기 / 저녁 반 공기'],
+  ['c','간식 · 야식',['간식을 먹는다','야식을 먹는다']],
+  ['r','남들과 비교하면',['많이 먹는 편','적게 먹는 편']],
+  ['c','자주 당기는 음식',['매운 음식','단 음식']],
+  ['c','그 밖에 해당하는 것',['배가 금방 고파진다','배가 고프면 못 참는다','식사 때가 지나도 배가 안 고프다','살찔까 봐 적게 먹는다','조금만 많이 먹어도 불편하다','폭식할 때가 자주 있다']]]},
+ {no:'4',title:'물 · 음료 · 술',items:[
+  ['r','목마름',['자주 목이 마르다','별로 없다','입은 마르는데 물은 안 당긴다']],
+  ['r','물 마시는 방식',['벌컥벌컥','조금씩']],
+  ['r','즐겨 마시는 음료',['차가운 음료','따뜻한 음료']],
+  ['t','하루에 마시는 양 (물·커피·차·탄산·우유·주스 모두)','예: 1.5리터 / 종이컵 6잔'],
+  ['c','물을 마시는 이유',['목이 말라서','건강에 좋다고 해서','습관적으로']],
+  ['t','술','예: 일주일에 2번, 한 번에 소주 1병'],
+  ['c','그 밖에 해당하는 것',['물을 마셔도 갈증이 잘 안 풀린다','한 번에 한 컵을 마시면 부담스럽다']]]},
+ {no:'5',title:'소화',items:[
+  ['r','평소 소화',['잘 된다','잘 안 된다']],
+  ['t','소화가 안 된다면 일주일에 몇 번?','예: 3번'],
+  ['c','자주 나오는 것',['트림','방귀']],
+  ['c','식후 배가 빵빵해지는 곳',['윗배','아랫배','배 전체']],
+  ['c','식후 아픈 곳',['가슴','명치','윗배','아랫배']],
+  ['c','식후 몸 상태',['눕고 싶다','나른하다','졸리다']],
+  ['c','속 쓰린 때',['식후','빈속일 때','새벽','저녁']],
+  ['c','커피를 마시면',['잠이 안 온다','가슴이 두근거린다','속이 쓰리다']],
+  ['c','그 밖에 해당하는 것',['잘 체한다','속이 더부룩하다','기름진 음식은 소화가 잘 안 된다','메스껍다 (미식거림)','토한다','신물이 올라온다','배에서 소리가 자주 난다','차멀미를 잘한다','평소 몸이 무겁다','움직이기 싫고 눕고 싶다','살이 잘 찐다','체중 변화가 심하다']]]},
+ {no:'6',title:'대변',items:[
+  ['t','횟수 · 시간','예: 하루 1번, 5분 정도'],
+  ['c','모양',['보통','무르다','단단하다','처음엔 딱딱하고 나중엔 무르다','토끼똥처럼 동글동글','물설사','끈적하다','그때그때 다르다']],
+  ['c','색깔',['황금색','녹색','검은색','피가 비친다']],
+  ['c','나올 때',['잘 나온다','잘 안 나온다','쏟아지듯 나온다','힘없이 새어 나오는 느낌','불규칙하다']],
+  ['c','보고 난 뒤',['시원하지 않다','항문이 화끈거린다','항문이 빠지거나 처진다','힘이 빠진다']],
+  ['r','못 보는 날에는',['하루만 못 봐도 답답하다','며칠 못 봐도 괜찮다']],
+  ['c','그 밖에 해당하는 것',['냄새가 심하다','변비약이나 변비에 좋은 식품을 먹는다']]]},
+ {no:'7',title:'소변',items:[
+  ['t','낮(일어나서 잠들 때까지) 횟수','예: 6번'],
+  ['t','밤(자는 동안) 횟수','예: 1번'],
+  ['r','양',['적다','보통','많다']],
+  ['c','색깔',['보통','맑다','진하다','탁하다','거품이 많다']],
+  ['c','그 밖에 해당하는 것',['냄새가 심하다','볼 때 아프다','보고 나도 시원하지 않다']]]},
+ {no:'8',title:'땀',items:[
+  ['r','땀의 양',['많다','보통','적다']],
+  ['r','땀 냄새',['심하다','약간 있다','없다']],
+  ['c','땀 나는 곳',['온몸','머리','얼굴','가슴','뒷목','등','겨드랑이','손','발','사타구니','다리']],
+  ['c','땀 나는 때',['낮','잘 때','밥 먹을 때','긴장할 때','신경 쓸 때','과로했을 때']],
+  ['r','땀 흘린 뒤',['개운하다','피곤하다','아무렇지 않다']],
+  ['c','그 밖에 해당하는 것',['목욕이나 사우나 후에 한숨 자야 한다','저녁이 되면 발 냄새가 심하다']]]},
+ {no:'9',title:'잠',items:[
+  ['t','잠자는 시간','예: 12시에 자서 7시에 일어남'],
+  ['t','잠들기까지 걸리는 시간','예: 30분'],
+  ['t','자다가 깨는 횟수 (하룻밤)','예: 2번'],
+  ['r','깨는 때는',['거의 같은 시간에','불규칙하게']],
+  ['c','깨는 이유',['그냥','소변','속이 불편해서','목이 말라서']],
+  ['t','수면제','예: 1알 (안 드시면 비워 두세요)'],
+  ['c','그 밖에 해당하는 것',['잠을 잘 잔다','꿈이 많다','깨면 다시 잠들기 어렵다','이불을 덮으면 갑갑해서 잘 안 덮는다','발을 이불 밖에 내놓아야 편하다','추워서 양말을 신고 잔다','낮에도 자주 졸리다','아침에 일어나기 힘들다']]]},
+ {no:'10',title:'추위 · 더위',items:[
+  ['r','많이 타는 것',['추위','더위','둘 다']],
+  ['c','열이 나거나 더운 곳',BODY],
+  ['c','→ 더운 시간',['새벽','오전','오후','밤','하루 종일']],
+  ['c','차거나 시린 곳',BODY],
+  ['c','→ 시린 시간',['새벽','오전','오후','밤','하루 종일']],
+  ['r','선풍기 · 에어컨 바람',['싫다','좋다']],
+  ['c','그 밖에 해당하는 것',['상체는 덥고 하체는 차다','더웠다 추웠다 한다','열이 한 번씩 확 오른다','얼굴이 잘 붉어진다','손발이 차다','사우나·찜질방에 5분 이상 있으면 답답하다','여름에도 찬물로 샤워를 못 한다','여름에도 찬물을 못 마신다']]]},
+ {no:'11',title:'감기 · 찬 음식',items:[
+  ['r','감기',['자주 걸린다','보통이다','잘 안 걸린다']],
+  ['c','감기 걸리면 주로',['몸살','콧물','기침','가래','목 아픔','고열']],
+  ['c','찬 것을 먹으면',['두통','복통','설사']],
+  ['c','→ 특히 무엇을?',['찬물','우유','수박','참외','냉커피','아이스크림','항생제']]]},
+ {no:'12',title:'피부 · 붓기',items:[
+  ['c','해당하는 것',['피부가 건조하고 잘 튼다','얼굴에 기름기가 많다','머리카락이 푸석하다','비듬이 많다','입술이 건조하다','손발톱이 거칠고 잘 부러진다','발뒤꿈치가 갈라진다','멍이 잘 든다','멍이 들면 오래 간다','다크서클이 심하다','피부에 파랗거나 보라색 핏줄이 많이 보인다']],
+  ['t','피부 질환 진단명 · 부위','예: 아토피, 팔 안쪽'],
+  ['c','피부 증상',['두드러기','가려움','진물','각질','작은 붉은 점','붉은 반점','흰 반점']],
+  ['t','자주 붓는다면: 일주일에 몇 번 · 부위','예: 3번, 얼굴과 발'],
+  ['c','→ 붓는 시간',['아침','저녁','하루 종일']],
+  ['c','→ 붓는 때',['피곤할 때','소화가 안 될 때','오래 서 있을 때']]]},
+ {no:'13',title:'통증 · 저림',items:[
+  ['c','어떤 느낌인가요?',['아프다','쑤신다','찌르는 듯하다','당긴다','저리다','뻣뻣하다','남의 살 같다','벌레가 기어가는 듯하다','무겁다','쥐가 잘 난다','떨린다']],
+  ['t','어디가 그런가요?','예: 오른쪽 어깨, 양쪽 무릎'],
+  ['r','아픈 곳이',['한 곳에 고정되어 있다','여기저기 옮겨 다닌다']],
+  ['c','심한 시간',['새벽','오전','오후','저녁','한밤','하루 종일']],
+  ['c','더 아플 때',['움직이면','가만히 있으면','잘 때']]]},
+ {no:'14',title:'머리 · 눈 · 코 · 귀 · 입',items:[
+  ['c','머리',['자주 아프다','어지럽다','멍하다','무겁다']],
+  ['c','눈',['피로하다','건조하다','충혈된다','침침하다','눈물이 난다']],
+  ['c','코',['재채기','콧물','건조하다','코막힘','코피']],
+  ['c','귀',['소리가 난다(왼쪽)','소리가 난다(오른쪽)','잘 안 들린다','아프다']],
+  ['c','입',['혓바늘·구내염이 잘 생긴다','입 냄새가 심하다','입이 쓰다','입이 맵다']]]},
+ {no:'15',title:'목 · 가슴',items:[
+  ['c','가슴이 자주',['답답하다','두근거린다','뻐근하다','따끔하다']],
+  ['c','옆구리가 자주',['답답하다','아프다']],
+  ['c','그 밖에 해당하는 것',['목에 뭔가 걸린 것 같다','사레가 잘 들린다','갑자기 기침이 터진다','조금만 움직여도 숨이 차다','한숨을 자주 쉰다']]]},
+ {no:'16',title:'요즘 마음 상태',items:[
+  ['c','해당하는 것',['화가 잘 난다','공격적이 된다','짜증이 잘 난다','잘 놀란다','겁이 많다','불안하다','초조하다','활기가 없다','만사가 귀찮다','의욕이 없다','근심·걱정이 많다','생각이 많다','우유부단하다']]]},
+ {no:'17',title:'여성 건강',hint:'여성분만 보이는 질문입니다.',women:true,items:[
+  ['t','최근 생리 시작일','예: 10월 3일'],
+  ['t','초경 나이 / 폐경 나이','예: 13세 / 해당 없음'],
+  ['t','생리 기간 · 주기','예: 5일 동안, 28일마다'],
+  ['r','주기는',['규칙적이다','빨라진다','늦어진다','들쭉날쭉하다']],
+  ['r','양',['적다','보통','많다']],
+  ['c','색',['묽다','붉은색','자주색','갈색','검은색']],
+  ['r','덩어리',['있다','없다']],
+  ['r','생리통',['없다','가끔 있다','항상 있다']],
+  ['t','진통제','예: 2알'],
+  ['s','생리통 정도'],
+  ['c','아픈 시기',['생리 전','생리 초기','중기','후기','끝난 후']],
+  ['c','아픈 곳',['아랫배','허리','엉치','밑이 빠질 것 같다']],
+  ['c','생리 때 함께 나타나는 증상',['식욕이 는다','식욕이 준다','소화불량','붓는다','체중 증가','두통','몸살','가슴 통증','외음부 가려움','감기','어지럼','메스꺼움','변비','설사']],
+  ['r','냉(분비물) 양',['없다','적다','많다']],
+  ['c','냉 색',['투명','흰색','노란색','녹색','붉은색']],
+  ['t','임신 · 출산 · 자연유산 · 인공유산 횟수','예: 2 / 2 / 0 / 0'],
+  ['p','자궁 질환 (수술 포함)']]},
+ {no:'18',title:'성 기능',items:[
+  ['c','해당하는 것',['성욕이 줄었다','발기력이 떨어졌다 (남성)','조루가 있다 (남성)']],
+  ['c','관계할 때',['통증이 있다','질이 건조하다','외음부가 가렵다']],
+  ['c','관계 후',['힘이 없다','몸살 기운','허리가 아프다','다리가 아프다','아랫배가 뻐근하다']]]},
+];
+// 평소 성격: [질문, 陽 문장들, 陰 문장들]
+const PERS=[
+ ['스트레스를 받거나 몸이 안 좋을 때',['밖에 나가거나 사람을 만나는 등 뭔가 일을 만들어 움직인다'],['외출도 안 하고 사람 만나는 걸 피해 혼자 지낸다','움직이기 귀찮아 집에서 누워 지낸다']],
+ ['성격이',['급하다'],['느긋하다']],
+ ['평소 모습',['외향적이다','활동적이다','밝고 쾌활하다'],['내성적이다','정적이다','조용하고 침울해 보일 때가 많다']],
+ ['일을 대할 때',['적극적이다'],['소극적이다','다소 의존적이다']],
+ ['성향',['강단이 있다','과감하다'],['온순하다','원만하다']],
+ ['문제가 생기면',['정면으로 부딪쳐 해결한다'],['미루거나 피하는 경우가 많다']],
+ ['말수',['말이 많다'],['말이 적고 과묵하다']],
+ ['감정 표현',['감정 표현을 잘 한다'],['감정 표현을 잘 안 한다']],
+ ['하고 싶은 말이 있을 때',['참지 못하고 한다','불만이 있으면 담아 두지 않고 바로 말한다'],['참고 넘어갈 때가 많다','상대가 틀려도 굳이 따지지 않고 넘어간다']],
+ ['화',['화를 잘 낸다','짜증·신경질이 잘 난다','욱하는 / 불같은 성격, 다혈질이다','쉽게 흥분하고 마음이 들떠 차분해지지 않는다'],['화를 좀처럼 내지 않는다','화날 상황에서도 가볍게 불만만 말하고 넘어간다','불만이 있어도 표현하지 않고 참고 살아왔다']],
+ ['여유',['쫓기듯 조급하고 여유가 없을 때가 많다'],['매사에 느긋하고 서두르지 않는다']],
+ ['참을성',['참을성이 부족하다'],['참을성이 많다']],
+ ['예민함 · 걱정',['쉽게 예민해지고 긴장한다','마음이 편치 않고 불안할 때가 많다'],['소심해서 작은 일에도 걱정·근심이 많다','내 몸의 병이나 건강 걱정을 많이 한다','의심이 많아 잘 믿지 않는다']],
+ ['그 밖의 성향 ①',['겁이 없고 배짱이 있다','옳고 그름이 분명하다','이치에 맞지 않는 일은 꼭 짚고 넘어간다','좋고 싫음이 분명하다','자존심이 강해 무시당하면 못 참는다','지기 싫어한다','맺고 끊는 게 분명하다','해야 할 일은 끝을 본다','남이 일을 잘 못하면 답답해서 내가 해 버린다'],[]],
+ ['그 밖의 성향 ②',[],['남보다 유난히 겁이 많다','잘 놀란다','TV·영화의 무서운 장면을 못 본다','쥐·벌레 등이 무섭고 싫다','특정 대상이나 상황을 무서워할 때가 많다','밤길·빈집·어두운 방에 혼자 있으면 무섭다','어릴 때 엄마와 떨어지면 많이 불안해했다','우울하거나 슬픈 감정이 자주 든다','작은 일에도 잘 운다','삶이 재미없고 의미가 없다는 생각이 든다','내가 쓸모없다는 생각이 들 때가 많다','기쁨·슬픔 같은 감정이 메말라 버린 것 같다']],
+];
+const EMO=[
+ ['화가 난다','신경질·짜증이 자주 난다, 욱한다'],['쉽게 흥분된다','마음이 들떠 안정되지 않는다'],['걱정이 많다','건강 걱정, 의심이 많다'],
+ ['예민하고 긴장된다','신경이 곤두서고 까칠해진다'],['불안하고 초조하다','여유 없이 쫓기는 느낌, 조바심'],['겁이 많고 잘 놀란다','무서운 장면·특정 상황이 무섭다'],
+ ['슬프고 눈물이 난다','서글프고 울고 싶을 때가 많다'],['참고 산다 · 화병','불만이 있어도 참아 왔다, 가슴이 답답'],['우울하다','즐거움이 없고 무기력하다'],
+];
+
+// ---------------- 단계 구성 ----------------
+const STEPS=[{kind:'intro'},{kind:'basic'}];
+SECTIONS.forEach(s=>STEPS.push({kind:'sec',sec:s}));
+STEPS.push({kind:'pers'},{kind:'emo'},{kind:'finish'});
+
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwGE1SjaA46fCAlclNKTUIZWoca2zDa9JHQxhKnkndfMxOIkxZPfwlo1LBOzkZA1FJQuQ/exec';
+const KEY='gkh_intake_v1', TTL=1000*60*60*24*14;
+let A={}, step=0, sid='';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const qid=(sec,title)=>sec+'. '+title;
+
+function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Date.now()-d.ts<TTL)return d;}catch(e){}return null}
+function save(flash){try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,ts:Date.now()}));if(flash){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900);}}catch(e){}}
+function clearSaved(){try{localStorage.removeItem(KEY)}catch(e){}}
+function answeredCount(){return Object.values(A).filter(v=>Array.isArray(v)?v.length:String(v||'').trim()).length}
+const isWoman=()=>A['기본. 성별']==='여';
+function visible(i){const s=STEPS[i];return !(s.kind==='sec'&&s.sec.women&&!isWoman())}
+function visibleSteps(){return STEPS.map((s,i)=>i).filter(visible)}
+
+// ---------------- 렌더링 ----------------
+function chip(id,val,radio,label){
+  const v=A[id];const on=radio?v===val:(Array.isArray(v)&&v.includes(val));
+  return `<button class="chip${radio?' radio':''}" aria-pressed="${on}" data-id="${esc(id)}" data-v="${esc(val)}" data-r="${radio?1:0}"><span class="box"></span><span>${esc(label||val)}</span></button>`;
+}
+function item(secNo,it){
+  const [t,title,x]=it;const id=qid(secNo,title);
+  let h=`<div class="q" data-q="${esc(id)}"><h3>${esc(title)}</h3>`;
+  if(t==='r'||t==='c'){
+    const long=x.some(o=>o.length>9);
+    h+=`<div class="sub">${t==='r'?'하나만 선택':'해당하는 것 모두 선택'}</div><div class="opts${long?' col':''}">`+x.map(o=>chip(id,o,t==='r')).join('')+`</div>`;
+  }else if(t==='t'){
+    h+=`<input class="txt" data-id="${esc(id)}" value="${esc(A[id]||'')}" placeholder="${esc(x||'')}" enterkeyhint="done">`;
+  }else if(t==='p'){
+    h+=`<textarea class="txt" data-id="${esc(id)}" placeholder="편하게 적어 주세요">${esc(A[id]||'')}</textarea>`;
+  }else if(t==='s'){
+    h+=`<div class="scale">`+Array.from({length:11},(_,n)=>`<button data-scale="${esc(id)}" data-v="${n}" aria-pressed="${String(A[id])===String(n)}">${n}</button>`).join('')+`</div><div class="scale-l"><span>안 아픔</span><span>가장 심함</span></div>`;
+  }
+  return h+'</div>';
+}
+function render(){
+  const s=STEPS[step], vs=visibleSteps(), pos=vs.indexOf(step);
+  $('#progBar').style.width=(s.kind==='sent'?100:Math.round(pos/(vs.length-1)*100))+'%';
+  $('#stepNo').textContent=(s.kind==='intro'||s.kind==='finish'||s.kind==='sent')?'':`${pos} / ${vs.length-2} 단계`;
+  let h='';
+  if(s.kind==='intro'){
+    const d=load();
+    h+='<div class="intro">';
+    if(d&&d.A&&Object.keys(d.A).length&&!render.resumed){
+      h+=`<div class="resume"><p>작성하던 문진표가 있습니다.<br>이어서 하시겠어요?</p><div class="acts"><button class="btn sec" id="restart">처음부터</button><button class="btn pri" id="resume">이어서 하기</button></div></div>`;
+    }
+    h+=`<div class="hero"><div class="clinic" style="color:var(--accent);font-weight:700;font-size:.8rem">구월경희한의원</div><h1>한약 문진표</h1><p class="lead">체질과 몸 상태에 꼭 맞는 한약을 지어 드리기 위한 질문입니다. 정답은 없으니 평소 느끼시는 대로 편하게 골라 주세요.</p>
+      <ul><li><b>1</b><span>약 10~15분 걸립니다.</span></li><li><b>2</b><span>체크할 때마다 <strong>자동 저장</strong>되어, 창을 닫아도 다시 열면 이어서 할 수 있습니다.</span></li><li><b>3</b><span>해당 없는 질문은 비워 두고 넘어가셔도 됩니다.</span></li><li><b>4</b><span>글씨가 작으면 오른쪽 위 <strong>[가 글씨 크게]</strong>를 눌러 주세요.</span></li></ul></div></div>`;
+  }else if(s.kind==='basic'){
+    h+=`<div class="sec-h"><div class="no">기본</div><h2>기본 정보</h2></div>`;
+    h+=`<div class="q" data-q="기본. 동의"><h3>개인정보 수집·이용 동의<span class="req">필수</span></h3><div class="consent">수집 항목: 성명, 생년월일, 성별, 직업, 키·몸무게, 건강 상태 응답(건강정보)<br>이용 목적: 진료 및 한약 처방<br>보유 기간: 의료법에 따른 진료기록 보존 기간<br>동의를 거부하실 수 있으나, 이 경우 문진표 작성이 어렵습니다.</div><div class="opts">${chip('기본. 동의','동의합니다',true,'위 내용에 동의합니다')}</div></div>`;
+    h+=textQ('기본. 성명','성명',true,'홍길동');
+    h+=textQ('기본. 생년월일','생년월일',true,'예: 1975.03.12','numeric');
+    h+=`<div class="q" data-q="기본. 성별"><h3>성별<span class="req">필수</span></h3><div class="opts">${chip('기본. 성별','남',true)}${chip('기본. 성별','여',true)}</div></div>`;
+    h+=textQ('기본. 직업','직업',false,'예: 회사원, 주부');
+    h+=textQ('기본. 키','키 (cm)',false,'예: 165','decimal');
+    h+=textQ('기본. 몸무게','몸무게 (kg)',false,'예: 58','decimal');
+  }else if(s.kind==='sec'){
+    const sec=s.sec;
+    h+=`<div class="sec-h"><div class="no">${sec.no}</div><h2>${esc(sec.title)}</h2>${sec.hint?`<p>${esc(sec.hint)}</p>`:''}</div>`;
+    h+=sec.items.map(it=>item(sec.no,it)).join('');
+  }else if(s.kind==='pers'){
+    h+=`<div class="sec-h"><div class="no">19</div><h2>평소 성격</h2><p>요즘 상태보다 <b>원래의 내 성격</b>을 떠올려 주세요. 나와 가까운 것을 모두 고르시면 됩니다. 해당 없으면 비워 두셔도 됩니다.</p></div>`;
+    PERS.forEach(([q,a,b])=>{const id=qid('19',q);
+      h+=`<div class="q"><h3>${esc(q)}</h3><div class="sub">나와 가까운 것 모두 선택</div><div class="opts col">`+a.concat(b).map(o=>chip(id,o,false)).join('')+`</div></div>`;});
+  }else if(s.kind==='emo'){
+    h+=`<div class="sec-h"><div class="no">20</div><h2>나의 감정</h2><p>나와 <b>가장 가까운 것 2~3개는 '가깝다'</b>, <b>가장 먼 것 2~3개는 '멀다'</b>를 눌러 주세요. 나머지는 비워 두시면 됩니다.</p></div><div class="q emo">`;
+    EMO.forEach(([n,d])=>{const id=qid('20',n);
+      h+=`<div class="row"><div class="name">${esc(n)}</div><div class="desc">${esc(d)}</div><div class="btns"><button class="near" data-emo="${esc(id)}" data-v="가깝다" aria-pressed="${A[id]==='가깝다'}">가깝다</button><button class="far" data-emo="${esc(id)}" data-v="멀다" aria-pressed="${A[id]==='멀다'}">멀다</button></div></div>`;});
+    const c=k=>EMO.filter(([n])=>A[qid('20',n)]===k).length;
+    h+=`<div class="count">가깝다 ${c('가깝다')}개 · 멀다 ${c('멀다')}개 선택됨</div></div>`;
+  }else if(s.kind==='finish'){
+    h+=`<div class="done"><div class="ok">✓</div><h2>거의 다 되었습니다</h2><p>아래 <b>[제출하기]</b>를 눌러야 한의원으로 전달됩니다.<br>빠뜨린 곳이 있으면 [이전]으로 돌아가 고치실 수 있습니다.</p><p style="margin-top:1rem;font-size:.85rem">응답한 항목 ${answeredCount()}개</p><div class="msg" id="sendMsg"></div></div>`;
+  }else if(s.kind==='sent'){
+    h+=`<div class="done"><div class="ok">✓</div><h2>제출되었습니다</h2><p>작성해 주셔서 감사합니다.<br>진료실에서 뵙겠습니다.</p></div>`;
+  }
+  $('#app').innerHTML=h;
+  renderFoot();
+  window.scrollTo(0,0);
+}
+function textQ(id,title,req,ph,mode){
+  return `<div class="q" data-q="${esc(id)}"><h3>${esc(title)}${req?'<span class="req">필수</span>':''}</h3><input class="txt" data-id="${esc(id)}" value="${esc(A[id]||'')}" placeholder="${esc(ph||'')}"${mode?` inputmode="${mode}"`:''} enterkeyhint="done"></div>`;
+}
+function renderFoot(){
+  const s=STEPS[step], f=$('#foot');
+  if(s.kind==='sent'){f.className='in solo';f.innerHTML='';f.parentNode.style.display='none';return}
+  f.parentNode.style.display='';
+  if(s.kind==='intro'){f.className='in solo';f.innerHTML=`<button class="btn pri" id="next">시작하기</button>`;return}
+  f.className='in';
+  f.innerHTML=`<button class="btn sec" id="prev">이전</button>`+(s.kind==='finish'?`<button class="btn pri" id="submit">제출하기</button>`:`<button class="btn pri" id="next">다음</button>`);
+}
+
+// ---------------- 이동 ----------------
+function go(dir){
+  let i=step+dir;
+  while(i>0&&i<STEPS.length-1&&!visible(i))i+=dir;
+  step=Math.max(0,Math.min(STEPS.length-1,i));save();render();
+}
+function validateBasic(){
+  const need=[['기본. 동의',v=>v==='동의합니다'],['기본. 성명',v=>String(v||'').trim()],['기본. 생년월일',v=>String(v||'').trim()],['기본. 성별',v=>v]];
+  let first=null;document.querySelectorAll('.q.err').forEach(e=>e.classList.remove('err'));
+  need.forEach(([id,ok])=>{if(!ok(A[id])){const el=document.querySelector(`.q[data-q="${id}"]`);el&&el.classList.add('err');first=first||el;}});
+  if(first){first.scrollIntoView({behavior:'smooth',block:'center'});return false}
+  return true;
+}
+
+// ---------------- 이벤트 ----------------
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.chip');
+  if(c){const id=c.dataset.id,v=c.dataset.v;
+    if(c.dataset.r==='1'){A[id]=A[id]===v?'':v;c.parentNode.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',A[id]===x.dataset.v));
+      if(id==='기본. 성별'||id==='기본. 동의'){const q=c.closest('.q');q&&q.classList.remove('err')}}
+    else{const arr=Array.isArray(A[id])?A[id]:[];const k=arr.indexOf(v);k<0?arr.push(v):arr.splice(k,1);A[id]=arr;c.setAttribute('aria-pressed',k<0);}
+    save(true);return}
+  const sc=e.target.closest('[data-scale]');
+  if(sc){const id=sc.dataset.scale;A[id]=A[id]===sc.dataset.v?'':sc.dataset.v;sc.parentNode.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',A[id]===b.dataset.v));save(true);return}
+  const em=e.target.closest('[data-emo]');
+  if(em){const id=em.dataset.emo;A[id]=A[id]===em.dataset.v?'':em.dataset.v;save(true);const y=window.scrollY;render();window.scrollTo(0,y);return}
+  const t=e.target.closest('button');if(!t)return;
+  if(t.id==='next'){if(STEPS[step].kind==='basic'&&!validateBasic())return;if(!sid)sid=Date.now().toString(36)+Math.random().toString(36).slice(2,7);go(1)}
+  else if(t.id==='prev')go(-1);
+  else if(t.id==='resume'){const d=load();A=d.A||{};sid=d.sid||'';step=Math.max(1,d.step||1);render.resumed=true;render()}
+  else if(t.id==='restart'){clearSaved();A={};sid='';step=0;render.resumed=true;render()}
+  else if(t.id==='submit')submit(t);
+  else if(t.id==='fontBtn'){const on=document.body.classList.toggle('big');t.setAttribute('aria-pressed',on);try{localStorage.setItem(KEY+'_big',on?'1':'')}catch(_){}}
+});
+document.addEventListener('input',e=>{const el=e.target.closest('[data-id]');if(!el)return;A[el.dataset.id]=el.value;const q=el.closest('.q');q&&q.classList.remove('err');clearTimeout(document.t);document.t=setTimeout(()=>save(true),500)});
+
+// ---------------- 제출 ----------------
+function buildRows(){
+  const rows=[['제출ID',sid],['성명',A['기본. 성명']||''],['생년월일',A['기본. 생년월일']||''],['성별',A['기본. 성별']||''],['직업',A['기본. 직업']||''],['키',A['기본. 키']||''],['몸무게',A['기본. 몸무게']||''],['개인정보 동의',A['기본. 동의']||'']];
+  const val=v=>Array.isArray(v)?v.join(', '):(v==null?'':String(v));
+  SECTIONS.forEach(sec=>sec.items.forEach(([,title])=>{const id=qid(sec.no,title);rows.push([sec.no+'. '+sec.title+' | '+title,val(A[id])])}));
+  let yang=0,yin=0;
+  PERS.forEach(([q,a,b])=>{const v=A[qid('19',q)]||[];yang+=v.filter(x=>a.includes(x)).length;yin+=v.filter(x=>b.includes(x)).length;rows.push(['19. 평소 성격 | '+q,val(v)])});
+  rows.push(['19. 평소 성격 | 陽 선택 수',yang],['19. 평소 성격 | 陰 선택 수',yin]);
+  rows.push(['20. 나의 감정 | 가깝다',EMO.filter(([n])=>A[qid('20',n)]==='가깝다').map(([n])=>n).join(', ')]);
+  rows.push(['20. 나의 감정 | 멀다',EMO.filter(([n])=>A[qid('20',n)]==='멀다').map(([n])=>n).join(', ')]);
+  return rows;
+}
+function submit(btn){
+  const msg=$('#sendMsg');btn.disabled=true;btn.textContent='보내는 중…';msg.textContent='';
+  const fail=()=>{btn.disabled=false;btn.textContent='다시 제출하기';msg.textContent='전송이 안 됐습니다. 인터넷 연결을 확인하고 다시 눌러 주세요. 작성 내용은 그대로 저장되어 있습니다.'};
+  const ok=()=>{clearSaved();$('#saved').classList.remove('on');clearTimeout(document.t);step=STEPS.length;STEPS.push({kind:'sent'});render()};
+  if(window.__mockSubmit){window.__mockSubmit(buildRows())?ok():fail();return}
+  fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({rows:buildRows()})})
+    .then(r=>r.json()).then(j=>j&&j.ok?ok():fail()).catch(fail);
+}
+
+try{history.scrollRestoration='manual'}catch(e){}
+try{if(localStorage.getItem(KEY+'_big')){document.body.classList.add('big');$('#fontBtn').setAttribute('aria-pressed','true')}}catch(e){}
+render();
+</script>
+</body>
+</html>

@@ -361,6 +361,9 @@ def main():
     for name in ("style.css", "main.js"):
         shutil.copy2(SRC / name, DIST / name)
     shutil.copytree(ROOT / "images", DIST / "images")
+    # 따로 만든 단독 페이지(예: 모바일 문진 /munjin/)는 그대로 복사
+    if (SRC / "standalone").exists():
+        shutil.copytree(SRC / "standalone", DIST, dirs_exist_ok=True)
 
     outputs = {}  # 경로 -> html
 
@@ -410,7 +413,7 @@ def main():
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(html, encoding="utf-8")
 
-    robots = "User-agent: *\nAllow: /\n"
+    robots = "User-agent: *\nAllow: /\nDisallow: /munjin/\n"
     if site:
         robots += f"Sitemap: {site}/sitemap.xml\n"
         today = date.today().isoformat()
