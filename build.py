@@ -103,7 +103,8 @@ def render_booking_options(cfg):
         if b.get("url"):
             out.append(ext_link(b["url"], "sheet-option", body))
         else:
-            out.append(f'<div class="sheet-option is-pending">{body}<span>온라인 예약 링크 준비 중</span></div>')
+            tel = re.sub(r"[^0-9+-]", "", cfg["phone"])
+            out.append(f'<a class="sheet-option" href="tel:{e(tel)}">{body}<span>전화로 예약해 주세요 · {e(cfg["phone"])}</span></a>')
     return "\n    ".join(out)
 
 
@@ -151,12 +152,14 @@ def conditions_known(cfg):
         if pg.get("kind") == "condition":
             out.append(pg["condition"])
             out.extend(pg.get("alternateNames", []))
+            out.extend(pg.get("relatedConditions", []))
     return list(dict.fromkeys(out))  # 순서는 지키고 중복만 뺍니다
 
 
 def physician_ref(cfg):
     site = cfg.get("siteUrl", "").rstrip("/")
-    ref = {"@type": "Physician", "name": cfg["director"]["name"]}
+    # 원장 개인: schema.org Physician 은 기관 타입이라 개인은 Person + IndividualPhysician 로 표시
+    ref = {"@type": ["Person", "IndividualPhysician"], "name": cfg["director"]["name"]}
     if site:
         ref = {"@id": site + "/director/#physician", **ref, "url": site + "/director/"}
     return ref
@@ -293,8 +296,9 @@ def page_jsonld(cfg, pg, url):
             "name": pg["h1"],
             "url": url,
             "description": pg["description"],
-            "about": {"@type": "MedicalCondition", "name": pg["condition"],
-                      **({"alternateName": pg["alternateNames"]} if pg.get("alternateNames") else {})},
+            "about": [{"@type": "MedicalCondition", "name": pg["condition"],
+                       **({"alternateName": pg["alternateNames"]} if pg.get("alternateNames") else {})}]
+                     + [{"@type": "MedicalCondition", "name": n} for n in pg.get("relatedConditions", [])],
             "publisher": clinic_ref,
             "author": physician_ref(cfg),
             **({"lastReviewed": pg["reviewed"], "reviewedBy": physician_ref(cfg)} if pg.get("reviewed") else {}),
@@ -304,7 +308,7 @@ def page_jsonld(cfg, pg, url):
         d = cfg["director"]
         items.append({
             "@context": "https://schema.org",
-            "@type": "Physician",
+            "@type": ["Person", "IndividualPhysician"],
             **({"@id": site + "/director/#physician"} if site else {}),
             "name": d["name"],
             "jobTitle": d["title"],
