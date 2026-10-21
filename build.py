@@ -89,7 +89,7 @@ def render_contact(url, label):
 
 def render_social(cfg):
     links = [(cfg.get(k), label) for k, label in
-             (("blogUrl", "블로그"), ("youtubeUrl", "유튜브"), ("instagramUrl", "인스타그램"))]
+             (("blogUrl", "블로그"), ("youtubeUrl", "유튜브"), ("instagramUrl", "인스타그램"), ("tiktokUrl", "틱톡"))]
     items = "".join(ext_link(u, "", label) for u, label in links if u)
     return f'<p class="social">{items}</p>' if items else ""
 
@@ -132,7 +132,7 @@ def clinic_jsonld(cfg):
         "employee": physician_ref(cfg),
         "hasMap": "https://map.naver.com/p/search/" + quote(cfg.get("mapQuery") or cfg["name"]),
         "sameAs": [u for u in (cfg.get("blogUrl"), cfg.get("youtubeUrl"), cfg.get("instagramUrl"),
-                               cfg.get("naverPlaceUrl"), kakao_channel(cfg)) if u],
+                               cfg.get("tiktokUrl"), cfg.get("naverPlaceUrl"), kakao_channel(cfg)) if u],
     }
     if cfg.get("geo"):
         data["geo"] = {"@type": "GeoCoordinates", "latitude": cfg["geo"]["latitude"],
@@ -190,6 +190,10 @@ def build_context(cfg):
         # 하이픈을 남겨야 휴대폰 전화 앱이 지역번호(032)를 제대로 끊어 보여 줍니다
         "phoneTel": re.sub(r"[^0-9+-]", "", cfg["phone"]),
         "address": e(cfg["address"]["full"]),
+        "locationNote": (f'<p class="location-note">{e(cfg["locationNote"])}</p>' if cfg.get("locationNote") else ""),
+        "parking": ('<h3 class="sub-title">주차</h3><ul class="hours-notes">'
+                    + "".join(f"<li>{e(x)}</li>" for x in cfg.get("parking", [])) + "</ul>")
+                   if cfg.get("parking") else "",
         "ogImage": e(f"{site}/{photo}" if site else photo),
         "verification": "\n  ".join(
             f'<meta name="{n}" content="{e(cfg[k])}">'
@@ -232,7 +236,7 @@ def nav_links(cfg, current):
 
 def footer_links(cfg):
     return "".join(f'<a href="/{e(pg["slug"])}/">{e(pg["nav"])}</a>'
-                      for pg in cfg.get("pages", []) if pg.get("nav") and not pg.get("hideNav"))
+                      for pg in cfg.get("pages", []) if pg.get("nav") and (not pg.get("hideNav") or pg.get("footer")))
 
 
 def render_faq_list(items):
@@ -263,10 +267,13 @@ def render_related(items):
 
 def render_page_cta(cfg):
     notes = "".join(f"<li>{e(n)}</li>" for n in cfg.get("hoursNotes", []))
+    fee = ('<p class="cta-fee"><a href="/npay/">한약·검사 비용 안내 ›</a></p>'
+           if any(p["slug"] == "npay" for p in cfg.get("pages", [])) else "")
     return ('<section class="section section-dark page-cta">'
             '<h2 class="section-title">상담 · 예약 안내</h2>'
             f'<dl class="hours hours-dark">{render_hours(cfg)}</dl>'
             f'<ul class="hours-notes">{notes}</ul>'
+            + fee +
             '<div class="btn-row">'
             '<button type="button" class="btn btn-light" data-open-booking>네이버로 예약하기</button>'
             f'<a class="btn btn-ghost" href="tel:{e(re.sub(r"[^0-9+-]", "", cfg["phone"]))}">전화 상담 {e(cfg["phone"])}</a>'

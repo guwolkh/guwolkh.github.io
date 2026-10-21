@@ -358,3 +358,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
   #ear-map .info-table th, #ear-map .info-table td { padding: 0; border: 0; }
   #ear-map .info-table td:nth-child(2) { margin: 2px 0 4px; }
 }
+.location-note { margin: 6px 0 0; font-size: 15px; color: var(--ink-sub); }
+.cta-fee { margin: 14px 0 0; }
+.cta-fee a { color: #fff; font-weight: 700; text-underline-offset: 3px; }
