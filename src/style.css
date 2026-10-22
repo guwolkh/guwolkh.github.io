@@ -328,6 +328,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
 .related { display: grid; gap: 8px; }
 .related-link { display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; font-weight: 600; }
 .related-link span { color: var(--green); }
+.columns { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; }
+.column-card { display: block; padding: 16px 18px; border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: 12px; text-decoration: none; color: inherit; }
+.column-card strong { display: block; font-size: 17px; line-height: 1.45; }
+.column-card strong::after { content: " ›"; color: var(--green); }
+.column-card span { display: block; margin-top: 4px; font-size: 14px; color: var(--ink-sub); }
 .related-note { margin: 10px 0 0; font-size: 14px; color: var(--ink-sub); }
 .hours-dark, .hours-dark .hours-row { border-color: rgba(255,255,255,.2); }
 .hours-dark dd small, .page-cta .hours-notes li { color: rgba(255,255,255,.75); }

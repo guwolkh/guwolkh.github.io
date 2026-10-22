@@ -269,6 +269,24 @@ def render_related(items):
             '<p class="related-note">네이버 블로그로 연결됩니다.</p></section>')
 
 
+def render_columns(cfg, pg):
+    """질환 페이지와 그 칼럼 페이지 아래에 같은 질환 칼럼 목록을 보여 줍니다 (칼럼이 생기면 자동 추가)."""
+    root = pg.get("parent") or pg["slug"]
+    cols = [p for p in cfg.get("pages", [])
+            if p.get("parent") == root and p.get("kind") == "condition" and p["slug"] != pg["slug"]]
+    if not cols:
+        return ""
+    cards = "".join(
+        f'<li><a class="column-card" href="/{e(c["slug"])}/">'
+        f'<strong>{e(c.get("cardTitle") or c["h1"])}</strong>'
+        f'<span>{e(c.get("eyebrow", ""))}</span></a></li>'
+        for c in cols)
+    title = "이 질환 칼럼" if not pg.get("parent") else "같은 질환 다른 칼럼"
+    return ('<section class="section" id="columns">'
+            f'<p class="kicker">Column</p><h2 class="section-title">{title}</h2>'
+            f'<ul class="columns">{cards}</ul></section>')
+
+
 def render_page_cta(cfg):
     notes = "".join(f"<li>{e(n)}</li>" for n in cfg.get("hoursNotes", []))
     fee = ('<p class="cta-fee"><a href="/npay/">한약·검사 비용 안내 ›</a></p>'
@@ -418,7 +436,7 @@ def main():
                 + (f'<p class="page-reviewed">최종 검토 {e(pg["reviewed"].replace("-", "."))} · '
                    f'{e(cfg["director"]["title"])} {e(cfg["director"]["name"])}</p>' if pg.get("reviewed") else "")
                 + '</section>')
-        content = (hero + "\n" + body + "\n" + render_faq(pg.get("faq"), heading=pg.get("kind") != "faq") + "\n"
+        content = (hero + "\n" + body + "\n" + render_columns(cfg, pg) + "\n" + render_faq(pg.get("faq"), heading=pg.get("kind") != "faq") + "\n"
                    + render_related(pg.get("related")) + "\n" + render_page_cta(cfg))
         pctx = dict(ctx)
         pctx.update({
