@@ -124,8 +124,8 @@ html:not(.big) .chip{font-size:17px}
 .top .ttl{font-size:17px;line-height:1.25;word-break:keep-all}
 .top .right{display:flex;justify-content:flex-end;align-items:center;gap:6px}
 .fontbtn{font-size:14px;padding:5px 10px;border-radius:10px;border-width:1.5px}
-.top .stepno{font-size:16px;line-height:1.2;color:#555555;padding:0;text-align:center;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-.top .stepno button{font:inherit;font-size:16px;color:#555555;text-decoration:none;padding:4px 6px;border:none;background:none}
+.top .stepno{font-size:14px;line-height:1.2;color:#555555;padding:0;text-align:center;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.top .stepno button{font:inherit;font-size:14px;color:#555555;text-decoration:none;padding:4px 6px;border:none;background:none}
 .kz-home{font-size:13px!important;padding:4px 8px!important;margin-left:0!important}
 .top .stepno .caret{font-size:12px;color:#888;margin-left:2px;vertical-align:1px}
 .top .stepno button{border:1px solid #d6ddda!important;border-radius:14px;padding:3px 10px!important;background:#fff!important}
@@ -346,7 +346,7 @@ function render(){
   const s=STEPS[step], vs=visibleSteps(), pos=vs.indexOf(step);
   MAXS=Math.max(MAXS,step);if(s.kind==='finish')NAV.fromFin=true;
   $('#progBar').style.width=(s.kind==='sent'?100:Math.round(pos/(vs.length-1)*100))+'%';
-  $('#stepNo').innerHTML=(s.kind==='intro'||s.kind==='finish'||s.kind==='sent')?'':(MAXS>1?`<button id="tocBtn" aria-label="목차 보기">${pos}/${vs.length-2} <span class="caret">▾</span></button>`:`${pos}/${vs.length-2}`);
+  $('#stepNo').innerHTML=(s.kind==='intro'||s.kind==='finish'||s.kind==='sent')?'':(MAXS>1?`<button id="tocBtn" aria-label="목차 보기">${pos} / ${vs.length-2} <span class="caret">▾</span></button>`:`${pos} / ${vs.length-2}`);
   let h='';
   if(s.kind==='intro'){
     const d=load();
