@@ -94,12 +94,12 @@
     "herbalFirstVisit": {
       "title": "한약 상담 (첫 방문)",
       "desc": "대표원장 1시간 이상 상담 · 100% 예약제 · 화요일 제외",
-      "url": ""
+      "url": "https://m.booking.naver.com/booking/13/bizes/708398/items/8123288"
     },
     "general": {
       "title": "일반 진료",
       "desc": "예약 없이 방문하셔도 됩니다",
-      "url": ""
+      "url": "https://m.booking.naver.com/booking/13/bizes/708398/items/4454275"
     }
   },
   "kakaoUrl": "https://pf.kakao.com/_FbZzK/chat",
