@@ -11,7 +11,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{font-size:var(--fs)}
 body{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;word-break:keep-all;min-height:100vh}
-body.big{--fs:21px}
+body.big,html.big{--fs:22px}
 button{font:inherit;color:inherit;border:none;background:none;cursor:pointer}
 input,textarea{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
@@ -186,5 +186,5 @@ try{history.scrollRestoration='manual'}catch(e){}
 try{if(localStorage.getItem('gkh_big')){document.body.classList.add('big');$('#fontBtn').setAttribute('aria-pressed','true')}}catch(e){}
 render();
 </script>
-</body>
+<script>(function(){var s=function(){document.documentElement.classList.toggle('big',document.body.classList.contains('big'))};new MutationObserver(s).observe(document.body,{attributes:true,attributeFilter:['class']});s()})();</script></body>
 </html>
