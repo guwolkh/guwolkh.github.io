@@ -25,6 +25,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -38,3 +40,10 @@ jobs:
           path: dist
       - id: deployment
         uses: actions/deploy-pages@v4
+      # 배포가 끝나면 바뀐 페이지를 네이버·빙에 알림 (실패해도 배포에는 영향 없음)
+      - name: 검색엔진 알림 (IndexNow)
+        if: github.event_name == 'push'
+        continue-on-error: true
+        run: |
+          sleep 60
+          python scripts/indexnow.py
