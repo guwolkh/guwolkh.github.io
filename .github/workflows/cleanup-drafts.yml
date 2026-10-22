@@ -1,0 +1,32 @@
+name: 공개된 칼럼 초안 브랜치 정리
+
+# main에 올라온 뒤, 내용이 이미 main에 모두 들어간 draft/* 브랜치를 지웁니다.
+# 아직 공개 전인 초안은 건드리지 않습니다.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: main에 들어간 draft 브랜치 지우기
+        run: |
+          git fetch origin '+refs/heads/draft/*:refs/remotes/origin/draft/*' || true
+          for ref in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin/draft/); do
+            branch="${ref#origin/}"
+            if git cherry origin/main "$ref" | grep -q '^+'; then
+              echo "공개 전 초안이라 남겨 둠: $branch"
+            else
+              echo "main에 반영됨, 삭제: $branch"
+              git push origin --delete "$branch"
+            fi
+          done
