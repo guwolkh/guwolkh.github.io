@@ -83,14 +83,26 @@ input.txt:focus,textarea.txt:focus{border-color:var(--accent);box-shadow:0 0 0 3
 .foot .btn{min-height:3rem}
 body.kb .foot,body.kb .saved{display:none}
 html:not(.big) .grid button,html:not(.big) .chip{font-size:16.6px}
+
+/* 2026-10-22 헤더 정리: 진행바 제거, 가운데 단계 숫자, 헤더는 글씨 크게 영향 없음(px 고정) */
+.prog{display:none}
+.top .bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:10px 16px}
+.top .grow{min-width:0}
+.top .clinic{font-size:13px;letter-spacing:.04em}
+.top .ttl{font-size:17px;line-height:1.25;word-break:keep-all}
+.top .right{display:flex;justify-content:flex-end;align-items:center;gap:6px}
+.fontbtn{font-size:14px;padding:5px 10px;border-radius:10px;border-width:1.5px}
+.top .stepno{font-size:16px;line-height:1.2;color:#555555;padding:0;text-align:center;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.top .stepno button{font:inherit;font-size:16px;color:#555555;text-decoration:none;padding:4px 6px;border:none;background:none}
+.kz-home{font-size:13px!important;padding:4px 8px!important;margin-left:0!important}
 </style>
 <script src="/tablet/kiosk.js"></script>
 </head>
 <body>
 <header class="top">
   <div class="bar"><div class="grow"><div class="clinic">구월경희한의원</div><div class="ttl" id="ttl"></div></div>
-  <button class="fontbtn" id="fontBtn" aria-pressed="false">가 글씨 크게</button></div>
-  <div class="prog"><i id="progBar"></i></div><div class="stepno" id="stepNo"></div>
+  <div class="stepno" id="stepNo"></div><div class="right"><button class="fontbtn" id="fontBtn" aria-pressed="false">글씨 크게</button></div></div>
+  <div class="prog"><i id="progBar"></i></div>
 </header>
 <main id="app"></main>
 <div class="foot"><div class="in" id="foot"></div></div>
@@ -128,13 +140,13 @@ function render(){
   const s=STEPS[step],n=STEPS.length;
   MAXS=Math.max(MAXS,step);if(s.k==='finish')NAV.fromFin=true;
   $('#progBar').style.width=(s.k==='sent'?100:Math.round(step/(n-1)*100))+'%';
-  $('#stepNo').innerHTML=(s.k==='intro'||s.k==='finish'||s.k==='sent')?'':`${step} / ${n-2} 단계`+(MAXS>1?` · <button id="tocBtn">목차 보기 ▾</button>`:'');
+  $('#stepNo').innerHTML=(s.k==='intro'||s.k==='finish'||s.k==='sent')?'':(MAXS>1?`<button id="tocBtn" aria-label="목차 보기">${step}/${n-2}</button>`:`${step}/${n-2}`);
   let h='';
   if(s.k==='intro'){
     const d=load();
     if(d&&d.A&&Object.keys(d.A).length&&!render.r)h+=`<div class="resume"><p>작성하던 문진표가 있습니다.<br>이어서 하시겠어요?</p><div class="acts"><button class="btn sec" id="restart">처음부터</button><button class="btn pri" id="resume">이어서 하기</button></div></div>`;
     h+=`<div class="hero"><div class="clinic" style="color:var(--accent);font-weight:700;font-size:.8rem">구월경희한의원</div><h1>${esc(S.title)}</h1><p class="lead">${S.lead}</p>
-    <ul><li><b>1</b><span>약 ${S.minutes}분 걸립니다.</span></li><li><b>2</b><span>요즘의 상태를 떠올리며 답해 주세요.</span></li><li><b>3</b><span>${KZ.on?'궁금한 점은 데스크 직원에게 물어보세요.':'체크할 때마다 <strong>자동 저장</strong>되어, 창을 닫아도 이어서 할 수 있습니다.'}</span></li><li><b>4</b><span>글씨가 작으면 오른쪽 위 <strong>[가 글씨 크게]</strong>를 눌러 주세요.</span></li></ul></div>`;
+    <ul><li><b>1</b><span>약 ${S.minutes}분 걸립니다.</span></li><li><b>2</b><span>요즘의 상태를 떠올리며 답해 주세요.</span></li><li><b>3</b><span>${KZ.on?'궁금한 점은 데스크 직원에게 물어보세요.':'체크할 때마다 <strong>자동 저장</strong>되어, 창을 닫아도 이어서 할 수 있습니다.'}</span></li><li><b>4</b><span>글씨가 작으면 오른쪽 위 <strong>[글씨 크게]</strong>를 눌러 주세요.</span></li></ul></div>`;
     if(S.source)h+=`<p class="src">${S.source}</p>`;
   }else if(s.k==='basic'){
     h+=`<div class="sec-h"><div class="no">기본</div><h2>기본 정보</h2></div>

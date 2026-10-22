@@ -70,7 +70,7 @@
     var fb = document.getElementById('fontBtn'); if (fb) fb.setAttribute('aria-pressed', 'true');
     var p = K.progress();
     if (p) { var bd = document.createElement('div'); bd.className = 'kz-badge'; bd.textContent = '문진표 ' + p; document.body.appendChild(bd); }
-    var bar = document.querySelector('.top .bar');
+    var bar = document.querySelector('.top .bar .right') || document.querySelector('.top .bar');
     if (bar) { var h = document.createElement('button'); h.className = 'kz-home'; h.textContent = '처음으로'; h.onclick = function () { if (confirmHome()) K.home(); }; bar.appendChild(h); }
     arm();
   });
