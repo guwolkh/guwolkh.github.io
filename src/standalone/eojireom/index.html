@@ -65,6 +65,24 @@ input.txt:focus,textarea.txt:focus{border-color:var(--accent);box-shadow:0 0 0 3
 .done .ok{width:4.5rem;height:4.5rem;border-radius:50%;background:var(--tint);color:var(--accent);font-size:2.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-weight:800}
 .done h2{font-size:1.5rem;margin-bottom:.5rem}.done p{color:var(--soft)}
 .src{font-size:.72rem;color:var(--faint);margin-top:1rem;text-align:center;line-height:1.5}
+
+/* 2026-10-22 피드백 반영: 목차 이동 · 하단 버튼 · 선택지 글씨 */
+.stepno button{border:none;background:none;font:inherit;color:var(--accent);font-weight:700;padding:.1rem 0;text-decoration:underline;text-underline-offset:3px}
+.nav-ov{position:fixed;inset:0;z-index:20;background:rgba(20,28,25,.5);display:flex;align-items:flex-end;justify-content:center}
+.nav-box{background:#fff;width:100%;max-width:640px;max-height:80vh;overflow:auto;border-radius:1.1rem 1.1rem 0 0;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom))}
+.nav-box h3{font-size:1.1rem;margin-bottom:.2rem}.nav-box .sub{font-size:.8rem;color:var(--faint);margin-bottom:.7rem}
+.toc{display:grid;gap:.4rem}
+.toc button{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;border:1.5px solid var(--line);border-radius:.8rem;background:#fff;padding:.65rem .8rem;font:inherit;font-size:.95rem;color:var(--ink)}
+.toc button .tn{flex:1;font-weight:700}.toc button .ti{flex:none;font-size:.78rem;color:var(--faint)}
+.toc button.cur{border-color:var(--accent);background:var(--tint)}
+.toc button.empty .ti{color:var(--warn)}
+.toc button[disabled]{opacity:.45}
+.done .toc{text-align:left;margin-top:1.2rem}.done .toc-h{text-align:left;font-weight:800;margin-top:1.4rem;color:var(--ink)}
+.nav-x{margin-top:.8rem;width:100%;min-height:3rem;border-radius:.9rem;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:800;color:var(--soft)}
+.foot{padding:.5rem 1rem calc(.5rem + env(safe-area-inset-bottom))}
+.foot .btn{min-height:3rem}
+body.kb .foot,body.kb .saved{display:none}
+html:not(.big) .grid button,html:not(.big) .chip{font-size:16.6px}
 </style>
 <script src="/tablet/kiosk.js"></script>
 </head>
@@ -95,7 +113,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const ITEMS={};S.sections.forEach(s=>s.items.forEach(it=>ITEMS[it.id]=it));
 $('#ttl').textContent=S.title;
 function load(){if(KZ.on)return null;try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Date.now()-d.ts<TTL)return d}catch(e){}return null}
-function save(f){if(KZ.on)return;try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,ts:Date.now()}));if(f){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900)}}catch(e){}}
+function save(f){if(KZ.on)return;try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,mx:MAXS,ts:Date.now()}));if(f){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900)}}catch(e){}}
 function clearSaved(){try{localStorage.removeItem(KEY)}catch(e){}}
 function itemHTML(it,n){
   let h=`<div class="q" data-q="${it.id}"><h3>${n!=null?`<span class="n">${n}.</span>`:''}<span>${esc(it.text)}</span></h3>${it.help?`<div class="help">${esc(it.help)}</div>`:''}`;
@@ -108,8 +126,9 @@ function itemHTML(it,n){
 }
 function render(){
   const s=STEPS[step],n=STEPS.length;
+  MAXS=Math.max(MAXS,step);if(s.k==='finish')NAV.fromFin=true;
   $('#progBar').style.width=(s.k==='sent'?100:Math.round(step/(n-1)*100))+'%';
-  $('#stepNo').textContent=(s.k==='intro'||s.k==='finish'||s.k==='sent')?'':`${step} / ${n-2} 단계`;
+  $('#stepNo').innerHTML=(s.k==='intro'||s.k==='finish'||s.k==='sent')?'':`${step} / ${n-2} 단계`+(MAXS>1?` · <button id="tocBtn">목차 보기 ▾</button>`:'');
   let h='';
   if(s.k==='intro'){
     const d=load();
@@ -129,7 +148,7 @@ function render(){
     sec.items.forEach(it=>h+=itemHTML(it,it.n));
     h+='<div class="msg" id="msg"></div>';
   }else if(s.k==='finish'){
-    h+=`<div class="done"><div class="ok">✓</div><h2>거의 다 되었습니다</h2><p>아래 <b>[제출하기]</b>를 눌러야 한의원으로 전달됩니다.<br>고칠 곳이 있으면 [이전]으로 돌아가실 수 있습니다.</p><div class="msg" id="msg" style="margin-top:1rem"></div></div>`;
+    h+=`<div class="done"><div class="ok">✓</div><h2>거의 다 되었습니다</h2><p>아래 <b>[제출하기]</b>를 눌러야 한의원으로 전달됩니다.<br>고칠 곳이 있으면 아래 목록에서 눌러 바로 가실 수 있습니다.</p><div class="msg" id="msg" style="margin-top:1rem"></div><div class="toc-h">항목별 확인·수정</div>${NAVTOC()}</div>`;
   }else if(s.k==='sent'){
     h+=`<div class="done"><div class="ok">✓</div><h2>제출되었습니다</h2><p>작성해 주셔서 감사합니다.<br>진료실에서 뵙겠습니다.</p></div>`;
   }
@@ -140,8 +159,17 @@ function foot(){
   if(s.k==='sent'){f.parentNode.style.display='none';return}
   f.parentNode.style.display='';
   if(s.k==='intro'){f.className='in solo';f.innerHTML='<button class="btn pri" id="next">시작하기</button>';return}
-  f.className='in';f.innerHTML='<button class="btn sec" id="prev">이전</button>'+(s.k==='finish'?'<button class="btn pri" id="submit">제출하기</button>':'<button class="btn pri" id="next">다음</button>');
+  f.className='in';f.innerHTML='<button class="btn sec" id="prev">이전</button>'+(s.k==='finish'?'<button class="btn pri" id="submit">제출하기</button>':(NAV.fromFin&&s.k!=='basic')?'<button class="btn pri" id="toFin">확인 화면으로 →</button>':'<button class="btn pri" id="next">다음</button>');
 }
+var MAXS=0;
+const NAV={fromFin:false,
+  ids(s){if(s.k==='basic')return ['동의','성명','생년월일','구분'];if(s.k==='sec')return S.sections[s.i].items.map(it=>it.id);return []},
+  title(s){if(s.k==='basic')return '기본 정보';const sec=S.sections[s.i];return (sec.badge&&!/^\d+$/.test(sec.badge)?sec.badge+' · ':(s.i+1)+'. ')+sec.title},
+  list(){return STEPS.map((s,i)=>i).filter(i=>STEPS[i].k==='basic'||STEPS[i].k==='sec').map(i=>{const s=STEPS[i];return {i,t:NAV.title(s),n:NAV.ids(s).filter(id=>!empty(A[id])).length}})},
+  fin(){return STEPS.findIndex(s=>s.k==='finish')},
+  jump(i){if(!validate())return;step=i;save();render()}
+};
+document.addEventListener('click',e=>{if(e.target.closest('#toFin')){e.stopPropagation();NAV.jump(NAV.fin())}},true);
 function go(d){step=Math.max(0,Math.min(STEPS.length-1,step+d));save();render()}
 function mark(ids){document.querySelectorAll('.q.err').forEach(e=>e.classList.remove('err'));let first=null;ids.forEach(id=>{const el=document.querySelector(`.q[data-q="${id}"]`);if(el){el.classList.add('err');first=first||el}});if(first)first.scrollIntoView({behavior:'smooth',block:'center'});return !first}
 const empty=v=>v==null||String(v).trim()==='';
@@ -157,8 +185,8 @@ document.addEventListener('click',e=>{
   const t=e.target.closest('button');if(!t)return;
   if(t.id==='next'){if(!validate())return;if(KZ.on&&STEPS[step].k==='basic')KZ.setPatient({consent:A['동의']==='동의합니다',name:A['성명'],dob:A['생년월일'],type:A['구분']});if(!sid)sid=Date.now().toString(36)+Math.random().toString(36).slice(2,7);go(1)}
   else if(t.id==='prev')go(-1);
-  else if(t.id==='resume'){const d=load();A=d.A||{};sid=d.sid||'';step=Math.max(1,Math.min(d.step||1,STEPS.length-1));render.r=true;render()}
-  else if(t.id==='restart'){clearSaved();A={};sid='';step=0;render.r=true;render()}
+  else if(t.id==='resume'){const d=load();A=d.A||{};sid=d.sid||'';step=Math.max(1,Math.min(d.step||1,STEPS.length-1));MAXS=Math.max(step,Math.min(d.mx||0,STEPS.length-1));render.r=true;render()}
+  else if(t.id==='restart'){clearSaved();A={};sid='';step=0;MAXS=0;NAV.fromFin=false;render.r=true;render()}
   else if(t.id==='submit')submit(t);
   else if(t.id==='fontBtn'){const on=document.body.classList.toggle('big');t.setAttribute('aria-pressed',on);try{localStorage.setItem('gkh_big',on?'1':'')}catch(_){}}
 });
@@ -186,5 +214,20 @@ try{history.scrollRestoration='manual'}catch(e){}
 try{if(localStorage.getItem('gkh_big')){document.body.classList.add('big');$('#fontBtn').setAttribute('aria-pressed','true')}}catch(e){}
 render();
 </script>
-<script>(function(){var s=function(){document.documentElement.classList.toggle('big',document.body.classList.contains('big'))};new MutationObserver(s).observe(document.body,{attributes:true,attributeFilter:['class']});s()})();</script></body>
+<script>(function(){var s=function(){document.documentElement.classList.toggle('big',document.body.classList.contains('big'))};new MutationObserver(s).observe(document.body,{attributes:true,attributeFilter:['class']});s()})();</script>
+<script>/* 목차 이동 · 키보드 열리면 하단 버튼 숨김 */
+(function(){
+  window.MAXS=window.MAXS||0;
+  function tocHTML(){return '<div class="toc">'+NAV.list().map(o=>`<button data-jump="${o.i}" class="${o.i===step?'cur':''} ${o.n===0?'empty':''}" ${o.i>MAXS?'disabled':''}><span class="tn">${esc(o.t)}</span><span class="ti">${o.i>MAXS?'아직 안 봄':o.n===0?'비어 있음':'답 '+o.n+'개'}</span></button>`).join('')+'</div>'}
+  window.NAVTOC=tocHTML;
+  function open(){const ov=document.createElement('div');ov.className='nav-ov';ov.innerHTML=`<div class="nav-box"><h3>원하는 곳으로 이동</h3><div class="sub">이미 지나온 곳까지 바로 갈 수 있습니다. 답한 내용은 그대로 남아 있습니다.</div>${tocHTML()}<button class="nav-x">닫기</button></div>`;document.body.appendChild(ov);ov.addEventListener('click',e=>{if(e.target===ov||e.target.closest('.nav-x'))ov.remove()})}
+  document.addEventListener('click',e=>{
+    if(e.target.closest('#tocBtn')){open();return}
+    const j=e.target.closest('[data-jump]');
+    if(j&&!j.disabled){e.stopPropagation();const ov=document.querySelector('.nav-ov');ov&&ov.remove();NAV.jump(+j.dataset.jump)}
+  },true);
+  document.addEventListener('focusin',e=>{if(e.target.matches('input.txt,textarea.txt'))document.body.classList.add('kb')});
+  document.addEventListener('focusout',e=>{if(e.target.matches('input.txt,textarea.txt'))setTimeout(()=>{if(!document.activeElement||!document.activeElement.matches('input.txt,textarea.txt'))document.body.classList.remove('kb')},120)});
+})();
+</script></body>
 </html>

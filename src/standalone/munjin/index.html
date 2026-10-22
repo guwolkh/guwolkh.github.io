@@ -42,7 +42,7 @@ main{max-width:640px;margin:0 auto;padding:1rem 1rem 7.5rem}
 .q.err{border-color:var(--warn);box-shadow:0 0 0 2px #f3d9d3}
 .opts{display:flex;flex-wrap:wrap;gap:.5rem}
 .opts.col{flex-direction:column}
-.chip{display:flex;align-items:center;gap:.55rem;min-height:3rem;padding:.55rem .95rem;border:1.5px solid var(--line);border-radius:.8rem;background:#fff;text-align:left;font-size:1rem;line-height:1.35;transition:background .12s,border-color .12s}
+.chip{display:flex;align-items:center;gap:.55rem;min-height:3rem;padding:.55rem .95rem .55rem .63rem;border:1.5px solid var(--line);border-radius:.8rem;background:#fff;text-align:left;font-size:1rem;line-height:1.35;transition:background .12s,border-color .12s}
 .opts.col .chip{width:100%}
 .chip .box{flex:none;width:1.35rem;height:1.35rem;border:2px solid #9aa6a1;border-radius:.35rem;display:flex;align-items:center;justify-content:center;background:#fff}
 .chip.radio .box{border-radius:50%}
@@ -97,6 +97,24 @@ textarea.txt{min-height:5.5rem;resize:vertical}
 .done .ok{width:4.5rem;height:4.5rem;border-radius:50%;background:var(--tint);color:var(--accent);font-size:2.2rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-weight:800}
 .done h2{font-size:1.5rem;margin-bottom:.5rem}
 .done p{color:var(--soft)}
+
+/* 2026-10-22 피드백 반영: 목차 이동 · 하단 버튼 · 선택지 글씨 */
+.stepno button{border:none;background:none;font:inherit;color:var(--accent);font-weight:700;padding:.1rem 0;text-decoration:underline;text-underline-offset:3px}
+.nav-ov{position:fixed;inset:0;z-index:20;background:rgba(20,28,25,.5);display:flex;align-items:flex-end;justify-content:center}
+.nav-box{background:#fff;width:100%;max-width:640px;max-height:80vh;overflow:auto;border-radius:1.1rem 1.1rem 0 0;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom))}
+.nav-box h3{font-size:1.1rem;margin-bottom:.2rem}.nav-box .sub{font-size:.8rem;color:var(--faint);margin-bottom:.7rem}
+.toc{display:grid;gap:.4rem}
+.toc button{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;border:1.5px solid var(--line);border-radius:.8rem;background:#fff;padding:.65rem .8rem;font:inherit;font-size:.95rem;color:var(--ink)}
+.toc button .tn{flex:1;font-weight:700}.toc button .ti{flex:none;font-size:.78rem;color:var(--faint)}
+.toc button.cur{border-color:var(--accent);background:var(--tint)}
+.toc button.empty .ti{color:var(--warn)}
+.toc button[disabled]{opacity:.45}
+.done .toc{text-align:left;margin-top:1.2rem}.done .toc-h{text-align:left;font-weight:800;margin-top:1.4rem;color:var(--ink)}
+.nav-x{margin-top:.8rem;width:100%;min-height:3rem;border-radius:.9rem;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:800;color:var(--soft)}
+.foot{padding:.5rem 1rem calc(.5rem + env(safe-area-inset-bottom))}
+.foot .btn{min-height:3rem}
+body.kb .foot,body.kb .saved{display:none}
+html:not(.big) .chip{font-size:17px}
 </style>
 <script src="/tablet/kiosk.js"></script>
 </head>
@@ -283,7 +301,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const qid=(sec,title)=>sec+'. '+title;
 
 function load(){if(KZ.on)return null;try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&Date.now()-d.ts<TTL)return d;}catch(e){}return null}
-function save(flash){if(KZ.on)return;try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,ts:Date.now()}));if(flash){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900);}}catch(e){}}
+function save(flash){if(KZ.on)return;try{localStorage.setItem(KEY,JSON.stringify({A,step,sid,mx:MAXS,ts:Date.now()}));if(flash){const t=$('#saved');t.classList.add('on');clearTimeout(save.t);save.t=setTimeout(()=>t.classList.remove('on'),900);}}catch(e){}}
 function clearSaved(){try{localStorage.removeItem(KEY)}catch(e){}}
 function answeredCount(){return Object.values(A).filter(v=>Array.isArray(v)?v.length:String(v||'').trim()).length}
 const isWoman=()=>A['기본. 성별']==='여';
@@ -312,8 +330,9 @@ function item(secNo,it){
 }
 function render(){
   const s=STEPS[step], vs=visibleSteps(), pos=vs.indexOf(step);
+  MAXS=Math.max(MAXS,step);if(s.kind==='finish')NAV.fromFin=true;
   $('#progBar').style.width=(s.kind==='sent'?100:Math.round(pos/(vs.length-1)*100))+'%';
-  $('#stepNo').textContent=(s.kind==='intro'||s.kind==='finish'||s.kind==='sent')?'':`${pos} / ${vs.length-2} 단계`;
+  $('#stepNo').innerHTML=(s.kind==='intro'||s.kind==='finish'||s.kind==='sent')?'':`${pos} / ${vs.length-2} 단계`+(MAXS>1?` · <button id="tocBtn">목차 보기 ▾</button>`:'');
   let h='';
   if(s.kind==='intro'){
     const d=load();
@@ -347,7 +366,7 @@ function render(){
     const c=k=>EMO.filter(([n])=>A[qid('20',n)]===k).length;
     h+=`<div class="count">가깝다 ${c('가깝다')}개 · 멀다 ${c('멀다')}개 선택됨</div></div>`;
   }else if(s.kind==='finish'){
-    h+=`<div class="done"><div class="ok">✓</div><h2>거의 다 되었습니다</h2><p>아래 <b>[제출하기]</b>를 눌러야 한의원으로 전달됩니다.<br>빠뜨린 곳이 있으면 [이전]으로 돌아가 고치실 수 있습니다.</p><p style="margin-top:1rem;font-size:.85rem">응답한 항목 ${answeredCount()}개</p><div class="msg" id="sendMsg"></div></div>`;
+    h+=`<div class="done"><div class="ok">✓</div><h2>거의 다 되었습니다</h2><p>아래 <b>[제출하기]</b>를 눌러야 한의원으로 전달됩니다.<br>고칠 곳이 있으면 아래 목록에서 눌러 바로 가실 수 있습니다.</p><p style="margin-top:1rem;font-size:.85rem">응답한 항목 ${answeredCount()}개</p><div class="msg" id="sendMsg"></div><div class="toc-h">항목별 확인·수정</div>${NAVTOC()}</div>`;
   }else if(s.kind==='sent'){
     h+=`<div class="done"><div class="ok">✓</div><h2>제출되었습니다</h2><p>작성해 주셔서 감사합니다.<br>진료실에서 뵙겠습니다.</p></div>`;
   }
@@ -364,9 +383,22 @@ function renderFoot(){
   f.parentNode.style.display='';
   if(s.kind==='intro'){f.className='in solo';f.innerHTML=`<button class="btn pri" id="next">시작하기</button>`;return}
   f.className='in';
-  f.innerHTML=`<button class="btn sec" id="prev">이전</button>`+(s.kind==='finish'?`<button class="btn pri" id="submit">제출하기</button>`:`<button class="btn pri" id="next">다음</button>`);
+  f.innerHTML=`<button class="btn sec" id="prev">이전</button>`+(s.kind==='finish'?`<button class="btn pri" id="submit">제출하기</button>`:(NAV.fromFin&&s.kind!=='basic')?`<button class="btn pri" id="toFin">확인 화면으로 →</button>`:`<button class="btn pri" id="next">다음</button>`);
 }
 
+
+// ---------------- 목차 이동 ----------------
+var MAXS=0;
+const NAV={fromFin:false,
+  ids(s){if(s.kind==='basic')return ['기본. 동의','기본. 성명','기본. 생년월일','기본. 성별','기본. 직업','기본. 키','기본. 몸무게'];
+    if(s.kind==='sec')return s.sec.items.map(it=>qid(s.sec.no,it[1]));
+    if(s.kind==='pers')return PERS.map(p=>qid('19',p[0]));if(s.kind==='emo')return EMO.map(e=>qid('20',e[0]));return []},
+  title(s){return s.kind==='basic'?'기본 정보':s.kind==='sec'?`${s.sec.no}. ${s.sec.title}`:s.kind==='pers'?'19. 평소 성격':'20. 나의 감정'},
+  list(){return visibleSteps().filter(i=>['basic','sec','pers','emo'].includes(STEPS[i].kind)).map(i=>{const s=STEPS[i];const n=NAV.ids(s).filter(id=>{const v=A[id];return Array.isArray(v)?v.length:String(v||'').trim()}).length;return {i,t:NAV.title(s),n}})},
+  fin(){return STEPS.findIndex(s=>s.kind==='finish')},
+  jump(i){if(STEPS[step].kind==='basic'&&!validateBasic())return;step=i;save();render()}
+};
+document.addEventListener('click',e=>{if(e.target.closest('#toFin')){e.stopPropagation();NAV.jump(NAV.fin())}},true);
 // ---------------- 이동 ----------------
 function go(dir){
   let i=step+dir;
@@ -396,8 +428,8 @@ document.addEventListener('click',e=>{
   const t=e.target.closest('button');if(!t)return;
   if(t.id==='next'){if(STEPS[step].kind==='basic'&&!validateBasic())return;if(KZ.on&&STEPS[step].kind==='basic')KZ.setPatient({consent:true,name:A['기본. 성명'],dob:A['기본. 생년월일'],sex:A['기본. 성별']});if(!sid)sid=Date.now().toString(36)+Math.random().toString(36).slice(2,7);go(1)}
   else if(t.id==='prev')go(-1);
-  else if(t.id==='resume'){const d=load();A=d.A||{};sid=d.sid||'';step=Math.max(1,d.step||1);render.resumed=true;render()}
-  else if(t.id==='restart'){clearSaved();A={};sid='';step=0;render.resumed=true;render()}
+  else if(t.id==='resume'){const d=load();A=d.A||{};sid=d.sid||'';step=Math.max(1,d.step||1);MAXS=Math.max(step,d.mx||0);render.resumed=true;render()}
+  else if(t.id==='restart'){clearSaved();A={};sid='';step=0;MAXS=0;NAV.fromFin=false;render.resumed=true;render()}
   else if(t.id==='submit')submit(t);
   else if(t.id==='fontBtn'){const on=document.body.classList.toggle('big');t.setAttribute('aria-pressed',on);try{localStorage.setItem(KEY+'_big',on?'1':'')}catch(_){}}
 });
@@ -428,5 +460,20 @@ try{history.scrollRestoration='manual'}catch(e){}
 try{if(localStorage.getItem(KEY+'_big')){document.body.classList.add('big');$('#fontBtn').setAttribute('aria-pressed','true')}}catch(e){}
 render();
 </script>
-<script>(function(){var s=function(){document.documentElement.classList.toggle('big',document.body.classList.contains('big'))};new MutationObserver(s).observe(document.body,{attributes:true,attributeFilter:['class']});s()})();</script></body>
+<script>(function(){var s=function(){document.documentElement.classList.toggle('big',document.body.classList.contains('big'))};new MutationObserver(s).observe(document.body,{attributes:true,attributeFilter:['class']});s()})();</script>
+<script>/* 목차 이동 · 키보드 열리면 하단 버튼 숨김 */
+(function(){
+  window.MAXS=window.MAXS||0;
+  function tocHTML(){return '<div class="toc">'+NAV.list().map(o=>`<button data-jump="${o.i}" class="${o.i===step?'cur':''} ${o.n===0?'empty':''}" ${o.i>MAXS?'disabled':''}><span class="tn">${esc(o.t)}</span><span class="ti">${o.i>MAXS?'아직 안 봄':o.n===0?'비어 있음':'답 '+o.n+'개'}</span></button>`).join('')+'</div>'}
+  window.NAVTOC=tocHTML;
+  function open(){const ov=document.createElement('div');ov.className='nav-ov';ov.innerHTML=`<div class="nav-box"><h3>원하는 곳으로 이동</h3><div class="sub">이미 지나온 곳까지 바로 갈 수 있습니다. 답한 내용은 그대로 남아 있습니다.</div>${tocHTML()}<button class="nav-x">닫기</button></div>`;document.body.appendChild(ov);ov.addEventListener('click',e=>{if(e.target===ov||e.target.closest('.nav-x'))ov.remove()})}
+  document.addEventListener('click',e=>{
+    if(e.target.closest('#tocBtn')){open();return}
+    const j=e.target.closest('[data-jump]');
+    if(j&&!j.disabled){e.stopPropagation();const ov=document.querySelector('.nav-ov');ov&&ov.remove();NAV.jump(+j.dataset.jump)}
+  },true);
+  document.addEventListener('focusin',e=>{if(e.target.matches('input.txt,textarea.txt'))document.body.classList.add('kb')});
+  document.addEventListener('focusout',e=>{if(e.target.matches('input.txt,textarea.txt'))setTimeout(()=>{if(!document.activeElement||!document.activeElement.matches('input.txt,textarea.txt'))document.body.classList.remove('kb')},120)});
+})();
+</script></body>
 </html>
