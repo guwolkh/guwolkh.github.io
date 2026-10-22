@@ -486,8 +486,17 @@ render();
     const j=e.target.closest('[data-jump]');
     if(j&&!j.disabled){e.stopPropagation();const ov=document.querySelector('.nav-ov');ov&&ov.remove();NAV.jump(+j.dataset.jump)}
   },true);
-  document.addEventListener('focusin',e=>{if(e.target.matches('input.txt,textarea.txt'))document.body.classList.add('kb')});
-  document.addEventListener('focusout',e=>{if(e.target.matches('input.txt,textarea.txt'))setTimeout(()=>{if(!document.activeElement||!document.activeElement.matches('input.txt,textarea.txt'))document.body.classList.remove('kb')},120)});
+  /* 키보드가 실제로 열려 있을 때만 하단 버튼 숨김 (화면 높이로 판단). 판단이 안 되면 항상 보이게 */
+  (function(){const vv=window.visualViewport;
+    const typing=()=>{const a=document.activeElement;return !!a&&!!a.matches&&a.matches('input.txt,textarea.txt')};
+    const upd=()=>{const open=!!vv&&typing()&&(window.innerHeight-vv.height)>150;document.body.classList.toggle('kb',open)};
+    if(vv)vv.addEventListener('resize',upd);
+    document.addEventListener('focusin',()=>setTimeout(upd,350));
+    document.addEventListener('focusout',()=>setTimeout(upd,150));
+    window.addEventListener('scroll',upd,{passive:true});
+    document.addEventListener('touchstart',()=>setTimeout(upd,400),{passive:true});
+    const app=document.getElementById('app');if(app)new MutationObserver(upd).observe(app,{childList:true});
+  })();
 })();
 </script></body>
 </html>
