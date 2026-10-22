@@ -67,6 +67,23 @@ body.only .row.blank,body.only section.blank{display:none}
 .sum textarea{width:100%;min-height:260px;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font:13px/1.55 "Malgun Gothic","Noto Sans KR",sans-serif;color:var(--ink);resize:vertical}
 .sum .flag{background:#fdecea;color:#a3271b;border-radius:6px;padding:6px 10px;font-weight:800;margin-bottom:8px}
 @media print{.sum{display:none}}
+.viz{border:2px solid var(--accent);border-radius:12px;padding:14px 16px 12px;margin:6px 0 14px;background:#fff;break-inside:avoid}
+.viz h4{font-size:15px;color:var(--accent);margin-bottom:2px}.viz .big{font-size:30px;font-weight:900;line-height:1.1}.viz .big small{font-size:14px;color:var(--soft);font-weight:600;margin-left:4px}
+.viz .lvl{display:inline-block;margin-left:10px;padding:2px 12px;border-radius:14px;color:#fff;font-weight:800;font-size:15px;vertical-align:6px}
+.gauge{position:relative;margin:30px 0 4px;height:22px;display:flex;border-radius:6px;overflow:visible}
+.gauge .seg{height:100%;position:relative}.gauge .seg:first-child{border-radius:6px 0 0 6px}.gauge .seg:last-child{border-radius:0 6px 6px 0}
+.gauge .mk{position:absolute;top:-26px;transform:translateX(-50%);font-weight:900;font-size:13px;white-space:nowrap;text-align:center}
+.gauge .mk::after{content:"";display:block;margin:1px auto 0;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:9px solid var(--ink)}
+.gauge .pin{position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--ink);transform:translateX(-50%);border-radius:2px}
+.ticks{position:relative;height:16px;font-size:11px;color:var(--soft);margin-bottom:8px}.ticks span{position:absolute;transform:translateX(-50%)}
+.bands{display:grid;gap:5px;margin-top:6px}
+.bands div{display:grid;grid-template-columns:185px 1fr;gap:10px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;color:var(--soft)}
+.bands div b{display:flex;align-items:center;gap:6px;color:var(--ink)}.bands div b i{flex:none;width:12px;height:12px;border-radius:3px}
+.bands div.cur{border:2px solid var(--ink);color:var(--ink);background:#fbfbf6}.bands div.cur b::after{content:"◀ 현재";font-size:11px;color:#b4513d;margin-left:auto}
+.subs{display:grid;gap:6px;margin-top:12px}.subs .r{display:grid;grid-template-columns:150px 1fr 70px;gap:10px;align-items:center;font-size:13px}
+.subs .sbar{height:12px;background:#edf1ef;border-radius:6px;overflow:hidden}.subs .sbar i{display:block;height:100%;background:var(--accent);border-radius:6px}
+.subs .r span:last-child{text-align:right;font-weight:800}
+.viz .src{font-size:11px;color:var(--faint);margin-top:8px}
 @media print{body{background:#fff}.bar{display:none}.paper{box-shadow:none;margin:0;max-width:none;padding:0}}
 </style>
 </head>
@@ -125,6 +142,61 @@ function list0(M,h,opts){const v=M[h];if(!v)return [];const s=', '+String(v).tri
 function copySum(){const ta=document.getElementById('sumTa');const btn=document.getElementById('sumCopy');const ok=()=>{btn.textContent='복사됨 ✓';setTimeout(()=>btn.textContent='복사',1500)};
   ta.select();let done=false;try{done=document.execCommand('copy')}catch(e){}
   if(done)ok();else if(navigator.clipboard)navigator.clipboard.writeText(ta.value).then(ok,()=>{btn.textContent='Ctrl+C 로 복사'});}
+
+const GC=['#3f9a6b','#9cbf4a','#e3b23c','#e07b39','#c0392b'];
+const GAUGES={
+ imyeong:{title:'이명 장애 정도 (K-THI)',h:'THI 총점',min:0,max:100,unit:'점',bands:[
+   [0,16,'1단계 · 매우 경미','조용한 곳에서만 들리고, 생활에 거의 지장이 없음'],
+   [18,36,'2단계 · 경도','주변 소리에 쉽게 묻히고, 다른 일을 하면 잊힘'],
+   [38,56,'3단계 · 중등도','주변이 시끄러워도 느껴지지만, 일상생활은 할 수 있음'],
+   [58,76,'4단계 · 중증','거의 항상 들리고, 잠을 방해하며 일상 활동에 지장을 줌'],
+   [78,100,'5단계 · 최중증','늘 들리고, 잠들기 어렵고 거의 모든 활동이 힘듦']],
+  subs:[['기능(F) · 집중·일상','THI 기능(F)',44],['정서(E) · 짜증·불안·우울','THI 정서(E)',36],['파국(C) · 절망·통제불능감','THI 파국(C)',20],['소리 예민함 (해당 문항 수)','소리예민 해당 수 (가끔+그렇다)',6,'개']],
+  src:'단계 구분: McCombe 등(2001) 이명장애지수 등급. 한국어판 K-THI(김지혜 등, 2002). 단계 설명은 원 등급 기준을 쉽게 옮긴 것.'},
+ nanchung:{title:'청력으로 인한 생활 불편 (K-HHIE)',h:'HHIE 총점',min:0,max:100,unit:'점',bands:[
+   [0,16,'장애 없음','청력 때문에 생활이 크게 불편하지 않음'],
+   [18,42,'경도~중등도','대화·모임에서 불편을 느끼기 시작함'],
+   [44,100,'심한 장애','대화와 사회생활 전반에 뚜렷한 지장']],
+  subs:[['정서(E)','HHIE 정서(E)',52],['사회·상황(S)','HHIE 사회(S)',48]],
+  src:'구분: Ventry & Weinstein(1982) HHIE 해석 기준.'},
+ eojireom:{title:'어지럼으로 인한 장애 (K-DHI)',h:'DHI 총점',min:0,max:100,unit:'점',bands:[
+   [0,30,'경도','어지럼이 있으나 생활 지장은 적음'],
+   [31,60,'중등도','일상 활동·외출에 눈에 띄는 제약'],
+   [61,100,'중증','일상생활 전반이 크게 제한됨']],
+  subs:[['신체(P)','DHI 신체(P)',28],['정서(E)','DHI 정서(E)',36],['기능(F)','DHI 기능(F)',36]],
+  src:'구분: Jacobson & Newman(1990) DHI 해석에 흔히 쓰는 기준(0–30 / 31–60 / 61–100).'},
+ gwimeokmeok:{title:'이관기능장애 설문 (ETDQ-7)',h:'ETDQ-7 합계 (7~49)',min:7,max:49,unit:'점',bands:[
+   [7,14,'가능성 낮음','평균 문항 점수 2.0 이하'],
+   [15,49,'이관기능장애 가능성','합계 14.5 이상(평균 2.1 이상) — 진찰로 확인']],
+  subs:[['먹먹함 정도 (0~10)','먹먹함 정도 (0~10)',10]],
+  src:'기준: McCoul 등(2012) ETDQ-7, 합계 14.5 이상을 이관기능장애 의심으로 봄.'},
+ malcho:{title:'말초신경병증 선별 (MNSI 설문)',h:'MNSI 점수 (0~13)',min:0,max:13,unit:'점',bands:[
+   [0,3,'가능성 낮음','증상 설문상 신경병증 가능성 낮음'],
+   [4,13,'신경병증 가능성','4점 이상 — 감각 검사 등 진찰로 확인']],
+  subs:[['증상 정도 합계 (0~50)','증상 정도 합계 (0~50)',50]],
+  src:'기준: MNSI 설문 4점 이상 양성(Herman 등, 2012).'},
+ hajibuluan:{title:'하지불안증후군 진단기준 (IRLSSG 2014)',h:'진단기준 충족 수',min:0,max:5,unit:'개',bands:[
+   [0,4,'일부만 해당','5개 기준을 모두 만족하지 않음 — 진료로 감별'],
+   [5,5,'5개 모두 해당','하지불안증후군 가능성 높음']],
+  subs:[['중증도 합계 (0~60)','중증도 합계 (0~60)',60]],
+  src:'기준: IRLSSG 2014 필수 진단기준 5가지.'}
+};
+function gaugeHTML(form,M){
+  const G=GAUGES[form];if(!G)return '';
+  const raw=M[G.h];const v=raw==null||String(raw).trim()===''?null:parseFloat(String(raw));
+  if(v==null||isNaN(v))return '';
+  const span=G.max-G.min,pct=x=>Math.max(0,Math.min(100,(x-G.min)/span*100));
+  const n=G.bands.length,col=i=>n===2?[GC[0],GC[4]][i]:n===3?[GC[0],GC[2],GC[4]][i]:GC[i];
+  let cur=G.bands.findIndex((b,i)=>v<=b[1]||i===n-1);
+  let seg='';G.bands.forEach((b,i)=>{const lo=i?G.bands[i-1][1]:G.min,hi=b[1];seg+=`<div class="seg" style="width:${(hi-lo)/span*100}%;background:${col(i)}"></div>`});
+  const p=pct(v);
+  let ticks=`<span style="left:0;transform:none">${G.min}</span>`+G.bands.slice(0,-1).map(b=>`<span style="left:${pct(b[1])}%">${b[1]}</span>`).join('')+`<span style="left:100%;transform:translateX(-100%)">${G.max}</span>`;
+  let H=`<div class="viz"><h4>${esc(G.title)}</h4><div class="big">${v}<small>/ ${G.max}${G.unit}</small><span class="lvl" style="background:${col(cur)}">${esc(G.bands[cur][2])}</span></div>`;
+  H+=`<div class="gauge">${seg}<div class="pin" style="left:${p}%"></div><div class="mk" style="left:${p}%">${v}${G.unit}</div></div><div class="ticks">${ticks}</div>`;
+  H+='<div class="bands">'+G.bands.map((b,i)=>`<div class="${i===cur?'cur':''}"><b><i style="background:${col(i)}"></i>${esc(b[2])}</b><span>${b[0]===b[1]?b[0]:b[0]+'–'+b[1]}${G.unit} · ${esc(b[3])}</span></div>`).join('')+'</div>';
+  if(G.subs){const rows=G.subs.map(([l,h,mx,u])=>{const s=parseFloat(M[h]);if(isNaN(s))return '';return `<div class="r"><span>${esc(l)}</span><div class="sbar"><i style="width:${Math.min(100,s/mx*100)}%"></i></div><span>${s} / ${mx}${u||''}</span></div>`}).join('');if(rows)H+=`<div class="subs">${rows}</div>`}
+  return H+`<div class="src">${esc(G.src)}</div></div>`;
+}
 function render(form,M){
   const F=FORMS[form]; if(!F){document.getElementById('out').innerHTML='<div class="wait">이 탭은 문진 결과 보기 대상이 아닙니다.</div>';return}
   const g=h=>{const v=M[h];return v==null?'':String(v).trim()};
@@ -134,6 +206,7 @@ function render(form,M){
   const info=F.info.filter(([l,h])=>l!=='작성 장소');
   H+='<table class="info"><tr>'+info.map(([l,h],i)=>`<th>${l}</th><td>${esc(g(h))}</td>${(i%3===2&&i<info.length-1)?'</tr><tr>':''}`).join('')+'</tr></table>';
   if(F.scores&&F.scores.length){H+='<div class="score">'+F.scores.map(([l,h])=>`<div class="${/판정/.test(l)?'band':''}">${esc(l)}<b>${esc(g(h))||'-'}</b></div>`).join('')+(F.note?`<div class="note">${esc(F.note)}</div>`:'')+'</div>'}
+  H+=gaugeHTML(form,M);
   F.sections.forEach(s=>{
     let any=false,rows='';
     s.items.forEach(it=>{
