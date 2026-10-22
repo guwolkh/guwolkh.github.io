@@ -95,6 +95,8 @@ html:not(.big) .grid button,html:not(.big) .chip{font-size:16.6px}
 .top .stepno{font-size:16px;line-height:1.2;color:#555555;padding:0;text-align:center;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 .top .stepno button{font:inherit;font-size:16px;color:#555555;text-decoration:none;padding:4px 6px;border:none;background:none}
 .kz-home{font-size:13px!important;padding:4px 8px!important;margin-left:0!important}
+.top .stepno .caret{font-size:12px;color:#888;margin-left:2px;vertical-align:1px}
+.top .stepno button{border:1px solid #d6ddda!important;border-radius:14px;padding:3px 10px!important;background:#fff!important}
 </style>
 <script src="/tablet/kiosk.js"></script>
 </head>
@@ -140,7 +142,7 @@ function render(){
   const s=STEPS[step],n=STEPS.length;
   MAXS=Math.max(MAXS,step);if(s.k==='finish')NAV.fromFin=true;
   $('#progBar').style.width=(s.k==='sent'?100:Math.round(step/(n-1)*100))+'%';
-  $('#stepNo').innerHTML=(s.k==='intro'||s.k==='finish'||s.k==='sent')?'':(MAXS>1?`<button id="tocBtn" aria-label="목차 보기">${step}/${n-2}</button>`:`${step}/${n-2}`);
+  $('#stepNo').innerHTML=(s.k==='intro'||s.k==='finish'||s.k==='sent')?'':(MAXS>1?`<button id="tocBtn" aria-label="목차 보기">${step}/${n-2} <span class="caret">▾</span></button>`:`${step}/${n-2}`);
   let h='';
   if(s.k==='intro'){
     const d=load();
