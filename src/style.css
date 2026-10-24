@@ -369,3 +369,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
 .location-note { margin: 6px 0 0; font-size: 15px; color: var(--ink-sub); }
 .cta-fee { margin: 14px 0 0; }
 .cta-fee a { color: #fff; font-weight: 700; text-underline-offset: 3px; }
+
+/* 칼럼 아래 대표원장 소개 박스 */
+.director-box .director-photo { max-width: 560px; }
+.director-box-name { font-size: 26px; font-weight: 800; margin: 0 0 14px; }
+.director-box-name span { font-size: 17px; font-weight: 600; color: var(--green); margin-left: 6px; }
+.director-box-bio { list-style: disc; margin: 0; padding-left: 22px; color: var(--ink-sub); font-size: 17px; line-height: 1.8; }

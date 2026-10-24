@@ -287,6 +287,21 @@ def render_columns(cfg, pg):
             f'<ul class="columns">{cards}</ul></section>')
 
 
+def render_director_box(cfg, pg):
+    """칼럼 페이지(상위 질환이 있는 페이지) 아래에 대표원장 사진·약력 박스를 붙입니다."""
+    if not pg.get("parent"):
+        return ""
+    d = cfg["director"]
+    start = int(cfg["careerStartYear"])
+    bio = [f"{start}년부터 {date.today().year - start + 1}년째 이명 진료"] + d.get("columnBio", [])
+    items = "".join(f"<li>{e(x)}</li>" for x in bio)
+    return ('<section class="section director-box">'
+            f'<img class="director-photo" src="/{quote(d["photo"])}" alt="{e(d["photoAlt"])}" width="1200" height="750" loading="lazy">'
+            f'<h2 class="director-box-name">{e(d["name"])} <span>{e(d["title"])}</span></h2>'
+            f'<ul class="director-box-bio">{items}</ul>'
+            '<p class="note"><a href="/director/">대표원장 소개 자세히 보기</a></p></section>')
+
+
 def render_page_cta(cfg):
     notes = "".join(f"<li>{e(n)}</li>" for n in cfg.get("hoursNotes", []))
     fee = ('<p class="cta-fee"><a href="/npay/">한약·검사 비용 안내 ›</a></p>'
@@ -437,7 +452,7 @@ def main():
                    f'{e(cfg["director"]["title"])} {e(cfg["director"]["name"])}</p>' if pg.get("reviewed") else "")
                 + '</section>')
         content = (hero + "\n" + body + "\n" + render_columns(cfg, pg) + "\n" + render_faq(pg.get("faq"), heading=pg.get("kind") != "faq") + "\n"
-                   + render_related(pg.get("related")) + "\n" + render_page_cta(cfg))
+                   + render_director_box(cfg, pg) + "\n" + render_related(pg.get("related")) + "\n" + render_page_cta(cfg))
         pctx = dict(ctx)
         pctx.update({
             "pageTitle": e(pg["title"]),
