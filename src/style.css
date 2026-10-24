@@ -280,6 +280,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
 .prose p:last-child { margin-bottom: 0; }
 .prose h3 { font-size: 21px; font-weight: 800; color: var(--green); margin: 32px 0 10px; }
 .prose strong { color: var(--green-dark); }
+.figure { margin: 24px auto; max-width: 520px; }
+.figure img { width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--line); }
+.figure figcaption { margin-top: 8px; font-size: 14px; color: var(--ink-sub); text-align: center; }
 .points { counter-reset: pt; margin: 0 0 18px; display: grid; gap: 10px; }
 .points li { counter-increment: pt; position: relative; padding: 16px 18px 16px 52px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
 .points li::before { content: counter(pt); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--green); color: #fff; font-size: 15px; font-weight: 800; display: grid; place-items: center; line-height: 1; }
