@@ -108,7 +108,10 @@
   "youtubeUrl": "https://youtube.com/@guwolkh",
   "instagramUrl": "https://www.instagram.com/guwolkh",
   "_틱톡_안내": "틱톡 주소를 받으면 넣습니다. 비워 두면 표시하지 않습니다.",
-  "tiktokUrl": "",
+  "tiktokUrl": "https://www.tiktok.com/@guwolkh",
+  "_외부지도_안내": "구조화 데이터 sameAs에 들어가는 지도 주소입니다. 원장님이 확인해 주신 주소만 넣습니다.",
+  "naverPlaceUrl": "https://map.naver.com/p/entry/place/1151046043",
+  "googleMapsUrl": "https://maps.google.com/?cid=4399574176037338901",
   "director": {
     "photo": "images/구월경희한의원-대표원장-지근성.jpg",
     "photoAlt": "구월경희한의원 대표원장 지근성",

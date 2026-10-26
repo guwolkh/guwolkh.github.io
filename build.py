@@ -56,9 +56,33 @@ def render_fields_extra(cfg):
     return f'<p class="fields-extra"><span>{e(x.get("label", ""))}</span> {e(" · ".join(x["items"]))}</p>'
 
 
-def render_cases(cfg):
+def page_date(pg):
+    """칼럼의 공개일(published). 공개일이 없으면 검토일(reviewed)을 씁니다. 형식: 2026-10-27"""
+    return pg.get("published") or pg.get("reviewed") or ""
+
+
+def last_modified(pg):
+    """사이트맵 수정일: 공개일과 검토일 중 늦은 날 (공개 뒤 다시 검토하면 검토일이 반영됩니다)."""
+    return max(pg.get("published") or "", pg.get("reviewed") or "")
+
+
+def site_columns(cfg):
+    """홈페이지에 공개된 칼럼(상위 질환이 있는 페이지)을 최신순으로 돌려줍니다."""
+    cols = [p for p in cfg.get("pages", []) if p.get("parent") and p.get("kind") == "condition"]
+    return sorted(cols, key=page_date, reverse=True)
+
+
+def render_cases(cfg, limit=4):
     blog = cfg.get("blogUrl", "")
+    navs = {p["slug"]: p["nav"] for p in cfg.get("pages", [])}
     cards = []
+    # 홈페이지에 공개된 칼럼을 최신순으로 먼저, 블로그 글은 그 뒤에
+    for c in site_columns(cfg)[:limit]:
+        when = f'<time>{e(page_date(c).replace("-", "."))}</time>' if page_date(c) else ""
+        cards.append(f'<a class="case" href="/{e(c["slug"])}/">'
+                     '<div class="case-thumb"><span class="case-thumb-empty" aria-hidden="true"></span></div>'
+                     f'<div class="case-body"><div class="case-tags"><span>{e(navs.get(c["parent"], ""))}</span></div>'
+                     f'<h3>{e(c.get("cardTitle") or c["h1"])}</h3>{when}</div></a>')
     for c in cfg.get("cases", []):
         if not c.get("url"):
             continue
@@ -132,9 +156,10 @@ def clinic_jsonld(cfg):
         "knowsAbout": conditions_known(cfg),
         "founder": physician_ref(cfg),
         "employee": physician_ref(cfg),
-        "hasMap": "https://map.naver.com/p/search/" + quote(cfg.get("mapQuery") or cfg["name"]),
+        "hasMap": cfg.get("naverPlaceUrl") or "https://map.naver.com/p/search/" + quote(cfg.get("mapQuery") or cfg["name"]),
         "sameAs": [u for u in (cfg.get("blogUrl"), cfg.get("youtubeUrl"), cfg.get("instagramUrl"),
-                               cfg.get("tiktokUrl"), cfg.get("naverPlaceUrl"), kakao_channel(cfg)) if u],
+                               cfg.get("tiktokUrl"), cfg.get("naverPlaceUrl"), cfg.get("googleMapsUrl"),
+                               kakao_channel(cfg)) if u],
     }
     if cfg.get("geo"):
         data["geo"] = {"@type": "GeoCoordinates", "latitude": cfg["geo"]["latitude"],
@@ -377,6 +402,42 @@ def page_jsonld(cfg, pg, url):
     return items
 
 
+def render_llms(cfg):
+    """AI 검색용 /llms.txt. 새 문장은 만들지 않고 설정·페이지에 이미 있는 문구만 모읍니다."""
+    site = cfg.get("siteUrl", "").rstrip("/")
+    pages = cfg.get("pages", [])
+    by_slug = {p["slug"]: p for p in pages}
+    d = cfg["director"]
+    lines = [f"# {cfg['name']}", "", f"> {cfg['home']['description']}", "", "## 기본 정보", ""]
+    loc = cfg["address"]["full"] + (f" ({cfg['locationNote']})" if cfg.get("locationNote") else "")
+    lines += [f"- 위치: {loc}", f"- 전화: {cfg['phone']}",
+              f"- 대표원장: {d['name']} ({cfg['careerStartYear']}년부터 이명 진료)"]
+    hours = " / ".join(f"{h['label']} {h['time']}" + (f" ({h['note']})" if h.get("note") else "")
+                       for h in cfg["hours"])
+    lines.append(f"- 진료시간: {hours}")
+    lines += [f"- {n}" for n in cfg.get("hoursNotes", [])]
+    for b in cfg["booking"].values():
+        if b.get("url"):
+            lines.append(f"- 네이버 예약 · {b['title']}: {b['url']}")
+    lines += ["", "## 중점 진료 분야", ""]
+    for f in cfg.get("fields", []):
+        pg = by_slug.get(f.get("page"))
+        if pg:
+            lines.append(f"- [{f['name']}]({site}/{pg['slug']}/): {pg['description']}")
+    cols = site_columns(cfg)
+    if cols:
+        lines += ["", "## 칼럼", ""]
+        for f in cfg.get("fields", []):
+            for c in [c for c in cols if c["parent"] == f.get("page")]:
+                lines.append(f"- [{c['h1']}]({site}/{c['slug']}/) ({f['name']}): {c['description']}")
+    lines += ["", "## 안내", ""]
+    for slug in ("director", "faq"):
+        pg = by_slug.get(slug)
+        if pg:
+            lines.append(f"- [{pg['h1']}]({site}/{slug}/): {pg['description']}")
+    return "\n".join(lines) + "\n"
+
+
 def fill(template, ctx):
     missing = set()
 
@@ -476,15 +537,20 @@ def main():
     if site:
         robots += f"Sitemap: {site}/sitemap.xml\n"
         today = date.today().isoformat()
-        urls = [f"{site}/"] + [f"{site}/{pg['slug']}/" for pg in cfg.get("pages", [])]
+        # 하위 페이지는 공개일·검토일 중 늦은 날을 수정일로 씁니다 (없으면 빌드한 날)
+        urls = [(f"{site}/", today)] + [(f"{site}/{pg['slug']}/", last_modified(pg) or today)
+                                        for pg in cfg.get("pages", [])]
         (DIST / "sitemap.xml").write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-            + "".join(f"  <url><loc>{e(u)}</loc><lastmod>{today}</lastmod></url>\n" for u in urls)
+            + "".join(f"  <url><loc>{e(u)}</loc><lastmod>{d}</lastmod></url>\n" for u, d in urls)
             + "</urlset>\n", encoding="utf-8")
     (DIST / "robots.txt").write_text(robots, encoding="utf-8")
+    llms = render_llms(cfg)
+    (DIST / "llms.txt").write_text(llms, encoding="utf-8")
+    outputs["llms.txt"] = llms  # 아래 표현 검사에 함께 넣습니다
 
-    print(f"dist/ 생성 완료 (페이지 {len(outputs)}개)")
+    print(f"dist/ 생성 완료 (페이지 {len(outputs) - 1}개 + llms.txt)")
     pending = [k for k, v in [("한약 초진 예약 링크", cfg["booking"]["herbalFirstVisit"]["url"]),
                               ("일반 진료 예약 링크", cfg["booking"]["general"]["url"]),
                               ("카카오톡 링크", cfg.get("kakaoUrl")),
