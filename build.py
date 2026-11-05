@@ -306,7 +306,10 @@ def render_columns(cfg, pg):
         f'<strong>{e(c.get("cardTitle") or c["h1"])}</strong>'
         f'<span>{e(c.get("eyebrow", ""))}</span></a></li>'
         for c in cols)
-    title = "이 질환 칼럼" if not pg.get("parent") else "같은 질환 다른 칼럼"
+    if root == "faq":
+        title = "한약 치료 칼럼"
+    else:
+        title = "이 질환 칼럼" if not pg.get("parent") else "같은 질환 다른 칼럼"
     return ('<section class="section" id="columns">'
             f'<p class="kicker">Column</p><h2 class="section-title">{title}</h2>'
             f'<ul class="columns">{cards}</ul></section>')
@@ -430,6 +433,8 @@ def render_llms(cfg):
         for f in cfg.get("fields", []):
             for c in [c for c in cols if c["parent"] == f.get("page")]:
                 lines.append(f"- [{c['h1']}]({site}/{c['slug']}/) ({f['name']}): {c['description']}")
+        for c in [c for c in cols if c["parent"] == "faq"]:
+            lines.append(f"- [{c['h1']}]({site}/{c['slug']}/) (한약 치료): {c['description']}")
     lines += ["", "## 안내", ""]
     for slug in ("director", "faq"):
         pg = by_slug.get(slug)
