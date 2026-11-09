@@ -1,7 +1,12 @@
 name: 공개된 칼럼 초안 브랜치 정리
 
-# main에 올라온 뒤, 내용이 이미 main에 모두 들어간 draft/* 브랜치를 지웁니다.
+# main에 올라온 뒤, 이미 공개된 draft/* 브랜치를 지웁니다.
 # 아직 공개 전인 초안은 건드리지 않습니다.
+#
+# 판단 기준 (둘 중 하나면 삭제)
+# 1) 그 브랜치가 새로 넣은 칼럼이 모두 main의 site.config.json에 "published" 날짜와 함께 있다.
+#    (공개할 때 날짜를 넣으면서 커밋 내용이 달라지므로, 커밋 비교만으로는 공개 여부를 알 수 없습니다)
+# 2) 브랜치의 커밋이 모두 main에 그대로 들어가 있다.
 
 on:
   push:
@@ -18,15 +23,37 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: main에 들어간 draft 브랜치 지우기
+      - name: 공개된 draft 브랜치 지우기
         run: |
           git fetch origin '+refs/heads/draft/*:refs/remotes/origin/draft/*' || true
           for ref in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin/draft/); do
             branch="${ref#origin/}"
-            if git cherry origin/main "$ref" | grep -q '^+'; then
-              echo "공개 전 초안이라 남겨 둠: $branch"
-            else
+            base=$(git merge-base origin/main "$ref")
+            published=$(python3 - "$base" "$ref" <<'PY'
+          import json, subprocess, sys
+
+          def pages(rev):
+              try:
+                  raw = subprocess.run(["git", "show", f"{rev}:site.config.json"],
+                                       capture_output=True, check=True).stdout
+                  return {p["slug"]: p for p in json.loads(raw).get("pages", [])}
+              except Exception:
+                  return {}
+
+          base, ref = sys.argv[1], sys.argv[2]
+          new = set(pages(ref)) - set(pages(base))
+          main = pages("origin/main")
+          ok = bool(new) and all(main.get(s, {}).get("published") for s in new)
+          print("yes" if ok else "no")
+          PY
+          )
+            if [ "$published" = "yes" ]; then
+              echo "공개된 칼럼이라 삭제: $branch"
+              git push origin --delete "$branch"
+            elif ! git cherry origin/main "$ref" | grep -q '^+'; then
               echo "main에 반영됨, 삭제: $branch"
               git push origin --delete "$branch"
+            else
+              echo "공개 전 초안이라 남겨 둠: $branch"
             fi
           done
