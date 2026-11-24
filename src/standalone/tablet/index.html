@@ -74,7 +74,7 @@ const FORMS=[
  ['hajibuluan','하지불안증후군 문진표','IRLSSG 진단기준',5],
  ['malcho','말초신경병증 문진표','MNSI',5],
 ];
-const PRESETS=[['이명·귀 묶음',['imyeong','nanchung','gwimeokmeok']],['한약 초진 + 이명',['munjin','imyeong']],['어지럼 묶음',['eojireom','nanchung']],['모두 해제',[]]];
+const PRESETS=[['이명·귀 묶음',['imyeong','nanchung','gwimeokmeok']],['중점 질환 초진 + 이명',['munjin','imyeong']],['어지럼 묶음',['eojireom','nanchung']],['모두 해제',[]]];
 let sel=[];
 try{sessionStorage.clear();['gkh_intake_v1'].forEach(k=>localStorage.removeItem(k));}catch(e){}
 const $=s=>document.querySelector(s);
