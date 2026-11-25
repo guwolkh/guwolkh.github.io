@@ -558,7 +558,7 @@ def main():
     outputs["llms.txt"] = llms  # 아래 표현 검사에 함께 넣습니다
 
     print(f"dist/ 생성 완료 (페이지 {len(outputs) - 1}개 + llms.txt)")
-    pending = [k for k, v in [("한약 초진 예약 링크", cfg["booking"]["herbalFirstVisit"]["url"]),
+    pending = [k for k, v in [("중점 질환 초진 예약 링크", cfg["booking"]["herbalFirstVisit"]["url"]),
                               ("일반 진료 예약 링크", cfg["booking"]["general"]["url"]),
                               ("카카오톡 링크", cfg.get("kakaoUrl")),
                               ("네이버 톡톡 링크", cfg.get("talktalkUrl")),
