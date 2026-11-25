@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>말초신경병증 설명서: 왜 생기고 왜 약을 먹어도 남을까 | 인천 구월동 구월경희한의원</title>
+<meta name="description" content="말초신경병증이 왜 생기고 왜 약을 먹어도 남는지, 손상과 회복의 저울, 불길과 불씨, 감각 저하, 녹용 부위 차이까지 구월경희한의원 대표원장이 그림으로 설명합니다.">
+<link rel="canonical" href="https://guwolkh.com/peripheral-neuropathy/guide/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="말초신경병증 설명서 | 구월경희한의원">
+<meta property="og:description" content="말초신경병증이 왜 생기고 왜 약을 먹어도 남는지, 손상과 회복의 저울, 불길과 불씨, 감각 저하, 녹용 부위 차이까지 구월경희한의원 대표원장이 그림으로 설명합니다.">
+<meta property="og:url" content="https://guwolkh.com/peripheral-neuropathy/guide/">
+<meta name="theme-color" content="#2F5D50">
+<style>body{margin:0}.sitebar{max-width:1080px;margin:0 auto;padding:14px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.95rem}.sitebar a{color:var(--heal);font-weight:600;text-decoration:none}.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}.cta a{display:inline-block;padding:12px 18px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid var(--heal);color:var(--heal)}.cta a.main{background:var(--heal);color:var(--paper)}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 진료실 모니터용 세로 흐름. 질문 하나 = 한 장(section), 이석증 설명서와 같은 구성. 그림을 먼저 짚고 설명은 옆에 */
+:root{
+  --bg:#F2F5F6;--paper:#FFFFFF;--ink:#13303A;--muted:#5A717A;--line:#D5DFE2;
+  --heal:#2C7A93;--heal-soft:#D7EBF0;      /* 회복 */
+  --nerve:#D58B22;--nerve-soft:#F8E8CF;    /* 신경 */
+  --fire:#B23A3A;--fire-soft:#F7E3E1;      /* 손상·불씨 */
+  --skin:#E4EBED;--hair:#6B5A4E;
+  --water:#CFE8F2;--murk:#B9B48E;--gravel:#8E9AA0;--plant:#5E9A7C;
+  --hl:#FFE89A;
+  --display:"Gowun Batang","Nanum Myeongjo",serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E191D;--paper:#15242A;--ink:#E3EEF1;--muted:#93AAB2;--line:#28404A;
+  --heal:#5FB3CC;--heal-soft:#1C3A45;--nerve:#F0A93E;--nerve-soft:#3A2E1A;--fire:#F08A80;--fire-soft:#3A2224;
+  --skin:#25373E;--hair:#A8927F;--water:#1D4250;--murk:#55523A;--gravel:#6E7C83;--plant:#5C9B7D;--hl:#6B5A14;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E191D;--paper:#15242A;--ink:#E3EEF1;--muted:#93AAB2;--line:#28404A;
+  --heal:#5FB3CC;--heal-soft:#1C3A45;--nerve:#F0A93E;--nerve-soft:#3A2E1A;--fire:#F08A80;--fire-soft:#3A2224;
+  --skin:#25373E;--hair:#A8927F;--water:#1D4250;--murk:#55523A;--gravel:#6E7C83;--plant:#5C9B7D;--hl:#6B5A14;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:700;text-wrap:balance;line-height:1.3;margin:0}
+h1{font-size:clamp(2rem,5vw,3.2rem)}
+h2{font-size:clamp(1.6rem,3.4vw,2.2rem)}
+h3{font-size:1.2rem}
+p{margin:0}
+.eyebrow{font-size:.8rem;letter-spacing:.12em;color:var(--heal);font-weight:600}
+mark{background:linear-gradient(transparent 55%,var(--hl) 55%);color:inherit;padding:0 2px}
+.red{color:var(--fire);font-weight:700}
+.note{font-size:.85rem;color:var(--muted)}
+
+header.top{padding-block:48px 28px;display:grid;gap:14px;border-bottom:1px solid var(--line)}
+header.top .lead{font-size:1.15rem;color:var(--muted);max-width:44em}
+.quotes{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.quotes span{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 16px;font-size:.95rem;color:var(--muted)}
+
+section{padding-block:56px;border-bottom:1px solid var(--line);display:grid;gap:24px}
+section>*{min-width:0}
+.q{display:grid;gap:8px}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:start}
+.two>*{min-width:0}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+
+/* 모식도 공통 */
+.dg{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:12px;min-width:0;margin:0}
+.dg svg{width:100%;height:auto;display:block}
+.dg svg.wide{max-width:760px;margin-inline:auto}
+.dg figcaption,.dg .cap{font-size:.95rem;color:var(--muted)}
+.caption{font-size:1rem;color:var(--ink);min-height:3.4em}
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tabs button{font:inherit;font-size:.95rem;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:8px 14px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--heal);border-color:var(--heal);color:var(--paper)}
+.tabs button:focus-visible,summary:focus-visible,label:focus-within{outline:3px solid var(--nerve);outline-offset:2px}
+
+.d text{font-family:var(--body)}
+.d .lbl{fill:var(--ink);font-weight:600;font-size:16px}
+.d .sm{fill:var(--muted);font-weight:500;font-size:14px}
+.d .ftxt{fill:var(--fire);font-weight:600;font-size:14px}
+.d .htxt{fill:var(--heal);font-weight:600;font-size:14px}
+.d .big{font-size:20px;font-weight:700;font-family:var(--display)}
+.d .lead-line{stroke:var(--muted);stroke-width:1.2;fill:none}
+.d .tick{stroke:var(--line);stroke-width:1.5}
+
+/* 몸 그림 */
+.limb{fill:none;stroke:var(--skin);stroke-linecap:round;stroke-linejoin:round}
+.torso,.headc{fill:var(--skin)}
+.cns{fill:none;stroke:var(--heal);stroke-width:7;stroke-linecap:round}
+.brain{fill:var(--heal-soft);stroke:var(--heal);stroke-width:2.5}
+.pns{fill:none;stroke:var(--nerve);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.zones{opacity:.5}
+.zone{fill:none;stroke:var(--fire);stroke-width:22;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .6s}
+.zone.z0{stroke-width:24}
+#body.s0 .z0,#body.s1 .z0,#body.s1 .z1,#body.s2 .z0,#body.s2 .z1,#body.s2 .z2{opacity:1}
+
+/* 저울 */
+#beam{transform-box:view-box;transform-origin:300px 176px;transition:transform .8s cubic-bezier(.4,0,.2,1)}
+.scale.s0 #beam{transform:rotate(0deg)}
+.scale.s1 #beam{transform:rotate(-9deg)}
+.scale.s2 #beam{transform:rotate(6deg)}
+.beamline{stroke:var(--ink);stroke-width:6;stroke-linecap:round}
+.ful{fill:var(--muted)}
+.blk{transition:opacity .5s}
+.blk rect{stroke-width:1.5}
+.blk.f rect{fill:var(--fire-soft);stroke:var(--fire)}
+.blk.h rect{fill:var(--heal-soft);stroke:var(--heal)}
+.blk text{font-size:13.5px;font-weight:600;text-anchor:middle}
+.blk.f text{fill:var(--fire)}
+.blk.h text{fill:var(--heal)}
+.scale.s0 .only1,.scale.s0 .only12,.scale.s0 .only2,.scale.s1 .only2,.scale.s1 .only02,.scale.s2 .only1,.scale.s2 .only12{opacity:0}
+.seg{transition:fill .6s}
+.seg.ok{fill:var(--nerve)}
+.seg.hot{fill:var(--fire)}
+.axon{stroke:var(--nerve);stroke-width:3}
+
+/* 어항 */
+.tank{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.w-clear{fill:var(--water)}
+.w-murk{fill:var(--murk)}
+.gr{fill:var(--gravel)}
+.pl{fill:none;stroke:var(--plant);stroke-width:4;stroke-linecap:round}
+.fish{fill:var(--nerve)}
+.fish.tired{opacity:.7}
+.dirt{fill:var(--hair);opacity:.65}
+.bub{fill:none;stroke:var(--heal);stroke-width:1.8}
+.filter{fill:var(--heal)}
+.flow{fill:none;stroke:var(--heal);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.nofilter{fill:none;stroke:var(--fire);stroke-width:2;stroke-dasharray:5 4}
+
+/* 차트 */
+.vline{fill:none;stroke:var(--heal);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.vdot{fill:var(--heal)}
+.vgrid{stroke:var(--line);stroke-width:1}
+.vadj{stroke:var(--nerve);stroke-width:1.5;stroke-dasharray:3 4}
+
+/* 카드류 */
+.facts{display:grid;gap:14px}
+.fact{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.dot{width:14px;height:14px;border-radius:50%;margin-top:.45em}
+.dot.c{background:var(--nerve)} .dot.g{background:var(--fire)} .dot.t{background:var(--heal)}
+
+.analogy{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.analogy>div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:8px;min-width:0;align-content:start}
+.analogy .tag{font-size:.8rem;font-weight:700;letter-spacing:.08em;color:var(--muted)}
+.analogy .fix{border-color:var(--heal);border-width:2px}
+@media (max-width:640px){.analogy{grid-template-columns:1fr}}
+
+.causes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cause{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start;min-width:0}
+.cause ul{margin:0;padding-left:1.1em;display:grid;gap:4px;font-size:.96rem}
+@media (max-width:900px){.causes{grid-template-columns:1fr}}
+.funnel{background:var(--heal);color:var(--paper);border-radius:14px;padding:22px 24px;display:grid;gap:6px}
+.funnel p{font-size:1.15rem}
+.funnel .flow-t{font-size:.98rem;opacity:.92}
+
+.fires{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fires>div{border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start;min-width:0}
+.fires .f{background:var(--fire-soft)}
+.fires .h{background:var(--heal-soft)}
+.fires .f h3{color:var(--fire)}
+.fires .h h3{color:var(--heal)}
+.fires ul{margin:0;padding-left:1.1em;display:grid;gap:4px;font-size:.98rem}
+@media (max-width:640px){.fires{grid-template-columns:1fr}}
+
+.tests{width:100%;border-collapse:collapse;background:var(--paper);border-radius:14px;overflow:hidden;font-size:.96rem}
+.tests th,.tests td{border-bottom:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top}
+.tests th{font-weight:600;background:var(--heal-soft)}
+.tests tr:last-child td{border-bottom:0}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+
+.ask{border-left:4px solid var(--nerve);padding:6px 0 6px 18px;display:grid;gap:6px}
+.ask .say{font-family:var(--display);font-size:1.35rem}
+
+.check{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
+.check label{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;cursor:pointer;padding:8px 10px;border-radius:8px}
+.check label:hover{background:var(--heal-soft)}
+.check input{width:22px;height:22px;margin-top:.2em;accent-color:var(--heal)}
+.verdict{border-radius:10px;padding:14px 16px;font-weight:600;background:var(--heal-soft)}
+.danger{background:var(--fire-soft);border-radius:14px;padding:18px 20px;display:grid;gap:8px}
+.danger h3{color:var(--fire);font-family:var(--body);font-size:1.05rem}
+.danger ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2.6em 1fr;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px}
+.steps li::before{content:counter(s);font-family:var(--display);font-size:1.6rem;font-weight:700;color:var(--heal);line-height:1.2}
+.steps li>div{display:grid;gap:4px;min-width:0}
+.steps .sub{color:var(--muted);font-size:.95rem}
+
+.milestones{display:grid;gap:8px;font-size:.96rem}
+.milestones p{display:grid;grid-template-columns:3.6em 1fr;gap:10px}
+.milestones b{font-variant-numeric:tabular-nums;color:var(--heal)}
+
+.goal{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.goal div{flex:1 1 180px;background:var(--heal-soft);border-radius:10px;padding:14px;font-size:.95rem;display:grid;gap:2px}
+.goal div b{font-size:1rem}
+.goal div:last-child{background:var(--heal);color:var(--paper)}
+.goal div:last-child .note{color:var(--paper)}
+
+details{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:4px 20px}
+details+details{margin-top:10px}
+summary{cursor:pointer;font-weight:600;font-size:1.08rem;padding:14px 0;list-style-position:inside}
+details p{padding-bottom:16px}
+
+.close{display:grid;gap:14px}
+.close .big{font-family:var(--display);font-size:clamp(1.3rem,2.6vw,1.7rem);line-height:1.5;max-width:34em}
+footer{padding-top:28px;display:grid;gap:10px;font-size:.92rem;color:var(--muted)}
+footer .contact{display:flex;flex-wrap:wrap;gap:6px 24px;color:var(--ink);font-weight:500;user-select:all}
+
+.cause .chain{font-size:.94rem;color:var(--muted);line-height:1.65}
+.cause .chain b{color:var(--ink);font-weight:600}
+.memo{margin:0;padding-left:1.2em;display:grid;gap:8px}
+#fire .fl{fill:var(--fire);opacity:.85;transition:opacity .6s}
+#fire .fl-in{fill:var(--hl);transition:opacity .6s}
+#fire .emb{fill:var(--fire);transition:opacity .6s,fill .6s}
+#fire .nervebar{fill:var(--nerve-soft);stroke:var(--nerve);stroke-width:2.5;transition:fill .6s,stroke .6s}
+#fire .drug{opacity:0;transition:opacity .6s}
+#fire .drop{fill:none;stroke:var(--heal);stroke-width:2.5;stroke-linecap:round}
+#fire.s1 .fl,#fire.s1 .fl-in,#fire.s2 .fl,#fire.s2 .fl-in{opacity:0}
+#fire.s1 .drug{opacity:1}
+#fire.s2 .emb{opacity:0}
+#fire.s2 .nervebar{fill:var(--heal-soft);stroke:var(--heal)}
+.burr{fill:#6E4E3A}
+.ant-edge{fill:none;stroke:#6E4E3A;stroke-width:5;stroke-linejoin:round}
+.band.off{fill:#8C9AA6;opacity:.45}
+.band.off2{fill:#8C9AA6;opacity:.62}
+.shine{fill:none;stroke:#fff;stroke-opacity:.3;stroke-width:5;stroke-linecap:round}
+.cut{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:5 4;fill:none}
+.ant{fill:var(--skin);stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 3}
+.ant.use{fill:var(--nerve-soft);stroke:var(--nerve);stroke-dasharray:none}
+.bp{fill:var(--heal)} .bc{fill:var(--muted);opacity:.55}
+@media (prefers-reduced-motion:reduce){#fire *{transition:none}}
+@media (prefers-reduced-motion:reduce){#beam,.blk,.seg,.zone{transition:none}}
+</style>
+
+</head>
+<body>
+<nav class="sitebar" aria-label="사이트"><a href="/">← 구월경희한의원 홈</a><a href="/peripheral-neuropathy/">말초신경병증 진료 안내</a></nav>
+<div class="wrap">
+<header class="top">
+  <span class="eyebrow">구월경희한의원 · 진료실 설명 자료</span>
+  <h1>말초신경병증, 왜 생기고<br>왜 약을 먹어도 남을까요</h1>
+  <p class="lead">검사는 이상 없다는데 발은 계속 저리고 화끈거린다면, 이번에는 약으로 불길만 끄고 있지는 않은지, 속에 남은 "불씨"를 같이 보셔야 합니다.</p>
+  <div class="quotes">
+    <span>"발바닥에 찰흙이 붙어 있는 것 같아요"</span>
+    <span>"집에서도 돌 위를 걷는 느낌이에요"</span>
+    <span>"검사는 다 이상 없다는데 왜 이렇게 아프죠?"</span>
+  </div>
+</header>
+
+<!-- 1 -->
+<section>
+  <div class="q"><span class="eyebrow">질문 1</span><h2>말초신경병증은 어떤 병인가요?</h2></div>
+  <div class="two">
+    <div class="dg">
+      <div class="tabs" role="group" aria-label="증상 범위 바꾸기" data-tabs="body">
+        <button type="button" data-s="0" aria-pressed="true">발끝에서 시작</button>
+        <button type="button" data-s="1" aria-pressed="false">발목까지</button>
+        <button type="button" data-s="2" aria-pressed="false">종아리, 손끝까지</button>
+      </div>
+      <svg class="d s0" id="body" viewBox="0 0 400 540" role="img" aria-label="뇌와 척수에서 팔다리 끝으로 뻗은 말초신경과, 발끝에서 위로 번지는 증상 범위를 보여 주는 모식도">
+        <!-- 몸 -->
+        <circle class="headc" cx="200" cy="50" r="34"/>
+        <rect class="torso" x="150" y="92" width="100" height="196" rx="30"/>
+        <path class="limb" stroke-width="26" d="M160 110 L100 285"/>
+        <path class="limb" stroke-width="26" d="M240 110 L300 285"/>
+        <path class="limb" stroke-width="30" d="M176 280 L166 490 L140 504"/>
+        <path class="limb" stroke-width="30" d="M224 280 L234 490 L260 504"/>
+        <!-- 증상 범위 -->
+        <g class="zones"><path class="zone z2" d="M170 390 L166 455 M230 390 L234 455 M108 262 L97 295 M292 262 L303 295"/>
+        <path class="zone z1" d="M166 455 L166 490 M234 455 L234 490"/>
+        <path class="zone z0" d="M166 490 L140 504 M234 490 L260 504"/></g>
+        <!-- 신경 -->
+        <ellipse class="brain" cx="200" cy="46" rx="24" ry="20"/>
+        <path class="cns" d="M200 66 L200 262"/>
+        <path class="pns" d="M200 262 L176 282 L166 490 L138 506"/>
+        <path class="pns" d="M200 262 L224 282 L234 490 L262 506"/>
+        <path class="pns" d="M200 118 L160 112 L100 285 L94 304"/>
+        <path class="pns" d="M200 118 L240 112 L300 285 L306 304"/>
+        <!-- 이름표 -->
+        <path class="lead-line" d="M232 44 L280 34"/>
+        <text class="lbl" x="285" y="32">뇌</text>
+        <path class="lead-line" d="M204 186 L300 186"/>
+        <text class="lbl" x="305" y="182">척수</text>
+        <text class="sm" x="305" y="200">중추신경</text>
+        <path class="lead-line" d="M170 360 L96 360"/>
+        <text class="lbl" x="6" y="356">말초신경</text>
+        <text class="sm" x="6" y="374">팔다리 끝까지</text>
+        <text class="sm" x="200" y="534" text-anchor="middle">신경이 가장 긴 곳의 끝부터 영향을 받기 쉽습니다</text>
+      </svg>
+      <p class="caption" id="bodycap" aria-live="polite"></p>
+      <p class="note">그림은 설명을 위해 단순하게 그렸습니다. 시작 부위와 번지는 속도는 사람마다 다릅니다.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><span class="dot t"></span><p><b>말초신경</b>은 뇌와 척수에서 뻗어 나와 온몸으로 이어진 신경입니다. 감각과 움직임의 신호를 나릅니다.</p></div>
+      <div class="fact"><span class="dot c"></span><p>몸에서 가장 긴 신경은 척수에서 발끝까지 갑니다. 그래서 증상은 보통 <b>발끝과 발바닥</b>에서 먼저 나타나고, 위로 번지거나 손끝까지 이어지기도 합니다.</p></div>
+      <div class="fact"><span class="dot g"></span><p>이 신경이 손상되면 발에 아무 일이 없어도 <b>화끈거리거나 저리고</b>, 감각이 <b>둔하게</b> 느껴집니다. 겉으로 멀쩡해 보여도 느낌은 실제입니다.</p></div>
+      <p><mark>환자분들은 이렇게 표현하십니다.</mark> 찌릿찌릿하다, 불에 지지는 것 같다, 얼음 위에 서 있는 것 같다, 돌 위를 걷는 것 같다, 눌러도 둔하다, 내 살이 아닌 것 같다.</p>
+    </div>
+  </div>
+  <div class="fires">
+    <div class="f">
+      <h3>넘치게 느끼는 증상: 통증</h3>
+      <ul>
+        <li>저림, 시린 느낌</li>
+        <li>전기가 오르는 듯한 찌릿함</li>
+        <li>뜨거운 것을 댄 듯한 화끈거림</li>
+        <li>칼로 베는 듯한 느낌</li>
+      </ul>
+      <p>신경이 예민해져 신호를 <b>지나치게</b> 보내는 상태입니다. 아직 신경에 신호를 보낼 힘이 남아 있다는 뜻이기도 합니다.</p>
+    </div>
+    <div class="h" style="background:var(--skin)">
+      <h3 style="color:var(--ink)">덜 느끼는 증상: 감각 저하</h3>
+      <ul>
+        <li>둔한 느낌, 감각이 무딘 느낌</li>
+        <li>눌러도 내 발 같지 않음</li>
+        <li>양말이나 장갑을 낀 것 같음</li>
+        <li>발에 상처가 나도 잘 모름</li>
+      </ul>
+      <p>신호 자체가 <b>잘 전달되지 않는</b> 상태입니다. 저림이 오래 이어지거나 손상이 깊어지면 감각 저하로 넘어가기도 합니다.</p>
+    </div>
+  </div>
+  <p><span class="red">화끈거림과 저림이 줄면서 감각이 둔해졌다면</span>, 나아진 것이 아니라 손상이 깊어진 신호일 수 있습니다. 그래서 진료 때 찌릿하던 곳이 언제부터 둔해졌는지를 꼭 여쭙니다.</p>
+</section>
+
+<!-- 2 -->
+<section>
+  <div class="q"><span class="eyebrow">질문 2</span><h2>왜 생기나요?</h2>
+  <p>제가 진료실에서 설명드리는 틀은 <b>손상과 회복, 두 가지 축</b>입니다. 신경에 염증이 진행되는 속도가 신경이 회복하는 속도보다 빠를 때 증상이 나타납니다.</p></div>
+  <div class="dg">
+    <div class="tabs" role="group" aria-label="손상과 회복의 상태 바꾸기" data-tabs="scale">
+      <button type="button" data-s="0" aria-pressed="true">균형이 맞을 때</button>
+      <button type="button" data-s="1" aria-pressed="false">손상이 더 빠를 때</button>
+      <button type="button" data-s="2" aria-pressed="false">치료의 방향</button>
+    </div>
+    <svg class="d wide scale s0" id="scale" viewBox="0 0 600 410" role="img" aria-label="손상 속도와 회복 속도를 저울로 나타내고, 그에 따라 신경 상태가 달라지는 모식도">
+      <text class="lbl big" x="20" y="30" style="fill:var(--fire)">손상 속도</text>
+      <text class="lbl big" x="580" y="30" text-anchor="end" style="fill:var(--heal)">회복 속도</text>
+      <path class="ful" d="M300 176 L268 262 L332 262 Z"/>
+      <g id="beam">
+        <line class="beamline" x1="90" y1="176" x2="510" y2="176"/>
+        <g class="blk f"><rect x="110" y="143" width="110" height="28" rx="5"/><text x="165" y="162">혈당</text></g>
+        <g class="blk f"><rect x="110" y="113" width="110" height="28" rx="5"/><text x="165" y="132">수술·골절</text></g>
+        <g class="blk f only12"><rect x="110" y="83" width="110" height="28" rx="5"/><text x="165" y="102">오랜 음주</text></g>
+        <g class="blk f only1"><rect x="110" y="53" width="110" height="28" rx="5"/><text x="165" y="72">찬 곳 노출</text></g>
+        <g class="blk h"><rect x="380" y="143" width="110" height="28" rx="5"/><text x="435" y="162">잠</text></g>
+        <g class="blk h"><rect x="380" y="113" width="110" height="28" rx="5"/><text x="435" y="132">소화</text></g>
+        <g class="blk h only02"><rect x="380" y="83" width="110" height="28" rx="5"/><text x="435" y="102">체력</text></g>
+        <g class="blk h only2"><rect x="380" y="53" width="110" height="28" rx="5"/><text x="435" y="72">자율신경</text></g>
+      </g>
+      <text class="sm" x="300" y="290" text-anchor="middle">그 결과 신경은</text>
+      <line class="axon" x1="40" y1="330" x2="560" y2="330"/>
+      <g id="segs"></g>
+      <text class="sm" x="40" y="382" id="segl">말초신경 한 가닥</text>
+      <text class="ftxt" x="560" y="382" text-anchor="end" id="segr"></text>
+    </svg>
+    <p class="caption" id="scalecap" aria-live="polite"></p>
+  </div>
+  <h3>손상을 빠르게 하는 불씨는 사람마다 다릅니다</h3>
+  <div class="causes">
+    <div class="cause">
+      <h3>① 당뇨 발저림</h3>
+      <p>진료실에서 가장 흔한 계기입니다.</p>
+      <p class="chain">혈당이 오래 높았던 시간이 신경과, 신경에 피를 대는 가는 혈관을 함께 상하게 합니다. 혈당 관리는 꼭 이어 가셔야 하지만, <b>혈당이 잘 잡혀도 발저림이 남는 분</b>이 적지 않습니다.</p>
+    </div>
+    <div class="cause">
+      <h3>② 치료나 사고 뒤에 시작된 경우</h3>
+      <ul><li>항암 치료 뒤</li><li>큰 수술, 골절 뒤</li><li>하지정맥류 시술 뒤 심해진 경우</li></ul>
+      <p class="chain">언제, <b>무엇을 한 뒤에</b> 시작됐는지가 처방의 단서가 됩니다.</p>
+    </div>
+    <div class="cause">
+      <h3>③ 생활 속 계기, 또는 원인 모름</h3>
+      <ul><li>오랜 음주</li><li>찬 곳에 오래 노출</li><li>통증을 참으며 하는 맨발 걷기</li></ul>
+      <p class="chain">뚜렷한 계기가 없는 분도 많습니다.</p>
+    </div>
+  </div>
+  <div class="fires">
+    <div class="f">
+      <h3>손상 쪽: 신경을 다치게 하는 불씨</h3>
+      <p>위의 세 갈래 계기가 저울의 손상 쪽에 올라갑니다. 불씨가 클수록, 여러 개일수록 손상이 빨라집니다.</p>
+    </div>
+    <div class="h">
+      <h3>회복 쪽: 신경이 나을 힘</h3>
+      <ul>
+        <li>잠을 얼마나 깊이 자는지</li>
+        <li>소화가 잘 되는지</li>
+        <li>체력이 떨어져 있지 않은지</li>
+        <li>스트레스와 긴장이 계속되는지</li>
+      </ul>
+      <p class="note">같은 당뇨여도 증상이 다른 이유입니다. 불씨의 크기와 회복력이 사람마다 다릅니다.</p>
+    </div>
+  </div>
+  <div class="funnel">
+    <p>계기는 달라도 진료실에서 만나는 모습은 비슷합니다.</p>
+    <p class="flow-t">손상이 회복을 앞섬 → 회복되지 못한 자리가 쌓임 → 쉴 때·밤에 화끈거리고 저림 → 잠을 설침 → 낮이 무너짐</p>
+  </div>
+</section>
+
+<!-- 3 -->
+<section>
+  <div class="q"><span class="eyebrow">질문 3</span><h2>검사에서 이상이 없다는데 왜 아픈가요?</h2>
+  <p>검사가 정상이어도 증상은 실제일 수 있습니다. 말초신경에는 <b>머리카락보다 50배 이상 가는 신경</b>이 많아, 근전도·신경전도·영상검사로 손상을 찾아내기 어렵습니다.</p></div>
+  <figure class="dg">
+    <svg class="d wide" viewBox="0 0 600 136" role="img" aria-label="머리카락 굵기와 그 50분의 1인 가는 말초신경의 굵기를 같은 비율로 비교한 그림">
+      <rect x="20" y="10" width="560" height="70" rx="6" style="fill:var(--hair)"/>
+      <text class="big" x="300" y="52" text-anchor="middle" style="fill:var(--paper)">머리카락 굵기</text>
+      <rect x="20" y="100" width="560" height="1.4" style="fill:var(--fire)"/>
+      <text class="ftxt" x="20" y="126">가는 말초신경: 머리카락의 50분의 1 이하</text>
+    </svg>
+    <figcaption>두 줄의 굵기를 같은 비율로 그렸습니다. 아래 빨간 실선이 가는 말초신경입니다.</figcaption>
+  </figure>
+  <div class="two">
+    <figure class="dg">
+      <svg class="d" viewBox="0 0 560 320" role="img" aria-label="말초신경 단면 모식도: 굵은 신경 몇 가닥과 수많은 가는 신경이 함께 들어 있고, 신경전도검사는 주로 굵은 신경을 본다">
+        <circle cx="170" cy="160" r="146" style="fill:var(--nerve-soft);stroke:var(--nerve);stroke-width:3"/>
+        <g id="thin"></g>
+        <g id="thick"></g>
+        <path class="lead-line" d="M238 88 L340 66"/>
+        <text class="lbl" x="346" y="58">굵은 신경</text>
+        <text class="htxt" x="346" y="80">신경전도·근전도로</text>
+        <text class="htxt" x="346" y="100">주로 보는 곳</text>
+        <path class="lead-line" d="M250 222 L340 224"/>
+        <text class="lbl" x="346" y="218">가는 신경</text>
+        <text class="ftxt" x="346" y="240">검사에 잘 안 잡히는 곳</text>
+        <text class="sm" x="346" y="264">화끈거림, 찌릿함, 시림</text>
+      </svg>
+      <figcaption>말초신경을 잘라 본 단면입니다. 설명을 위한 그림이라 실제 개수와 비율은 다릅니다.</figcaption>
+    </figure>
+    <div class="facts">
+      <h3>그래서 수치만 보지 않습니다</h3>
+      <div class="fact"><span class="dot t"></span><p><b>검사는 꼭 필요합니다.</b> 디스크처럼 신경을 누르는 원인이나 따로 치료해야 할 병을 가려내기 때문입니다.</p></div>
+      <div class="fact"><span class="dot g"></span><p><b>그러나 정상이라고 끝이 아닙니다.</b> 검사 수치만으로 신경에 이상이 없다고 단정할 수는 없습니다.</p></div>
+      <div class="fact"><span class="dot c"></span><p><b>증상의 양상을 함께 봅니다.</b> 느낌과 부위, 가장 아픈 시간대, 몇 분이나 걸을 수 있는지를 듣습니다.</p></div>
+      <div class="ask">
+        <span class="eyebrow">이런 길을 거쳐 오시는 분이 많습니다</span>
+        <p>하지정맥류, 척추관협착증, 허리디스크로 먼저 진단받고 물리치료, 압박스타킹, 시술, 수술까지 받았는데 저림은 더 자주 반복되는 경우입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section>
+  <div class="q"><span class="eyebrow">질문 4</span><h2>약을 바꾸고 늘려도 왜 통증이 남을까요?</h2>
+  <p>제가 진료실에서 드리는 설명은 <b>불길과 불씨</b>입니다. 리리카 같은 신경통약은 지금 타오르는 급한 불길을 끄는 약입니다. 그런데 불길만 끄면, 속에 남은 불씨에서 다시 불이 붙습니다.</p></div>
+  <div class="dg">
+    <div class="tabs" role="group" aria-label="불길과 불씨 상태 바꾸기" data-tabs="fire">
+      <button type="button" data-s="0" aria-pressed="true">불씨가 살아 있을 때</button>
+      <button type="button" data-s="1" aria-pressed="false">약으로 불길만 껐을 때</button>
+      <button type="button" data-s="2" aria-pressed="false">불씨까지 없앴을 때</button>
+    </div>
+    <svg class="d wide s0" id="fire" viewBox="0 0 600 300" role="img" aria-label="말초신경 위로 타오르는 불길(통증)과 신경 속에 남은 불씨(원인)를 나타낸 모식도">
+      <g class="drug">
+        <rect x="240" y="14" width="120" height="32" rx="16" style="fill:var(--heal)"/>
+        <text x="300" y="35" text-anchor="middle" style="fill:var(--paper);font-size:15px;font-weight:600">신경통약</text>
+        <path class="drop" d="M200 64 q-6 10 0 14 q6 -4 0 -14 M260 72 q-6 10 0 14 q6 -4 0 -14 M340 72 q-6 10 0 14 q6 -4 0 -14 M400 64 q-6 10 0 14 q6 -4 0 -14"/>
+      </g>
+      <g class="flames">
+        <path class="fl" d="M136 188 C126 160 140 140 150 108 C160 140 176 160 164 188 Z"/><path class="fl-in" d="M143 188 C138 172 146 160 150 146 C155 160 162 172 157 188 Z"/>
+        <path class="fl" d="M232 188 C220 156 236 132 250 96 C264 132 280 156 268 188 Z"/><path class="fl-in" d="M241 188 C236 170 245 156 250 140 C256 156 264 170 259 188 Z"/>
+        <path class="fl" d="M336 188 C326 162 340 142 350 112 C360 142 374 162 364 188 Z"/><path class="fl-in" d="M343 188 C338 172 346 162 350 150 C355 162 362 172 357 188 Z"/>
+        <path class="fl" d="M432 188 C420 156 436 132 450 100 C464 132 480 156 468 188 Z"/><path class="fl-in" d="M441 188 C436 170 445 156 450 142 C456 156 464 170 459 188 Z"/>
+      </g>
+      <rect class="nervebar" x="40" y="188" width="520" height="34" rx="17"/>
+      <g class="embers">
+        <circle class="emb" cx="150" cy="205" r="7"/><circle class="emb" cx="200" cy="205" r="4"/><circle class="emb" cx="250" cy="205" r="7"/>
+        <circle class="emb" cx="300" cy="205" r="4"/><circle class="emb" cx="350" cy="205" r="7"/><circle class="emb" cx="400" cy="205" r="4"/><circle class="emb" cx="450" cy="205" r="7"/>
+      </g>
+      <text class="sm" x="40" y="250">말초신경 한 가닥</text>
+      <text class="ftxt" id="firel" x="560" y="250" text-anchor="end"></text>
+      <text class="lbl" x="40" y="282" style="fill:var(--fire)">불길</text><text class="sm" x="80" y="282">지금 느끼는 통증·화끈거림·저림</text>
+      <text class="lbl" x="330" y="282" style="fill:var(--fire)">불씨</text><text class="sm" x="370" y="282">신경 속에 남아 다시 불을 붙이는 원인</text>
+    </svg>
+    <p class="caption" id="firecap" aria-live="polite"></p>
+    <p class="note">그림은 설명을 위해 단순하게 그렸습니다.</p>
+  </div>
+  <div class="analogy">
+    <div>
+      <span class="tag">신경통약</span>
+      <h3>급한 불길을 끄는 일</h3>
+      <p>리리카, 뉴론틴, 심발타 같은 약은 통증이 거셀 때 고통을 줄여 주는 데 꼭 필요합니다. <span class="red">임의로 끊지 마세요.</span> 혼자 끊었다가 통증과 불면이 돌아온 분들도 계십니다.</p>
+    </div>
+    <div class="fix">
+      <span class="tag">한약</span>
+      <h3>속의 불씨까지 없애는 일</h3>
+      <p>통증만 누르고 끝내지 않고, 저림과 화끈거림을 계속 일으키는 불씨를 찾아 한약으로 없애는 것이 목표입니다. 신경통약을 드시면서 함께 진행합니다.</p>
+    </div>
+  </div>
+  <div class="ask">
+    <span class="eyebrow">감각이 둔하고 무딘 증상은요?</span>
+    <p>신경통약은 뇌가 통증 신호를 덜 느끼게 해 주는 약이라, 신호가 잘 전달되지 않아 생긴 둔한 감각을 되살리는 약은 아닙니다. 약을 드시는 동안 통증이 덜한 것과 신경 자체가 나아진 것은 다른 이야기입니다. 불씨를 없애 손상을 멈추고 회복이 앞서야 둔하던 감각도 돌아올 수 있습니다.</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section>
+  <div class="q"><span class="eyebrow">질문 5</span><h2>치료는 어떻게 진행되나요?</h2>
+  <p>처방은 세 가지를 함께 보고 정합니다. 발바닥 증상만 보지 않고 몸 전체와 타고난 바탕을 봅니다.</p></div>
+  <div class="causes">
+    <div class="cause">
+      <h3>① 함께 있는 증상</h3>
+      <ul><li>수면 양상</li><li>소화 능력</li><li>이명 유무</li><li>신경정신과 병력</li></ul>
+    </div>
+    <div class="cause">
+      <h3>② 발생 원인</h3>
+      <ul><li>당뇨 후유증</li><li>항암 치료 후</li><li>큰 수술 후</li><li>알코올성</li><li>별다른 계기 없음</li></ul>
+    </div>
+    <div class="cause">
+      <h3>③ 통증의 양상</h3>
+      <ul><li>하루 중 가장 아픈 시간대</li><li>느낌과 부위</li><li>지금까지 받은 치료</li><li>복용 중인 약</li></ul>
+    </div>
+  </div>
+  <div class="funnel">
+    <p>세 가지를 종합해 환자분께 가장 맞는 처방 하나를 찾습니다.</p>
+    <p class="flow-t">예를 들어 잠을 못 주무시면, 원래 있던 불면인지 통증 때문에 생긴 불면인지부터 구분해 처방에 반영합니다.</p>
+  </div>
+
+  <h3>구월경희한의원의 치료 순서</h3>
+  <ol class="steps">
+    <li><div><b>대표원장이 1시간 이상 직접 상담합니다</b><span class="sub">복용 약과 치료 이력, 기존 검사 결과, 불씨와 통증 양상을 하나씩 확인합니다. 하지불안증후군처럼 비슷한 질환과도 구분합니다.</span></div></li>
+    <li><div><b>원내에서 직접 검사합니다</b><span class="sub">혈액검사로 간·신장 기능과 혈당을, 자율신경검사와 뇌파검사로 통증과 수면에 영향을 주는 신경 상태를 확인합니다.</span></div></li>
+    <li><div><b>복용 중인 약을 고려해 한약을 처방합니다</b><span class="sub">GMP 인증 의약품용 한약재를 쓰고 원내에서 직접 달입니다. 어떤 약재가 들어갔는지 사진으로 보여 드립니다.</span></div></li>
+    <li><div><b>15일마다 경과를 보고 약재와 용량을 조정합니다</b><span class="sub">통증 정도, 수면, 걸을 수 있는 시간을 확인합니다. 경과가 부족하면 처방을 바꾸거나 치료 방법을 더합니다. 보통 1~3개월 치료합니다.</span></div></li>
+  </ol>
+
+  <div class="two">
+    <figure class="dg">
+      <svg class="d" viewBox="0 0 600 310" role="img" aria-label="치료 사례의 발바닥 통증 점수: 시작 10점, 30일 5점, 60일 2점, 75일 2점, 90일과 105일 1에서 2점">
+        <text class="sm" x="60" y="18">통증 점수(VAS, 0~10)</text>
+        <g id="vgrid"></g>
+        <polyline class="vline" points="60,40 205.7,130 351.4,184 424.3,184 497.1,193 570,193"/>
+        <g class="vdots">
+          <circle class="vdot" cx="60" cy="40" r="6"/><circle class="vdot" cx="205.7" cy="130" r="6"/><circle class="vdot" cx="351.4" cy="184" r="6"/><circle class="vdot" cx="424.3" cy="184" r="6"/><circle class="vdot" cx="497.1" cy="193" r="6"/><circle class="vdot" cx="570" cy="193" r="6"/>
+        </g>
+        <text class="lbl" x="74" y="38">10</text>
+        <text class="lbl" x="214" y="122">5</text>
+        <text class="lbl" x="351" y="172" text-anchor="middle">2</text>
+        <text class="lbl" x="424" y="172" text-anchor="middle">2</text>
+        <text class="lbl" x="497" y="181" text-anchor="middle">1~2</text>
+        <text class="lbl" x="570" y="181" text-anchor="end">1~2</text>
+      </svg>
+      <figcaption>저희 블로그에 소개한 50대 환자분의 실제 경과입니다. 점선마다 15일치 약을 조정했습니다. 경과는 사람마다 다릅니다.</figcaption>
+    </figure>
+    <div class="facts">
+      <h3>새끼발가락 골절 뒤 시작된 양쪽 발바닥 통증</h3>
+      <p class="note">50대 · 리리카를 끊은 뒤 수면장애 · 30분 이상 걷지 못함</p>
+      <div class="milestones">
+        <p><b>15일</b><span>집에서 맨발로 서 있을 수 있게 됨</span></p>
+        <p><b>45일</b><span>수면이 나아지고 정상 보행</span></p>
+        <p><b>60일</b><span>몇 년 만에 1시간 이상 걸어도 별 통증 없음</span></p>
+        <p><b>75일</b><span>소변, 소화도 편해지고 수면 좋음</span></p>
+        <p><b>105일</b><span>감각 이상, 뻐근함, 저림 없이 유지되어 치료 종결</span></p>
+      </div>
+      <div class="ask"><p class="say">"집안에서 맨발로<br>걸어다닐 수 있어 행복해요."</p></div>
+    </div>
+  </div>
+
+  <div class="goal" aria-label="치료의 목표">
+    <div><span class="note">1</span><b>급한 불길은 약으로 다스리기</b></div>
+    <div><span class="note">2</span><b>계기와 불씨 찾기</b></div>
+    <div><span class="note">3</span><b>불씨까지 한약으로 없애기</b></div>
+    <div><span class="note">목표</span><b>"무난한 하루"를 되찾기</b></div>
+  </div>
+</section>
+
+<!-- 녹용 -->
+<section>
+  <div class="q"><span class="eyebrow">질문 6</span><h2>한약에 녹용은 왜 넣나요?</h2>
+  <p>오래 저리고 아프면 신경만 지치는 것이 아닙니다. 밤마다 잠을 설치고, 입맛이 떨어지고, 기운이 바닥납니다. <b>불씨를 없애는 처방이 제 힘을 내려면, 그 처방을 받아 낼 몸의 힘이 있어야 합니다.</b></p></div>
+  <div class="causes">
+    <div class="cause">
+      <h3>① 처방의 효과를 배가합니다</h3>
+      <p class="chain">녹용 자체가 신경병증을 낫게 하는 약은 아닙니다. 원인에 맞는 처방이 먼저이고, 녹용은 그 처방이 <b>더 잘 듣도록</b> 힘을 보탭니다.</p>
+    </div>
+    <div class="cause">
+      <h3>② 지친 몸을 끌어올립니다</h3>
+      <p class="chain">한의학에서 녹용은 오래 앓아 떨어진 <b>기운과 피를 채우는</b> 약입니다. 말초신경은 다시 자라는 데 시간이 오래 걸려서, 그 시간을 버틸 몸의 바탕이 중요합니다.</p>
+    </div>
+    <div class="cause">
+      <h3>③ 통증이 줄어든 뒤 남은 피로까지</h3>
+      <p class="chain">대상포진 후유증 환자분께, 신경통이 줄어든 뒤에도 남은 <b>피로감</b>에 녹용을 더해 기력과 피를 채웠습니다.</p>
+    </div>
+  </div>
+  <div class="q" style="margin-top:12px"><h3>같은 녹용이라도 부위마다 다릅니다</h3>
+  <p>녹용은 사슴의 새 뿔이 단단한 뼈로 굳기 전, 아직 자라고 있는 부분입니다. <mark>위로 갈수록 자라는 데 쓰이는 성분이 많고, 아래로 갈수록 뼈에 가까워집니다.</mark></p></div>
+  <div class="two">
+    <figure class="dg">
+      <svg class="d" viewBox="0 0 560 380" role="img" aria-label="실제 녹용 모양 모식도(뿔 끝이 두 갈래로 갈라지고 아래쪽에 가지 두 개가 난 벨벳 녹용): 위에서부터 팁, 분골, 상대, 중대, 하대. 위로 갈수록 단백질과 성장 인자가 많고 아래로 갈수록 칼슘 같은 뼈 성분이 많다. 구월경희는 팁, 분골, 상대만 쓴다">
+        <text class="sm" x="330" y="22" style="fill:var(--heal);font-weight:600">■ 단백질·성장 인자</text>
+        <text class="sm" x="460" y="22" style="fill:var(--muted);font-weight:600">■ 뼈 성분</text>
+        <defs>
+  <path id="antP" d="
+    M96 350 C 95 310, 100 270, 104 230 C 108 190, 110 150, 108 116
+    C 106 96, 98 78, 92 62 C 86 46, 90 26, 104 26 C 116 26, 120 40, 122 56 C 124 68, 124 78, 126 86
+    C 130 74, 136 60, 142 48 C 150 32, 170 34, 168 54 C 166 72, 156 90, 152 108
+    C 148 150, 150 200, 148 250 C 147 290, 148 320, 154 350 Z
+    M100 322 C 84 314, 68 300, 58 282 C 50 268, 44 252, 44 240 C 44 226, 60 222, 64 236 C 68 254, 80 276, 102 290 Z
+    M106 236 C 94 228, 82 214, 76 198 C 72 186, 70 174, 72 166 C 76 154, 90 156, 90 170 C 90 186, 98 200, 110 208 Z"/>
+  <linearGradient id="antG" x1="0" x2="1" y1="0" y2="0">
+    <stop offset="0" stop-color="#D2AA86"/><stop offset=".55" stop-color="#C08F6B"/><stop offset="1" stop-color="#9E7152"/>
+  </linearGradient>
+  <clipPath id="antClip"><use href="#antP"/></clipPath>
+</defs>
+<ellipse class="burr" cx="125" cy="352" rx="38" ry="10"/>
+<use href="#antP" class="ant-edge"/>
+<use href="#antP" fill="url(#antG)"/>
+<g clip-path="url(#antClip)">
+  <rect class="band off" x="20" y="208" width="170" height="70"/>
+  <rect class="band off2" x="20" y="278" width="170" height="80"/>
+  <path class="shine" d="M118 336 C 118 270, 122 200, 124 140 C 125 118, 124 104, 120 90"/>
+  <path class="cut" d="M20 82 H190 M20 138 H190 M20 208 H190 M20 278 H190"/>
+</g>
+
+        <path class="lead-line" d="M60 42 L52 42 L52 204 L60 204"/>
+        <text class="htxt" x="44" y="116" text-anchor="end">구월경희가</text>
+        <text class="htxt" x="44" y="134" text-anchor="end">쓰는 부위</text>
+        <text class="lbl" x="182" y="58">팁</text><text class="sm" x="182" y="76">맨 끝 · 한 대에서 약 2.2%</text>
+        <text class="lbl" x="182" y="106">분골</text><text class="sm" x="182" y="124">팁 바로 아래</text>
+        <text class="lbl" x="182" y="170">상대</text><text class="sm" x="182" y="188">윗부분</text>
+        <text class="lbl" x="182" y="240" style="fill:var(--muted)">중대</text><text class="sm" x="182" y="258">가운데</text>
+        <text class="lbl" x="182" y="310" style="fill:var(--muted)">하대</text><text class="sm" x="182" y="328">아래 · 뼈에 가까움</text>
+        <g class="bars">
+          <rect class="bp" x="330" y="50" width="200" height="10" rx="5"/><rect class="bc" x="330" y="64" width="24" height="10" rx="5"/>
+          <rect class="bp" x="330" y="100" width="180" height="10" rx="5"/><rect class="bc" x="330" y="114" width="40" height="10" rx="5"/>
+          <rect class="bp" x="330" y="162" width="156" height="10" rx="5"/><rect class="bc" x="330" y="176" width="64" height="10" rx="5"/>
+          <rect class="bp" x="330" y="232" width="122" height="10" rx="5"/><rect class="bc" x="330" y="246" width="96" height="10" rx="5"/>
+          <rect class="bp" x="330" y="302" width="88" height="10" rx="5"/><rect class="bc" x="330" y="316" width="124" height="10" rx="5"/>
+        </g>
+        <text class="htxt" x="492" y="171">66.9%</text><text class="sm" x="400" y="185">22.7%</text>
+        <text class="htxt" x="458" y="241">52.6%</text><text class="sm" x="432" y="255">34.5%</text>
+        <text class="sm" x="330" y="366">막대는 경향을 그린 것이고, 숫자는 상대·중대를 잰 값입니다</text>
+      </svg>
+      <figcaption>단백질·회분: 이부용 외, 한국식품과학회지 35(1), 2003(동결건조 기준). 윗부분일수록 IGF-1 같은 성장 인자가 많고 아래로 갈수록 칼슘이 많다는 보고: Journal of Ethnopharmacology, 2014.</figcaption>
+    </figure>
+    <div class="facts">
+      <div class="fact"><span class="dot t"></span><p><b>팁·분골·상대만 씁니다.</b> 뼈 성분이 많아지는 중대·하대는 쓰지 않습니다.</p></div>
+      <div class="fact"><span class="dot c"></span><p><b>팁은 녹용 한 대에서 약 2.2%</b>만 나오는 맨 끝부분입니다. 귀해서 조금 넣는 것이 아니라, 다른 부위보다 <b>약 두 배 용량</b>을 넣습니다.</p></div>
+      <div class="fact"><span class="dot g"></span><p><b>위로 갈수록 성분이 진하고 귀해서</b> 가격도 올라갑니다. 어느 부위를 쓸지는 아픈 기간, 잠·소화·기운이 떨어진 정도, 빈혈 같은 몸 상태를 보고 진료 후 함께 정합니다.</p></div>
+      <div class="fact"><span class="dot t"></span><p>탕약에 넣는 녹용은 <b>뉴질랜드산</b>입니다.</p></div>
+      <div class="ask"><p class="say">"좋은 약재를 많이 쌓는다고<br>명약이 되지 않습니다."</p><p>통증에 좋다는 약재를 많이 넣는다고 낫지 않습니다. 처방이 먼저이고, 녹용은 그 처방이 제 힘을 내도록 돕는 역할입니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section>
+  <div class="q"><span class="eyebrow">진료 전에</span><h2>무엇을 준비해 오시면 될까요?</h2></div>
+  <div class="two">
+    <div class="check">
+      <h3>진료 때 이것을 알려 주세요</h3>
+      <ul class="memo">
+        <li>언제, 무엇을 한 뒤부터 시작됐는지 (당뇨 진단, 항암, 수술, 골절, 시술 등)</li>
+        <li>하루 중 가장 괴로운 시간대와 부위</li>
+        <li>어떤 느낌인지 (찰흙, 얼음, 돌 위, 불에 지지는 느낌, 둔하거나 무딘 느낌 등)</li>
+        <li>찌릿하던 곳이 언제부터 둔해졌는지</li>
+        <li>몇 분이나 걸을 수 있는지, 밤에 몇 번 깨는지</li>
+        <li>지금 드시는 약 전부 (약 봉투나 처방전을 가져오시면 좋습니다)</li>
+        <li>지금까지 받으신 검사 결과지</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section>
+  <div class="q"><span class="eyebrow">자주 듣는 질문</span><h2>진료실에서 많이 물어보세요</h2></div>
+  <div>
+    <details open>
+      <summary>신경통약을 먹으면서 한약을 같이 먹어도 되나요?</summary>
+      <p>네. 드시는 약을 모두 확인하고 상호작용을 고려해 처방합니다. 복용 중인 약은 빠짐없이 알려 주세요.</p>
+    </details>
+    <details>
+      <summary>한약을 먹으면 리리카를 줄이거나 끊을 수 있나요?</summary>
+      <p>약을 줄이는 시점과 방법은 경과를 보며 처방한 의사와 상의해 정합니다. 언제 끊을 수 있다고 미리 장담하지는 않습니다. 다만 약 없이는 하루도 버틸 수 없던 분들이 조금씩 약을 줄이며 일상을 지내는 경험을 하고 계십니다.</p>
+    </details>
+    <details>
+      <summary>한 번 손상된 말초신경도 회복되나요?</summary>
+      <p>통증은 조절할 수 있고, 감각 이상도 어느 정도 나아질 수 있다고 봅니다. 그래서 불길만 끄지 않고 불씨까지 없애는 것을 치료의 핵심으로 삼습니다. 나아지는 정도는 원인과 아픈 기간에 따라 사람마다 다릅니다.</p>
+    </details>
+    <details>
+      <summary>당뇨가 있으면 혈당만 잡으면 되나요?</summary>
+      <p>혈당 관리와 내과 진료는 반드시 이어 가셔야 합니다. 혈당이 잡혔는데도 발저림이 남는다면, 신경 속에 남은 불씨를 함께 봐야 합니다.</p>
+    </details>
+    <details>
+      <summary>녹용은 꼭 넣어야 하나요?</summary>
+      <p>아닙니다. 처방이 먼저이고, 녹용은 오래 아파 몸이 많이 지친 분께 처방의 힘을 보태려고 넣습니다. 넣을지, 어느 부위를 쓸지는 진료 후 함께 정합니다.</p>
+    </details>
+    <details>
+      <summary>발이 화끈거리면 다 말초신경병증인가요?</summary>
+      <p>흔한 증상이지만 하지불안증후군 같은 다른 질환과 구분이 필요합니다. 진료에서 자세히 확인합니다.</p>
+    </details>
+    <details>
+      <summary>집에서 조심할 것이 있나요?</summary>
+      <p>감각이 둔하면 상처와 뜨거움을 잘 모를 수 있습니다. 매일 발을 살피고, 뜨거운 찜질과 족욕은 화상을 조심하세요. 통증을 참으며 하는 맨발 걷기와 음주는 피하시고, 넘어지지 않도록 발에 맞는 신발을 신으세요.</p>
+    </details>
+  </div>
+</section>
+
+<section class="close">
+  <p class="big">지금의 통증을 완전히 없애 드리겠다고 약속하지는 못합니다. 그러나 오늘 하루가 어떻게 아팠는지 특별히 기억나지 않고, 일하고, 집안일을 하고, 가족과 식사하는 <mark>무난한 하루</mark>는 우리가 함께 이뤄 내야 할 목표입니다.</p>
+  <p>— 구월경희한의원 대표원장 지근성</p>
+</section>
+
+<footer>
+  <div class="cta"><a class="main" href="https://m.booking.naver.com/booking/13/bizes/708398/items/8123288">중점 질환 초진 예약</a><a href="tel:032-428-9888">전화 032-428-9888</a><a href="/npay/">비급여 진료비 안내</a><a href="/peripheral-neuropathy/deer-antler/">녹용은 왜 넣나요</a></div>
+  <div class="contact"><span>구월경희한의원</span><span>032-428-9888</span><span>인천 남동구 인하로 613 더존프라자 2층</span><span><a href="/peripheral-neuropathy/">guwolkh.com/peripheral-neuropathy</a></span></div>
+</footer>
+</div>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(parent,tag,attrs){
+    var e=document.createElementNS(NS,tag);
+    Object.keys(attrs).forEach(function(k){e.setAttribute(k,attrs[k])});
+    parent.appendChild(e);return e;
+  }
+
+  // 신경 단면: 굵은 신경 + 가는 신경
+  var thick=[[108,92],[196,70],[238,136],[82,178],[160,160],[132,250]];
+  var gThick=document.getElementById("thick");
+  thick.forEach(function(p){
+    el(gThick,"circle",{cx:p[0],cy:p[1],r:27,style:"fill:var(--paper);stroke:var(--heal);stroke-width:7"});
+    el(gThick,"circle",{cx:p[0],cy:p[1],r:9,style:"fill:var(--heal)"});
+  });
+  var gThin=document.getElementById("thin");
+  for(var x=38;x<=302;x+=13){
+    for(var y=28;y<=292;y+=13){
+      var ox=x+(y%2?6:0),dc=Math.hypot(ox-170,y-160);
+      if(dc>136)continue;
+      if(thick.some(function(p){return Math.hypot(ox-p[0],y-p[1])<35}))continue;
+      el(gThin,"circle",{cx:ox,cy:y,r:2.6,style:"fill:var(--fire)"});
+    }
+  }
+
+  // 통증 차트 격자
+  var vg=document.getElementById("vgrid");
+  [0,5,10].forEach(function(v){
+    var y=220-v*18;
+    el(vg,"line",{class:"vgrid",x1:60,x2:570,y1:y,y2:y});
+    var t=el(vg,"text",{class:"sm",x:50,y:y+5,"text-anchor":"end"});t.textContent=v;
+  });
+  for(var d=15;d<=105;d+=15){
+    var px=60+d*(510/105);
+    el(vg,"line",{class:"vadj",x1:px,x2:px,y1:40,y2:220});
+    if(d%30===0||d===105){var tt=el(vg,"text",{class:"sm",x:px,y:244,"text-anchor":d===105?"end":"middle"});tt.textContent=d+"일";}
+  }
+  var t0=el(vg,"text",{class:"sm",x:60,y:244,"text-anchor":"middle"});t0.textContent="시작";
+  var t1=el(vg,"text",{class:"sm",x:315,y:276,"text-anchor":"middle"});t1.textContent="점선: 15일마다 경과 확인과 처방 조정";
+
+  // 신경 마디
+  var gSeg=document.getElementById("segs"),segs=[];
+  for(var i=0;i<9;i++){
+    segs.push(el(gSeg,"rect",{class:"seg ok",x:48+i*57,y:312,width:50,height:36,rx:10}));
+  }
+  var hot=[[],[0,1,3,4,6,7,8],[1,6]];
+  var scaleText=[
+    "손상과 회복이 비슷하면, 작은 손상이 생겨도 그때그때 회복되어 증상을 느끼지 않습니다.",
+    "불씨가 늘거나 회복력이 떨어져 손상이 앞서면, 회복되지 못한 자리가 쌓이며 저림과 통증이 나타납니다. 더 깊어지면 감각이 둔하고 무뎌집니다.",
+    "치료는 두 가지를 함께 합니다. 불씨를 찾아 손상을 늦추고, 몸의 회복력을 끌어올립니다."
+  ];
+  var segRight=["","회복되지 못한 자리가 쌓임","회복이 앞서기 시작"];
+  var fireText=[
+    "신경 속에 불씨가 살아 있어, 쉴 때나 밤에 불길이 일어나듯 화끈거리고 저립니다. 불씨가 오래 남아 신경이 더 상하면 감각이 둔하고 무뎌지기도 합니다.",
+    "신경통약이 불길을 꺼서 통증은 잠시 줄어듭니다. 하지만 불씨는 그대로여서, 약효가 떨어지거나 지치면 다시 타오릅니다.",
+    "불씨까지 없애면 다시 불이 붙을 곳이 없습니다. 이것이 한약 치료가 향하는 방향입니다."
+  ];
+  var fireRight=["불씨가 살아 있음","불씨는 그대로","다시 붙을 불씨가 없음"];
+  var bodyText=[
+    "척수에서 가장 먼 발끝이 먼저 저리거나 화끈거리기 시작합니다.",
+    "발바닥 전체와 발목까지 올라옵니다. 걸을 때 돌 위를 걷는 느낌이 들기도 합니다.",
+    "종아리까지 올라오고, 손끝 저림이 시작되기도 합니다. 양말과 장갑을 낀 모양으로 번진다고 표현합니다."
+  ];
+  var views={
+    body:function(s){
+      document.getElementById("body").setAttribute("class","d s"+s);
+      document.getElementById("bodycap").textContent=bodyText[s];
+    },
+    scale:function(s){
+      document.getElementById("scale").setAttribute("class","d wide scale s"+s);
+      segs.forEach(function(r,i){r.setAttribute("class","seg "+(hot[s].indexOf(i)>=0?"hot":"ok"))});
+      document.getElementById("scalecap").textContent=scaleText[s];
+      var sr=document.getElementById("segr");
+      sr.textContent=segRight[s];
+      sr.setAttribute("class",s===2?"htxt":"ftxt");
+    },
+    fire:function(s){
+      document.getElementById("fire").setAttribute("class","d wide s"+s);
+      document.getElementById("firecap").textContent=fireText[s];
+      var r=document.getElementById("firel");
+      r.textContent=fireRight[s];
+      r.setAttribute("class",s===2?"htxt":"ftxt");
+    }
+  };
+  document.querySelectorAll("[data-tabs]").forEach(function(group){
+    var name=group.getAttribute("data-tabs"),btns=group.querySelectorAll("button");
+    function show(s){
+      views[name](s);
+      btns.forEach(function(b){b.setAttribute("aria-pressed",String(+b.dataset.s===s))});
+    }
+    btns.forEach(function(b){b.addEventListener("click",function(){show(+b.dataset.s)})});
+    show(0);
+  });
+
+})();
+</script>
+
+</body></html>

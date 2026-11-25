@@ -547,6 +547,8 @@ def main():
         # 하위 페이지는 공개일·검토일 중 늦은 날을 수정일로 씁니다 (없으면 빌드한 날)
         urls = [(f"{site}/", today)] + [(f"{site}/{pg['slug']}/", last_modified(pg) or today)
                                         for pg in cfg.get("pages", [])]
+        # 그림 설명서(src/standalone, 자체 디자인 페이지)도 검색에 올립니다
+        urls += [(f"{site}/{g}/", today) for g in ("peripheral-neuropathy/guide",)]
         (DIST / "sitemap.xml").write_text(
             '<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
