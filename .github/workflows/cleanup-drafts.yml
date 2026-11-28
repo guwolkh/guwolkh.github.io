@@ -16,6 +16,11 @@ on:
 permissions:
   contents: write
 
+# 정리 작업이 동시에 두 번 돌면 같은 브랜치를 두 번 지우려다 실패하므로 하나씩 실행
+concurrency:
+  group: cleanup-drafts
+  cancel-in-progress: false
+
 jobs:
   cleanup:
     runs-on: ubuntu-latest
@@ -49,10 +54,10 @@ jobs:
           )
             if [ "$published" = "yes" ]; then
               echo "공개된 칼럼이라 삭제: $branch"
-              git push origin --delete "$branch"
+              git push origin --delete "$branch" || echo "이미 지워짐: $branch"
             elif ! git cherry origin/main "$ref" | grep -q '^+'; then
               echo "main에 반영됨, 삭제: $branch"
-              git push origin --delete "$branch"
+              git push origin --delete "$branch" || echo "이미 지워짐: $branch"
             else
               echo "공개 전 초안이라 남겨 둠: $branch"
             fi
