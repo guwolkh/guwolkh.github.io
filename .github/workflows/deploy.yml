@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -44,6 +44,8 @@ jobs:
       - name: 검색엔진 알림 (IndexNow)
         if: github.event_name == 'push'
         continue-on-error: true
+        env:
+          INDEXNOW_BASE: ${{ github.event.before }}
         run: |
           sleep 60
           python scripts/indexnow.py
